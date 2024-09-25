@@ -77,7 +77,7 @@ public class Weapon : MonoBehaviour
         new Timer(.05f, () => fireLine.Thickness = 0).Play();
 
         --ammo;
-        Bus.PushData("ammo", $"{ammo}/{ammoMax}");
+        Bus.PushData("ammo", ammo);
     }
     void Start()
     {
@@ -98,7 +98,7 @@ public class Weapon : MonoBehaviour
     protected virtual void ReloadCompleted()
     {
         ammo = ammoMax;
-        Bus.PushData("ammo", $"{ammo}/{ammoMax}");
+        Bus.PushData("ammo", ammo);
         // TODO : Play sounds and stuff
         // TODO : Tell Player reload is done
     }
@@ -115,7 +115,8 @@ public class Weapon : MonoBehaviour
     {
         if (Player.player.weapon == this)
             return;
-        Bus.PushData("ammo", $"{ammo}/{ammoMax}");
+        Bus.PushData("ammo", ammo);
+        Bus.PushData("ammoMax", ammoMax);
         rigidbody.isKinematic = true;
         collider.enabled = false;
         interactable.enabled = false;

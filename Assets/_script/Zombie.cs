@@ -64,10 +64,24 @@ public class Zombie : MonoBehaviour
         health -= damages;
         ZombieBloodPool.PlaceBlood(hit.point, Quaternion.LookRotation(hit.normal));
         if (health <= 0)
-            animator.enabled = false;
+            Die();
         // Start a decal for damages
     }
 
+    void Die()
+    {
+        animator.enabled = false;
+        ZombieSpawnerManager.instance.ZombieDied(this);
+    }
+
+    void Spawn()
+    {
+        animator.enabled = true;
+        // TODO : Move transform
+        // TODO : sound
+        // TODO : animation
+        // TODO : particles
+    }
     void OnDrawGizmosSelected()
     {
         // Draw a yellow sphere at the transform's position

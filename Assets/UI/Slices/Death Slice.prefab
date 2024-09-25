@@ -960,6 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameras: []
   hideAsShowReversed: 1
+  canvasGroup: {fileID: 3224445706426503116}
   hideCamerasOnStart: 0
 --- !u!1 &7872960450772864255
 GameObject:

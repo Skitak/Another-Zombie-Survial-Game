@@ -19,14 +19,14 @@ public class Player : MonoBehaviour
     InputAction fireAction, reloadAction, interactAction;
     [HideInInspector] public Animator animator;
 
-
     void Start()
     {
         player = this;
         animator = GetComponentInChildren<Animator>();
         recoveryTimer = new(recoveryTime, EndRecovery);
         health = healthMax;
-        Bus.PushData("health", $"{health}/{healthMax}");
+        Timer.OneShotTimer(.1f, () => Bus.PushData("health", health));
+        Timer.OneShotTimer(.1f, () => Bus.PushData("healthMax", healthMax));
         BindControls();
     }
 
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         // TODO : Camera shake
 
         --health;
-        Bus.PushData("health", $"{health}/{healthMax}");
+        Bus.PushData("health", health);
 
         if (health <= 0)
         {

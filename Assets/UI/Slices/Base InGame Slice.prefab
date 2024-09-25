@@ -202,9 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'DEFAULT
-
-'
+  m_text: '[health]/[healthMax]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
   m_sharedMaterial: {fileID: -6394897030437033188, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
@@ -287,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d649d94d6353ba74fbf626869510690a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  busKey: health
+  iUnderstood: 0
 --- !u!1 &1148157562350821246
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NO
+  m_text: '[ammo]/[ammoMax]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
   m_sharedMaterial: {fileID: -6394897030437033188, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
@@ -552,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d649d94d6353ba74fbf626869510690a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  busKey: ammo
+  iUnderstood: 0
 --- !u!1 &4603136131810389003
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,16 +648,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 0
-  m_RequiresDepthTextureOption: 2
+  m_RequiresDepthTextureOption: 0
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
+  m_VolumeFrameworkUpdateModeOption: 1
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -899,6 +897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameras: []
   hideAsShowReversed: 1
+  canvasGroup: {fileID: 3224445706426503116}
   hideCamerasOnStart: 0
 --- !u!1 &7933855618723393367
 GameObject:

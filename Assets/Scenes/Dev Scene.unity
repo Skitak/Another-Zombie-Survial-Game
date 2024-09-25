@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 246994920}
   - component: {fileID: 246994919}
   - component: {fileID: 246994918}
+  - component: {fileID: 246994921}
+  - component: {fileID: 246994922}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -257,6 +259,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!114 &246994921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246994912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24967bbdd3ee90b40895594ace4592ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveCooldown: 5
+  maxZombies: 0
+  zombiePrefab: {fileID: 7190902268958121158, guid: 889553fc601c5cb458ded6efb2ad78af, type: 3}
+  waves:
+  - zombiesAmount: 5
+    spawnTime: 10
+    distance: 0
+    zombieParameters:
+      health: 10
+      speed: 2
+      walk: 0
+--- !u!114 &246994922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246994912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11b4ed1c0330f245b8468c9d2d3f829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &363237603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -479,6 +516,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1111451962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1111451963}
+  m_Layer: 0
+  m_Name: zombie spawner
+  m_TagString: Zombie spawner
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1111451963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111451962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1899,3 +1967,4 @@ SceneRoots:
   - {fileID: 6563368268730124256}
   - {fileID: 3240385389691109499}
   - {fileID: 363237603}
+  - {fileID: 1111451963}
