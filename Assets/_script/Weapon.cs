@@ -26,6 +26,21 @@ public class Weapon : MonoBehaviour
     new Rigidbody rigidbody;
     Outline outline;
     Interactable interactable;
+    void Start()
+    {
+        ammo = ammoMax;
+        reloadTimer = new Timer(reloadTime, ReloadCompleted);
+        fireCooldownTimer = new Timer(fireCooldownTime);
+
+        collider = GetComponent<Collider>();
+        rigidbody = GetComponent<Rigidbody>();
+        outline = GetComponent<Outline>();
+        interactable = GetComponent<Interactable>();
+        fireLine.gameObject.SetActive(true);
+        fireLine.transform.parent = null;
+        fireLine.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        decalPool = new(CreateDecal, GetDecal, ReleaseDecal, DestroyDecal, true, 20, 150);
+    }
 
     public virtual bool CanReload()
     {
@@ -78,37 +93,34 @@ public class Weapon : MonoBehaviour
 
         --ammo;
         Bus.PushData("ammo", ammo);
-    }
-    void Start()
-    {
-        ammo = ammoMax;
-        reloadTimer = new Timer(reloadTime, ReloadCompleted);
-        fireCooldownTimer = new Timer(fireCooldownTime);
 
-        collider = GetComponent<Collider>();
-        rigidbody = GetComponent<Rigidbody>();
-        outline = GetComponent<Outline>();
-        interactable = GetComponent<Interactable>();
-        fireLine.gameObject.SetActive(true);
-        fireLine.transform.parent = null;
-        fireLine.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-        decalPool = new(CreateDecal, GetDecal, ReleaseDecal, DestroyDecal, true, 20, 150);
+        if (ammo == 0)
+            Reload();
     }
-
-    protected virtual void ReloadCompleted()
+    protected virtual Vector3 GetFireDestination()
     {
-        ammo = ammoMax;
-        Bus.PushData("ammo", ammo);
-        // TODO : Play sounds and stuff
-        // TODO : Tell Player reload is done
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, Mathf.Infinity, fireLayerMask))
+        {
+
+            return hit.point;
+        }
+        return Camera.main.transform.position + Camera.main.transform.forward * 10000;
     }
     public virtual void Reload()
     {
         if (reloadTimer.IsStarted())
             return;
         reloadTimer.ResetPlay();
+        Player.player.animator.SetTrigger("Reload");
         // TODO : Play sounds and animations
         // TODO : Return a value so that player knows what is hapenning
+    }
+    protected virtual void ReloadCompleted()
+    {
+        ammo = ammoMax;
+        Bus.PushData("ammo", ammo);
+        // TODO : Play sounds and stuff
+        // TODO : Tell Player reload is done
     }
 
     public virtual void Pickup()
@@ -128,15 +140,6 @@ public class Weapon : MonoBehaviour
         Player.player.animator.SetFloat("ReloadSpeed", animSpeed);
         animSpeed = fireAnimation.length / fireCooldownTime;
         Player.player.animator.SetFloat("FireSpeed", animSpeed);
-    }
-
-    protected virtual Vector3 GetFireDestination()
-    {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, Mathf.Infinity, fireLayerMask))
-        {
-            return hit.point;
-        }
-        return Camera.main.transform.position + Camera.main.transform.forward * 1000;
     }
 
     #region decalRegion

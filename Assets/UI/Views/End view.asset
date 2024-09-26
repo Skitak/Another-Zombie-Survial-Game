@@ -18,7 +18,7 @@ MonoBehaviour:
   showTime: 2
   showEase: 1
   showSlideFromDirection: 0
-  hideAsShowRevert: 0
+  hideAsShowRevert: 1
   hideTransitionType: 4
   hideTime: 2
   hideEase: 1

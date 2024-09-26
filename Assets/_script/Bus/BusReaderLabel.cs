@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Asmos.Bus;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class BusReaderLabel : MonoBehaviour
 {
     [InfoBox("To add a bus value, set your label normally and place brackets around your key")]
     public bool iUnderstood;
+    public bool dontDisplayWithoutData = true;
     TMP_Text label;
     string textBaseValue;
     readonly Regex regex = new(@"\[(.*?)\]");
@@ -19,6 +21,7 @@ public class BusReaderLabel : MonoBehaviour
         label = GetComponent<TMP_Text>();
         textBaseValue = label.text;
         BindAllKeys();
+        RefreshLabel();
     }
 
     void BindAllKeys()
@@ -39,8 +42,17 @@ public class BusReaderLabel : MonoBehaviour
     void RefreshLabel()
     {
         string newLabel = textBaseValue;
+        bool hasEmptyString = false;
         foreach (string key in keysToValues.Keys)
+        {
             newLabel = newLabel.Replace($"[{key}]", keysToValues[key]);
-        label.SetText(newLabel);
+            if (keysToValues[key].IsNullOrWhitespace())
+                hasEmptyString = true;
+        }
+
+        if (hasEmptyString && dontDisplayWithoutData)
+            label.SetText("");
+        else
+            label.SetText(newLabel);
     }
 }

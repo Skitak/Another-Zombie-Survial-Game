@@ -18,12 +18,16 @@ public class GameManager : MonoBehaviour
     {
         ViewManager.instance.SwapTip(endView);
         Cursor.lockState = CursorLockMode.Confined;
+        WaveManager.instance.EndGame();
     }
 
     void RestartGame(params object[] args)
     {
         ViewManager.instance.SwapTip(mainView);
         Cursor.lockState = CursorLockMode.Locked;
+        WaveManager.instance.RestartGame();
+        ZombieSpawnerManager.instance.RestartGame();
+        Player.player.RestartGame();
     }
 
     void ExitGame(params object[] args)

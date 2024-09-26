@@ -26,17 +26,18 @@ public class WaveManager : MonoBehaviour
     public void StartGame()
     {
         waveCount = 0;
-        StartNewWave();
+        waveCooldownTimer.ResetPlay();
+        Bus.PushData("wave", 1);
     }
 
     public void EndGame()
     {
-
+        spawnTimer.Pause();
     }
 
-    public void ResetGame()
+    public void RestartGame()
     {
-
+        StartGame();
     }
 
     #endregion
@@ -44,7 +45,10 @@ public class WaveManager : MonoBehaviour
     #region Waveloop
     void StartNewWave()
     {
-        currentWave = waves[waveCount];
+        if (waves.Length <= waveCount)
+            currentWave = waves[^1];
+        else
+            currentWave = waves[waveCount];
         ++waveCount;
         zombieCount = 0;
         spawnTimer.EndTime = currentWave.spawnTime;

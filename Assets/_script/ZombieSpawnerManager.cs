@@ -1,14 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class ZombieSpawnerManager : MonoBehaviour
 {
+    [SerializeField] float timeBeforeDissapear;
     public static ZombieSpawnerManager instance;
-    static GameObject[] spawners;
+    GameObject[] spawners;
     ObjectPool<Zombie> pool;
     GameObject currentZombiePrefab;
-    int zombiesAlive;
+    List<Zombie> zombiesAlive = new();
+
     public enum SpawnDistance
     {
         CLOSE, NORMAL, FAR
@@ -18,20 +21,32 @@ public class ZombieSpawnerManager : MonoBehaviour
         instance = this;
         spawners = GameObject.FindGameObjectsWithTag("Zombie spawner");
         pool = new(CreateZombie, GetZombie, ReleaseZombie, DestroyZombie, true, 20, 100);
-        zombiesAlive = 0;
     }
     public void Spawn(GameObject zombiePrefab, SpawnDistance distance, ZombieParameters parameters)
     {
         currentZombiePrefab = zombiePrefab;
         Zombie zombie = pool.Get();
-        ++zombiesAlive;
+        zombiesAlive.Add(zombie);
+        Vector3 spawnPoint = spawners[UnityEngine.Random.Range(0, spawners.Length - 1)].transform.position;
+        zombie.Spawn(Vector3.up + spawnPoint, parameters);
     }
 
     public void ZombieDied(Zombie zombie)
     {
-        pool.Release(zombie);
-        if (--zombiesAlive == 0)
+        zombiesAlive.Remove(zombie);
+        if (zombiesAlive.Count == 0)
             WaveManager.instance.NoZombiesLeft();
+        Timer.OneShotTimer(timeBeforeDissapear, () => pool.Release(zombie));
+    }
+
+    public void RestartGame()
+    {
+        foreach (Zombie zombie in zombiesAlive)
+        {
+            zombie.animator.SetTrigger("end bite");
+            pool.Release(zombie);
+        }
+        zombiesAlive.Clear();
     }
 
     #region pool

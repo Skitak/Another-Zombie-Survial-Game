@@ -149,7 +149,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.059020627
+  m_Radius: 0.09
   m_Height: 0.23608251
   m_Direction: 1
   m_Center: {x: 0, y: 0.118041255, z: 0}
@@ -175,11 +175,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &5890656488954327985
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -434,11 +434,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &6166638217434605370
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -539,7 +539,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.10596335
+  m_Radius: 0.17
   m_Center: {x: 0, y: 0.10596335, z: 0}
 --- !u!54 &540530142836268784
 Rigidbody:
@@ -563,11 +563,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &1975170171148279170
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -971,7 +971,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.12936963
+  m_Radius: 0.17
   m_Height: 0.4312321
   m_Direction: 1
   m_Center: {x: 0, y: 0.21561605, z: 0}
@@ -997,11 +997,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &550276464708574865
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1166,7 +1166,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.11339171
+  m_Radius: 0.13
   m_Height: 0.45356685
   m_Direction: 1
   m_Center: {x: 0, y: 0.22678342, z: 0}
@@ -1192,8 +1192,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1329,7 +1329,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.059059832
+  m_Radius: 0.09
   m_Height: 0.23623933
   m_Direction: 1
   m_Center: {x: 0, y: 0.118119664, z: 0}
@@ -1355,11 +1355,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &7754261952599525207
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1557,7 +1557,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4238534, y: 0.27770406, z: 0.2523965}
+  m_Size: {x: 0.51, y: 0.37, z: 0.38}
   m_Center: {x: 0, y: 0.08211473, z: -0.04647346}
 --- !u!54 &7471619959815985480
 Rigidbody:
@@ -1581,11 +1581,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!1 &4608493322343773749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,7 +1834,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.113256015
+  m_Radius: 0.13
   m_Height: 0.45302406
   m_Direction: 1
   m_Center: {x: 0, y: 0.22651203, z: 0}
@@ -1860,8 +1860,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2408,7 +2408,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4238534, y: 0.23285401, z: 0.25556967}
+  m_Size: {x: 0.54, y: 0.32, z: 0.29}
   m_Center: {x: 0, y: 0.11642701, z: -0.0117379725}
 --- !u!54 &237405666294529339
 Rigidbody:
@@ -2432,11 +2432,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &5200748334549708027
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -2537,7 +2537,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1292904
+  m_Radius: 0.17
   m_Height: 0.430968
   m_Direction: 1
   m_Center: {x: 0, y: 0.215484, z: 0}
@@ -2563,11 +2563,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &8733679895576963126
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -2663,10 +2663,10 @@ Animator:
   m_Controller: {fileID: 9100000, guid: abf3eaea401299441a3b8fb8afbb4262, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -2689,6 +2689,7 @@ MonoBehaviour:
   attackCooldown: 1
   attackAnimation: {fileID: 7400000, guid: 5ed51f20c03c4cd4aad69d962be21608, type: 2}
   healthMax: 10
+  animator: {fileID: 0}
 --- !u!195 &9196419849113437074
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2698,19 +2699,19 @@ NavMeshAgent:
   m_GameObject: {fileID: 7190902268958121158}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 0
+  m_Radius: 0.31
+  m_Speed: 2
   m_Acceleration: 4
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0.55
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!1 &7210974288666030566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,11 +3049,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!144 &1906146832149420114
 CharacterJoint:
   m_ObjectHideFlags: 0

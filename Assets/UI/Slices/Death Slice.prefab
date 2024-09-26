@@ -1038,9 +1038,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showAnimations:
   - {fileID: 324396650713892971}
-  exitAnimations:
-  - {fileID: 0}
-  exitAnimAsShowReversed: 1
+  exitAnimations: []
+  exitAnimAsShowReversed: 0
 --- !u!114 &324396650713892971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,6 +1160,7 @@ GameObject:
   - component: {fileID: 4927165919488935040}
   - component: {fileID: 3402350181601451746}
   - component: {fileID: 7614017740114511739}
+  - component: {fileID: 7316806879160602486}
   m_Layer: 5
   m_Name: Score label
   m_TagString: Untagged
@@ -1185,7 +1185,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1213.3, y: 161.29999}
+  m_SizeDelta: {x: 1313.61, y: 161.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4927165919488935040
 CanvasRenderer:
@@ -1215,7 +1215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'And survived for : 6 rounds.'
+  m_text: 'And survived for : [wave] rounds.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
   m_sharedMaterial: {fileID: -6394897030437033188, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
@@ -1298,6 +1298,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &7316806879160602486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933855618723393367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d649d94d6353ba74fbf626869510690a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iUnderstood: 1
 --- !u!1 &8041416830891233280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,8 +1582,7 @@ MonoBehaviour:
   showAnimations:
   - {fileID: 8410230895164980028}
   - {fileID: 4353351898986674620}
-  exitAnimations:
-  - {fileID: 0}
+  exitAnimations: []
   exitAnimAsShowReversed: 0
 --- !u!114 &4353351898986674620
 MonoBehaviour:

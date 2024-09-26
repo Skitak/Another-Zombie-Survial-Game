@@ -12,10 +12,14 @@ public class Zombie : MonoBehaviour
     public int healthMax;
     int health;
     NavMeshAgent navMeshAgent;
-    Animator animator;
+    [HideInInspector] public Animator animator;
+    Rigidbody[] rigidbodies;
 
-    void Start()
+    void Awake()
     {
+        // if (rigidbodies != null)
+        //     return;
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         health = healthMax;
@@ -43,6 +47,13 @@ public class Zombie : MonoBehaviour
         float distanceWithPlayer = Player.player.DistanceWithPlayer(transform.position);
         if (distanceWithPlayer < attackDistance && attackCooldownTimer.IsStarted())
         {
+            if (Player.player.IsDead())
+            {
+                animator.SetTrigger("bite");
+                navMeshAgent.speed = 0;
+                return;
+            }
+
             Player.player.Hit();
             // SUGGESTION : Play a zombie sound
         }
@@ -51,7 +62,9 @@ public class Zombie : MonoBehaviour
 
     public void Hit(int damages, RaycastHit hit)
     {
-
+        ZombieBloodPool.PlaceBlood(hit.point, Quaternion.LookRotation(hit.normal));
+        if (health <= 0)
+            return;
         if (hit.collider == headCollider)
         {
             damages *= 2;
@@ -62,7 +75,6 @@ public class Zombie : MonoBehaviour
             animator.SetTrigger("hit body");
         }
         health -= damages;
-        ZombieBloodPool.PlaceBlood(hit.point, Quaternion.LookRotation(hit.normal));
         if (health <= 0)
             Die();
         // Start a decal for damages
@@ -70,17 +82,32 @@ public class Zombie : MonoBehaviour
 
     void Die()
     {
-        animator.enabled = false;
+        SetRagdoll(true);
         ZombieSpawnerManager.instance.ZombieDied(this);
+        navMeshAgent.speed = 0;
     }
 
-    void Spawn()
+    public void Spawn(Vector3 spawnPoint, ZombieParameters parameters)
     {
-        animator.enabled = true;
-        // TODO : Move transform
+        // Initialize();
+        SetRagdoll(false);
+        navMeshAgent.speed = parameters.speed;
+        transform.position = spawnPoint;
+        health = parameters.health;
         // TODO : sound
         // TODO : animation
         // TODO : particles
+    }
+
+    void SetRagdoll(bool enabled)
+    {
+        foreach (Rigidbody rigid in rigidbodies)
+        {
+            rigid.isKinematic = !enabled;
+            rigid.useGravity = enabled;
+        }
+        animator.enabled = !enabled;
+
     }
     void OnDrawGizmosSelected()
     {
