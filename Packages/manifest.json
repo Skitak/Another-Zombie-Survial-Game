@@ -3,6 +3,7 @@
     "asmos.bus": "git@github.com:Asmos-Dev/Bus.git",
     "asmos.ui": "git@github.com:Asmos-Dev/UIFramework.git",
     "com.asmos.timers": "git@github.com:Asmos-Dev/Timers.git",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.4",
     "com.unity.burst": "1.8.17",
     "com.unity.cinemachine": "2.10.1",

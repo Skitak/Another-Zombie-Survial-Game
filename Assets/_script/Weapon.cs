@@ -11,10 +11,10 @@ public class Weapon : MonoBehaviour
     #region exposedParameters
     [FoldoutGroup("Boilerplate")][SerializeField] protected Transform fireStart;
     [FoldoutGroup("Boilerplate")][SerializeField] GameObject decal;
+    [FoldoutGroup("Boilerplate")][SerializeField] GameObject linePrefab;
     [FoldoutGroup("Boilerplate")][SerializeField] AnimationClip reloadAnimation;
     [FoldoutGroup("Boilerplate")][SerializeField] AnimationClip fireAnimation;
     [FoldoutGroup("Boilerplate")][SerializeField] ParticleSystem muzzleFlash;
-    [FoldoutGroup("Boilerplate")][SerializeField] Line fireLine;
     [FoldoutGroup("Boilerplate")][SerializeField] float decalTimeout = 10f;
     [FoldoutGroup("Boilerplate")][SerializeField] LayerMask fireLayerMask;
     [FoldoutGroup("Boilerplate")] public int animLayer;
@@ -29,6 +29,7 @@ public class Weapon : MonoBehaviour
     #endregion
     #region private
     ObjectPool<GameObject> decalPool;
+    ObjectPool<Line> linePool;
     new Collider collider;
     new Rigidbody rigidbody;
     Outline outline;
@@ -84,7 +85,7 @@ public class Weapon : MonoBehaviour
         {
             fireRateTimer.endTime = value;
             float animSpeed = fireAnimation.length / fireRate;
-            Player.player?.animator?.SetFloat("FireSpeed", animSpeed);
+            Player.player?.animator?.SetFloat("FireSpeed", animSpeed * 1.05f);
         }
     }
 
@@ -100,11 +101,26 @@ public class Weapon : MonoBehaviour
         outline = GetComponent<Outline>();
         interactable = GetComponent<Interactable>();
 
-        fireLine.gameObject.SetActive(true);
-        fireLine.transform.parent = null;
-        fireLine.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-        decalPool = new(CreateDecal, GetDecal, ReleaseDecal, DestroyDecal, true, 20, 150);
+        decalPool = new(
+            () => Instantiate(decal),
+            (GameObject newDecal) => newDecal.SetActive(true),
+            (GameObject oldDecal) => oldDecal.SetActive(false),
+            (GameObject oldDecal) => Destroy(oldDecal),
+            true, 20, 150
+        );
+        linePool = new(
+            () => Instantiate(linePrefab).GetComponent<Line>(),
+            (Line line) =>
+            {
+                line.Thickness = 8;
+                Timer timer = new(.2f);
+                timer.OnTimerEnd += () => { linePool.Release(line); TimerManager.RemoveTimer(timer); };
+                timer.OnTimerUpdate += () => line.Thickness = Mathf.Lerp(8f, 0f, timer.GetPercentage());
+                timer.Play();
+            },
+            (Line line) => line.Thickness = 0,
+            (Line line) => Destroy(line.gameObject)
+        );
 
         Timer.OneShotTimer(.1f, () =>
         {
@@ -114,6 +130,7 @@ public class Weapon : MonoBehaviour
             reloadTime = baseReloadTime;
             precision = basePrecision;
             bulletsFired = baseBulletsFired;
+            fireRate = baseFireRate;
         });
     }
 
@@ -138,14 +155,15 @@ public class Weapon : MonoBehaviour
     public virtual void TriggerRelease() { }
     protected virtual void Trigger()
     {
-        Vector3 fireDestination = GetFireDestination() - fireStart.position;
-        for (int i = 0; i < bulletsFired; i++)
-            Fire(fireDestination.normalized);
-
         // Feedbacks
         fireRateTimer.ResetPlay();
         Player.player.animator.SetTrigger("Fire");
         muzzleFlash.Play();
+
+        Vector3 fireDestination = GetFireDestination() - fireStart.position;
+        for (int i = 0; i < bulletsFired; i++)
+            Fire(fireDestination.normalized);
+
 
         if (--ammo == 0)
             Reload();
@@ -153,28 +171,26 @@ public class Weapon : MonoBehaviour
 
     void Fire(Vector3 baseDirection)
     {
-        if (Physics.Raycast(fireStart.position, ApplySpreadToDirection(baseDirection, basePrecision), out RaycastHit hit, Mathf.Infinity, fireLayerMask))
+        Vector3 impreciseDirection = ApplySpreadToDirection(baseDirection, precision);
+        Vector3 endPos = fireStart.position + impreciseDirection * 100;
+        if (Physics.Raycast(fireStart.position, impreciseDirection, out RaycastHit hit, Mathf.Infinity, fireLayerMask))
         {
             // Hitting a zombie
             if (hit.collider.gameObject.CompareTag("Zombie"))
             {
                 hit.collider.GetComponentInParent<Zombie>().Hit(damages, hit);
             }
-            // Or placing a decal where we hit
             else
             {
                 GameObject newDecal = decalPool.Get();
                 newDecal.transform.SetPositionAndRotation(hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal));
                 new Timer(decalTimeout, () => decalPool.Release(newDecal)).Play();
             }
-            // 
-            // fireDestination = hit.point;
-
-            // fireLine.Thickness = 8;
-            // fireLine.Start = fireStart.position;
-            // fireLine.End = fireDestination;
-            // new Timer(.05f, () => fireLine.Thickness = 0).Play();
+            endPos = hit.point;
         }
+        Line line = linePool.Get();
+        line.Start = fireStart.position;
+        line.End = endPos;
     }
     protected virtual Vector3 GetFireDestination()
     {
@@ -221,23 +237,4 @@ public class Weapon : MonoBehaviour
         muzzleFlash.gameObject.SetActive(true);
         Player.player.PickupWeapon(this);
     }
-
-    #region decalRegion
-    GameObject CreateDecal()
-    {
-        return Instantiate(decal);
-    }
-    void GetDecal(GameObject newDecal)
-    {
-        newDecal.SetActive(true);
-    }
-    void ReleaseDecal(GameObject oldDecal)
-    {
-        oldDecal.SetActive(false);
-    }
-    void DestroyDecal(GameObject oldDecal)
-    {
-        Destroy(oldDecal);
-    }
-    #endregion
 }
