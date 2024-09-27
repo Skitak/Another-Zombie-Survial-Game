@@ -1,62 +1,138 @@
+using System;
 using Asmos.Bus;
+using Sirenix.OdinInspector;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     public static Player player;
-    public Transform playerTarget;
-    [SerializeField] LayerMask interactionMask;
-    [SerializeField] float interactionDistance = 3f;
-    [SerializeField] float recoveryTime = 1f;
-    [SerializeField] int healthMax = 10;
-    [SerializeField] ParticleSystem bloodParticles;
-    [SerializeField] PlayerInput playerInput;
-    int health = 1;
-    Timer recoveryTimer;
+    #region exposedParameters
+    [FoldoutGroup("GameObjects and Prefabs")][SerializeField] ParticleSystem bloodParticles;
+    [FoldoutGroup("GameObjects and Prefabs")][SerializeField] PlayerInput playerInput;
+    [FoldoutGroup("GameObjects and Prefabs")] public Transform playerTarget;
+    [FoldoutGroup("GameObjects and Prefabs")][SerializeField] GameObject character;
+    [FoldoutGroup("GameObjects and Prefabs")] public ThirdPersonController tpsController;
+    [FoldoutGroup("Interactions")][SerializeField] LayerMask interactionMask;
+    [FoldoutGroup("Interactions")][SerializeField] float interactionDistance = 3f;
+    [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
+    [FoldoutGroup("Health and Speed")][SerializeField] int baseHealthMax = 10;
+    [FoldoutGroup("Health and Speed")][SerializeField] float baseSpeed;
+    [FoldoutGroup("Health and Speed")][SerializeField] float baseSprintSpeed;
+    [FoldoutGroup("Health and Speed")][SerializeField] float baseStamina;
+    #endregion
+    #region hiddenParameters
     Interactable interactableInRange;
+    InputAction fireAction, reloadAction, interactAction, sprintAction;
     [HideInInspector] public Weapon weapon;
-    InputAction fireAction, reloadAction, interactAction;
     [HideInInspector] public Animator animator;
-    [SerializeField] GameObject character;
     Vector3 spawnPoint;
-    Quaternion spawnOrientation;
     CharacterController controller;
     float initialHeight;
+    [HideInInspector] public bool canSprint = true;
+    #endregion
 
+    #region setters
+    int _health, _healthMax;
+    Timer recoveryTimer, staminaTimer;
+    public int health
+    {
+        get => _health;
+        set
+        {
+            _health = Math.Clamp(value, 0, healthMax);
+            Bus.PushData("health", _health);
+        }
+    }
+    public int healthMax
+    {
+        get => _healthMax;
+        set
+        {
+            _healthMax = value;
+            health = Math.Min(_healthMax, health);
+            Bus.PushData("healthMax", _healthMax);
+        }
+    }
+    public float speed
+    {
+        get => tpsController.MoveSpeed;
+        set
+        {
+            tpsController.MoveSpeed = value;
+        }
+    }
+    public float speedSprint
+    {
+        get => tpsController.SprintSpeed;
+        set
+        {
+            tpsController.SprintSpeed = value;
+        }
+    }
+    public float staminaMax
+    {
+        get => staminaTimer.endTime;
+        set
+        {
+            staminaTimer.endTime = value;
+            Bus.PushData("staminaMax", value);
+        }
+    }
+
+    #endregion
     void Start()
     {
         player = this;
         animator = GetComponentInChildren<Animator>();
         controller = GetComponentInChildren<CharacterController>();
-        recoveryTimer = new(recoveryTime, EndRecovery);
-        health = healthMax;
-        Timer.OneShotTimer(.1f, () => Bus.PushData("health", health));
-        Timer.OneShotTimer(.1f, () => Bus.PushData("healthMax", healthMax));
-        BindControls();
+
         spawnPoint = character.transform.position;
-        spawnOrientation = character.transform.rotation;
         initialHeight = controller.height;
+
+        recoveryTimer = new(recoveryTime, EndRecovery);
+        staminaTimer = new(baseStamina, () => canSprint = false);
+        staminaTimer.OnTimerUpdate += () => Bus.PushData("stamina", staminaTimer.GetTimeLeft());
+        staminaTimer.useUpdateAsRewindAction = true;
+        staminaTimer.rewindAutomatic = true;
+        staminaTimer.OnTimerRewindEnd += () => canSprint = true;
+
+        fireAction = InputSystem.actions.FindAction("Fire");
+        interactAction = InputSystem.actions.FindAction("Interact");
+        reloadAction = InputSystem.actions.FindAction("Reload");
+        sprintAction = InputSystem.actions.FindAction("Sprint");
+
+        Timer.OneShotTimer(.05f, () =>
+        {
+            healthMax = baseHealthMax;
+            health = baseHealthMax;
+            Bus.PushData("stamina", baseStamina);
+            staminaMax = baseStamina;
+            speed = baseSpeed;
+            speedSprint = baseSprintSpeed;
+        });
     }
 
     void Update()
     {
-
         FindInteractions();
-
         if (fireAction.IsPressed() && weapon && weapon.CanFire())
             Fire();
         if (reloadAction.IsPressed() && weapon && weapon.CanReload())
-            Reload();
+            weapon.Reload();
         if (interactAction.IsPressed())
             TryInteract();
-    }
 
-    void BindControls()
-    {
-        fireAction = InputSystem.actions.FindAction("Fire");
-        interactAction = InputSystem.actions.FindAction("Interact");
-        reloadAction = InputSystem.actions.FindAction("Reload");
+        if (sprintAction.WasPressedThisFrame())
+        {
+            canSprint = true;
+            staminaTimer.Play();
+        }
+        else if (sprintAction.WasReleasedThisFrame())
+        {
+            staminaTimer.Rewind();
+        }
     }
 
     void Fire()
@@ -67,11 +143,6 @@ public class Player : MonoBehaviour
             weapon.TriggerEnter();
         else
             weapon.TriggerPress();
-    }
-
-    void Reload()
-    {
-        weapon.Reload();
     }
 
     public void Hit()
@@ -113,7 +184,7 @@ public class Player : MonoBehaviour
     public void RestartGame()
     {
         character.transform.position = spawnPoint;
-        health = healthMax;
+        health = baseHealthMax;
         controller.height = initialHeight;
         Bus.PushData("health", health);
         animator.SetTrigger("Reset death");
@@ -152,6 +223,8 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    #region publicUtils
     public float DistanceWithPlayer(Vector3 otherPos)
     {
         Vector3 pos = new(playerTarget.position.x, 0, playerTarget.position.z);
@@ -160,4 +233,5 @@ public class Player : MonoBehaviour
     }
 
     public bool IsDead() => health <= 0;
+    #endregion
 }

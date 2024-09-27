@@ -12574,16 +12574,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3436791dd16d547ba454568d22dfa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodParticles: {fileID: 3224019458809554059}
+  playerInput: {fileID: 0}
   playerTarget: {fileID: 3608194838469461756}
+  character: {fileID: 0}
+  tpsController: {fileID: 0}
   interactionMask:
     serializedVersion: 2
     m_Bits: 64
   interactionDistance: 7
   recoveryTime: 1
-  healthMax: 10
-  bloodParticles: {fileID: 3224019458809554059}
+  baseHealthMax: 10
+  baseSpeed: 1
+  baseSprintSpeed: 2
+  baseStamina: 5
   weapon: {fileID: 0}
   animator: {fileID: 0}
+  canSprint: 1
 --- !u!1 &7174078060766302878
 GameObject:
   m_ObjectHideFlags: 0
