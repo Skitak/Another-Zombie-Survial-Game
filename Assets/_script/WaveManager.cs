@@ -1,5 +1,6 @@
 using System;
 using Asmos.Bus;
+using Asmos.UI;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -58,8 +59,8 @@ public class WaveManager : MonoBehaviour
 
     void EndWave()
     {
-        // TODO : Choose Perks
-        StartNewWave();
+        PerksManager.instance.OpenPerks();
+        // StartNewWave();
     }
 
     void SpawnZombie()

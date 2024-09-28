@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 246994918}
   - component: {fileID: 246994921}
   - component: {fileID: 246994922}
+  - component: {fileID: 246994923}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -312,6 +313,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDissapear: 10
+--- !u!114 &246994923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246994912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed77a8a789db2024d8ba328e9aac0525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perkView: {fileID: 11400000, guid: 3cb80a683234f7b46b0cb1b9a95bf7ab, type: 2}
+  baseRarityChances:
+  - 1
+  - 0
+  - 0
+  - 0
+  allPerks:
+  - {fileID: 11400000, guid: 66a402938fab96b49b9526b9efb3ab5f, type: 2}
+  - {fileID: 11400000, guid: 6a562a6b9f535904b9a6d65d58cbf369, type: 2}
 --- !u!1 &270994703 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4728254049531580680, guid: becf619950577c44c844eab44a8fb116, type: 3}
@@ -995,7 +1017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883784858631928161, guid: 45c3eb5be563fe542a552d97507a7b36, type: 3}
       propertyPath: basePrecision
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2883784858631928161, guid: 45c3eb5be563fe542a552d97507a7b36, type: 3}
       propertyPath: baseReloadTime
@@ -1003,7 +1025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883784858631928161, guid: 45c3eb5be563fe542a552d97507a7b36, type: 3}
       propertyPath: baseBulletsFired
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6520334539253989614, guid: 45c3eb5be563fe542a552d97507a7b36, type: 3}
       propertyPath: m_Layer

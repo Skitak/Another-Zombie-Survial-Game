@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94a6ce3cdafe2847b3d1f3540a09619, type: 3}
+  m_Name: Perk view
+  m_EditorClassIdentifier: 
+  slices:
+  - {fileID: 11400000, guid: 8983467ebeee06b4e9ccc6a11709c080, type: 2}
+  showTransitionType: 4
+  showTime: 1
+  showEase: 1
+  showSlideFromDirection: 0
+  hideAsShowRevert: 0
+  hideTransitionType: 4
+  hideTime: 0.5
+  hideEase: 1
+  hideSlideFromDirection: 0

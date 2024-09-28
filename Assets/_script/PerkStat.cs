@@ -1,13 +1,32 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PerkStat", menuName = "Perk", order = 0)]
+[CreateAssetMenu(fileName = "PerkStat", menuName = "Perks/PerkStat", order = 0)]
 public class PerkStat : Perk
 {
     [SerializeField] bool applyPercentageValue = false;
-    [SerializeField] float[] valuePercent;
-    [SerializeField] int[] valueFlat;
     [SerializeField] Stat stat;
-    public override void ApplyUpgrade(bool revert, Rarity rarity)
+
+    [InfoBox("This array represents values based on rarity")]
+    [ShowIf("applyPercentageValue")]
+    [RequiredListLength(4)]
+    [SerializeField]
+    float[] valuePercent = new float[] { 0f, 0f, 0f, 0f };
+
+    [InfoBox("This array represents values based on rarity.")]
+    [HideIf("applyPercentageValue")]
+    [RequiredListLength(4)]
+    [SerializeField]
+    int[] valueFlat = new int[] { 0, 0, 0, 0 };
+    public override string GetLabel(Rarity rarity)
+    {
+        int rarityIndex = (int)rarity;
+        if (applyPercentageValue)
+            return $"{valuePercent[rarityIndex]}% {label}";
+        return $"{valueFlat[rarityIndex]}% {label}";
+
+    }
+    public override void ApplyUpgrade(Rarity rarity, bool revert = false)
     {
         int rarityIndex = (int)rarity;
         switch (stat)
@@ -123,20 +142,6 @@ public class PerkStat : Perk
             default:
                 // Handle default case if stat is not recognized
                 break;
-        }
-    }
-    void OnValidate()
-    {
-        int raritiesLength = System.Enum.GetValues(typeof(Rarity)).Length;
-        if (valueFlat.Length != raritiesLength)
-        {
-            Debug.LogWarning("Don't change the 'ints' field's array size!");
-            System.Array.Resize(ref valueFlat, raritiesLength);
-        }
-        if (valuePercent.Length != raritiesLength)
-        {
-            Debug.LogWarning("Don't change the 'ints' field's array size!");
-            System.Array.Resize(ref valuePercent, raritiesLength);
         }
     }
 }
