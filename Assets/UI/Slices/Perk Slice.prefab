@@ -697,10 +697,6 @@ GameObject:
   - component: {fileID: 4546412226844952416}
   - component: {fileID: 218922215217847560}
   - component: {fileID: 4082850183315165166}
-  - component: {fileID: 7395534528334076093}
-  - component: {fileID: 3088886608767013267}
-  - component: {fileID: 4353351898986674620}
-  - component: {fileID: 8410230895164980028}
   m_Layer: 5
   m_Name: Choose your upgrade
   m_TagString: Untagged
@@ -826,251 +822,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!225 &7395534528334076093
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8817426574248537141}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
---- !u!114 &3088886608767013267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8817426574248537141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a7c676038ec914089b2ac39ba5c748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showAnimations:
-  - {fileID: 8410230895164980028}
-  - {fileID: 4353351898986674620}
-  exitAnimations: []
-  exitAnimAsShowReversed: 0
---- !u!114 &4353351898986674620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8817426574248537141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateType: 0
-  isSpeedBased: 0
-  hasOnStart: 0
-  hasOnPlay: 0
-  hasOnUpdate: 0
-  hasOnStepComplete: 0
-  hasOnComplete: 0
-  hasOnTweenCreated: 0
-  hasOnRewind: 0
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlay:
-    m_PersistentCalls:
-      m_Calls: []
-  onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  onStepComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onTweenCreated:
-    m_PersistentCalls:
-      m_Calls: []
-  onRewind:
-    m_PersistentCalls:
-      m_Calls: []
-  targetIsSelf: 1
-  targetGO: {fileID: 0}
-  tweenTargetIsTargetGO: 1
-  delay: 0
-  duration: 0.5
-  easeType: 1
-  easeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  loops: 0
-  id: 
-  isRelative: 0
-  isFrom: 1
-  isIndependentUpdate: 0
-  autoKill: 0
-  autoGenerate: 1
-  isActive: 1
-  isValid: 1
-  target: {fileID: 7395534528334076093}
-  animationType: 7
-  targetType: 2
-  forcedTargetType: 0
-  autoPlay: 0
-  useTargetAsV3: 0
-  endValueFloat: 0
-  endValueV3: {x: 0, y: 0, z: 0}
-  endValueV2: {x: 0, y: 0}
-  endValueColor: {r: 1, g: 1, b: 1, a: 1}
-  endValueString: 
-  endValueRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  endValueTransform: {fileID: 0}
-  optionalBool0: 0
-  optionalBool1: 0
-  optionalFloat0: 0
-  optionalInt0: 0
-  optionalRotationMode: 0
-  optionalScrambleMode: 0
-  optionalShakeRandomnessMode: 0
-  optionalString: 
---- !u!114 &8410230895164980028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8817426574248537141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateType: 0
-  isSpeedBased: 0
-  hasOnStart: 0
-  hasOnPlay: 0
-  hasOnUpdate: 0
-  hasOnStepComplete: 0
-  hasOnComplete: 0
-  hasOnTweenCreated: 0
-  hasOnRewind: 0
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlay:
-    m_PersistentCalls:
-      m_Calls: []
-  onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  onStepComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onTweenCreated:
-    m_PersistentCalls:
-      m_Calls: []
-  onRewind:
-    m_PersistentCalls:
-      m_Calls: []
-  targetIsSelf: 1
-  targetGO: {fileID: 0}
-  tweenTargetIsTargetGO: 1
-  delay: 2
-  duration: 0.4
-  easeType: 6
-  easeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 0
-  loops: 1
-  id: 
-  isRelative: 0
-  isFrom: 0
-  isIndependentUpdate: 0
-  autoKill: 0
-  autoGenerate: 1
-  isActive: 1
-  isValid: 1
-  target: {fileID: 4546412226844952416}
-  animationType: 2
-  targetType: 11
-  forcedTargetType: 0
-  autoPlay: 0
-  useTargetAsV3: 0
-  endValueFloat: 0
-  endValueV3: {x: 0, y: 150, z: 0}
-  endValueV2: {x: 0, y: 0}
-  endValueColor: {r: 1, g: 1, b: 1, a: 1}
-  endValueString: 
-  endValueRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  endValueTransform: {fileID: 0}
-  optionalBool0: 0
-  optionalBool1: 0
-  optionalFloat0: 0
-  optionalInt0: 0
-  optionalRotationMode: 0
-  optionalScrambleMode: 0
-  optionalShakeRandomnessMode: 0
-  optionalString: 
 --- !u!1 &9146971072742024750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,18 +862,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7987278721086983393}
     m_Modifications:
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1220997003200646823, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1207,6 +946,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Perk card (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4723533436389551488, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023856527401444358, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: delay
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1225,18 +972,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7987278721086983393}
     m_Modifications:
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1220997003200646823, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1321,6 +1056,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Perk card (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4723533436389551488, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: delay
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023856527401444358, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: delay
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1339,18 +1082,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7987278721086983393}
     m_Modifications:
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -5352820930538392961, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1220997003200646823, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1434,6 +1165,34 @@ PrefabInstance:
     - target: {fileID: 3447795525583722161, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
       propertyPath: m_Name
       value: Perk card
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446128534480287343, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: exitAnimAsShowReversed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446128534480287343, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: exitAnimations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777473986119744281, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: isFrom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777473986119744281, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: endValueV3.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777473986119744281, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: animationType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777473986119744281, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: endValueFloat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777473986119744281, guid: 25f85bc774c44c44683f061cfc3c86c1, type: 3}
+      propertyPath: optionalBool0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

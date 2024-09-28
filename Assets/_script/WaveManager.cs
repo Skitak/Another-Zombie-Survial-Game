@@ -44,8 +44,10 @@ public class WaveManager : MonoBehaviour
     #endregion
 
     #region Waveloop
-    void StartNewWave()
+    public void StartNewWave()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Player.player.SetInputEnabled(true);
         if (waves.Length <= waveCount)
             currentWave = waves[^1];
         else
@@ -59,6 +61,8 @@ public class WaveManager : MonoBehaviour
 
     void EndWave()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Player.player.SetInputEnabled(false);
         PerksManager.instance.OpenPerks();
         // StartNewWave();
     }

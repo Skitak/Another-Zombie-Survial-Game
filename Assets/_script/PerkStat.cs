@@ -23,127 +23,68 @@ public class PerkStat : Perk
         int rarityIndex = (int)rarity;
         if (applyPercentageValue)
             return $"{valuePercent[rarityIndex]}% {label}";
-        return $"{valueFlat[rarityIndex]}% {label}";
+        return $"+{valueFlat[rarityIndex]} {label}";
 
     }
     public override void ApplyUpgrade(Rarity rarity, bool revert = false)
     {
-        int rarityIndex = (int)rarity;
         switch (stat)
         {
             case Stat.SPEED:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.speed *= valuePercent[rarityIndex];
-                    else
-                        Player.player.speed /= valuePercent[rarityIndex];
-                else
-                    Player.player.speed += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.speed = GetStatUpgrade(Player.player.speed, rarity, revert);
                 break;
             case Stat.SPRINT_SPEED:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.speedSprint *= valuePercent[rarityIndex];
-                    else
-                        Player.player.speedSprint /= valuePercent[rarityIndex];
-                else
-                    Player.player.speedSprint += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.speedSprint = GetStatUpgrade(Player.player.speedSprint, rarity, revert);
                 break;
             case Stat.STAMINA:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.staminaMax *= valuePercent[rarityIndex];
-                    else
-                        Player.player.staminaMax /= valuePercent[rarityIndex];
-                else
-                    Player.player.staminaMax += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.staminaMax = GetStatUpgrade(Player.player.staminaMax, rarity, revert);
                 break;
             case Stat.HEALTH:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.healthMax = (int)(Player.player.healthMax * valuePercent[rarityIndex]);
-                    else
-                        Player.player.healthMax = (int)(Player.player.healthMax / valuePercent[rarityIndex]);
-                else
-                    Player.player.healthMax += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.healthMax = GetStatUpgrade(Player.player.healthMax, rarity, revert);
                 break;
             case Stat.MAGAZIN_SIZE:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.weapon.ammoMax = (int)(Player.player.weapon.ammoMax * valuePercent[rarityIndex]);
-                    else
-                        Player.player.weapon.ammoMax = (int)(Player.player.weapon.ammoMax / valuePercent[rarityIndex]);
-                else
-                    Player.player.weapon.ammoMax += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.weapon.ammoMax = GetStatUpgrade(Player.player.weapon.ammoMax, rarity, revert);
                 break;
             case Stat.PRECISION:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.weapon.precision *= (int)(Player.player.weapon.precision * valuePercent[rarityIndex]);
-                    else
-                        Player.player.weapon.precision /= (int)(Player.player.weapon.precision / valuePercent[rarityIndex]);
-                else
-                    Player.player.weapon.precision += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.weapon.precision = GetStatUpgrade(Player.player.weapon.precision, rarity, revert);
                 break;
             case Stat.DAMAGES:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.weapon.damages *= (int)(Player.player.weapon.damages * valuePercent[rarityIndex]);
-                    else
-                        Player.player.weapon.damages /= (int)(Player.player.weapon.damages / valuePercent[rarityIndex]);
-                else
-                    Player.player.weapon.damages += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.weapon.damages = GetStatUpgrade(Player.player.weapon.damages, rarity, revert);
                 break;
             // case Stat.BULLET_AMOUNT:
-            //     if (applyPercentageValue)
-            //         if (revert)
-            //             value *= valuePercent[rarityIndex];
-            //         else
-            //             value /= valuePercent[rarityIndex];
-            //     else
-            //         value += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+            //             value /= = GetStatUpgrade(//             value /=, rarity, revert);
             //     break;
             case Stat.RELOAD_TIME:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.weapon.reloadTime *= valuePercent[rarityIndex];
-                    else
-                        Player.player.weapon.reloadTime /= valuePercent[rarityIndex];
-                else
-                    Player.player.weapon.reloadTime += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.weapon.reloadTime = GetStatUpgrade(Player.player.weapon.reloadTime, rarity, revert);
                 break;
             case Stat.FIRE_RATE:
-                if (applyPercentageValue)
-                    if (revert)
-                        Player.player.weapon.fireRate *= valuePercent[rarityIndex];
-                    else
-                        Player.player.weapon.fireRate /= valuePercent[rarityIndex];
-                else
-                    Player.player.weapon.fireRate += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+                Player.player.weapon.fireRate = GetStatUpgrade(Player.player.weapon.fireRate, rarity, revert);
                 break;
             // case Stat.EXPLOSION_RADIUS:
-            //     if (applyPercentageValue)
-            //         if (revert)
-            //             value *= valuePercent[rarityIndex];
-            //         else
-            //             value /= valuePercent[rarityIndex];
-            //     else
-            //         value += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+            //             value /= = GetStatUpgrade(//             value /=, rarity, revert);
             //     break;
             // case Stat.EXPLOSION_DAMAGES:
-            //     if (applyPercentageValue)
-            //         if (revert)
-            //             value *= valuePercent[rarityIndex];
-            //         else
-            //             value /= valuePercent[rarityIndex];
-            //     else
-            //         value += revert ? valueFlat[rarityIndex] : -valueFlat[rarityIndex];
+            //             value /= = GetStatUpgrade(//             value /=, rarity, revert);
             //     break;
             default:
                 // Handle default case if stat is not recognized
                 break;
         }
     }
+
+    float GetStatUpgrade(float value, Rarity rarity, bool revert)
+    {
+        int rarityIndex = (int)rarity;
+        if (applyPercentageValue)
+            if (revert)
+                value /= 1 + valuePercent[rarityIndex] / 100;
+            else
+                value *= 1 + valuePercent[rarityIndex] / 100;
+        else
+            value += revert ? -valueFlat[rarityIndex] : valueFlat[rarityIndex];
+        return value;
+    }
+    int GetStatUpgrade(int value, Rarity rarity, bool revert) => (int)GetStatUpgrade((float)value, rarity, revert);
 }
 
 public enum Stat

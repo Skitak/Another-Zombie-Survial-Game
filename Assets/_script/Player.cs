@@ -116,6 +116,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!playerInput.inputIsActive)
+            return;
         FindInteractions();
         if (fireAction.IsPressed() && weapon && weapon.CanFire())
             Fire();
@@ -170,10 +172,18 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        GetComponentInChildren<PlayerInput>().DeactivateInput();
+        SetInputEnabled(false);
         animator.SetTrigger("Death");
         GameManager.instance.EndGame();
         controller.height = 0;
+    }
+
+    public void SetInputEnabled(bool enabled)
+    {
+        if (enabled)
+            playerInput.ActivateInput();
+        else
+            playerInput.DeactivateInput();
     }
 
     void EndRecovery()
@@ -188,7 +198,7 @@ public class Player : MonoBehaviour
         controller.height = initialHeight;
         Bus.PushData("health", health);
         animator.SetTrigger("Reset death");
-        GetComponentInChildren<PlayerInput>().ActivateInput();
+        SetInputEnabled(true);
     }
 
     #region interactions

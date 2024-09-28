@@ -12577,7 +12577,7 @@ MonoBehaviour:
   bloodParticles: {fileID: 3224019458809554059}
   playerInput: {fileID: 0}
   playerTarget: {fileID: 3608194838469461756}
-  character: {fileID: 0}
+  character: {fileID: 4728254049531580680}
   tpsController: {fileID: 0}
   interactionMask:
     serializedVersion: 2

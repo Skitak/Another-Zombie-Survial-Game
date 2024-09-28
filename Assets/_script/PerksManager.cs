@@ -11,14 +11,15 @@ public class PerksManager : MonoBehaviour
     [SerializeField]
     [RequiredListLength(4)]
     [InfoBox("This array represents chances of rarity perks, it MUST have as much elements as there are rarities and it's total SHOULD be of 1.")]
-    float[] baseRarityChances = new float[] { .7f, .2f, .1f, 0f };
+    float[] baseRarityChances = new float[] { .5f, .4f, .1f, 0f };
     float[] rarityChances;
-    Stack<PerkApplied> perksApplied;
+    Stack<PerkApplied> perksApplied = new();
     [SerializeField]
     [ReadOnly]
     Perk[] allPerks;
     void Start()
     {
+        instance = this;
         rarityChances = baseRarityChances;
     }
 
@@ -52,10 +53,13 @@ public class PerksManager : MonoBehaviour
         return rarityChances.Length - 1;
     }
 
-    public void PerkChosen(Perk perk, Rarity rarity)
+    public async void PerkChosen(Perk perk, Rarity rarity)
     {
         perk.ApplyUpgrade(rarity);
         perksApplied.Push(new PerkApplied(rarity, perk));
+        await ViewManager.instance.RemoveView();
+        WaveManager.instance.StartNewWave();
+
     }
     struct PerkApplied
     {
@@ -70,7 +74,6 @@ public class PerksManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    // [Button("Find all perks (Don't know how to make it automatic)", ButtonSizes.Gigantic, ButtonStyle.Box), GUIColor(0, 1, 0)]
     void OnValidate()
     {
         allPerks = Utils.GetAllInstances<Perk>();

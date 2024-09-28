@@ -17,18 +17,18 @@ public class Zombie : MonoBehaviour
 
     void Awake()
     {
-        // if (rigidbodies != null)
-        //     return;
+        health = healthMax;
+
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        health = healthMax;
-        attackCooldownTimer = new(attackCooldown);
+
         float animSpeed = attackAnimation.length / attackCooldown;
         animator.SetFloat("attack speed", animSpeed);
+
+        attackCooldownTimer = new(attackCooldown);
     }
 
-    // Update is called once per frame
     void Update()
     {
         navMeshAgent.destination = Player.player.playerTarget.position;

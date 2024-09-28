@@ -324,24 +324,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireStart: {fileID: 8839238506999428457}
   decal: {fileID: 5130830613663241246, guid: df19f412826e6d74eb0b5697f1903087, type: 3}
-  linePrefab: {fileID: 0}
+  linePrefab: {fileID: 5107761652323882653, guid: b840d6d09c1a62647a6e578c9390cd4b, type: 3}
   reloadAnimation: {fileID: 7400000, guid: 9e0740a25371272439259e921e26a4ff, type: 2}
   fireAnimation: {fileID: 7400000, guid: dc07836ffb4517f43ad6ef56de8918b3, type: 2}
   muzzleFlash: {fileID: 8322815016247276505}
-  fireLine: {fileID: 0}
   decalTimeout: 10
   fireLayerMask:
     serializedVersion: 2
     m_Bits: 129
   animLayer: 1
   nameInHierarchy: pistol_place
-  baseAmmoMax: 0
-  baseDamages: 0
-  baseReloadTime: 0
-  baseFireRate: 0
+  baseAmmoMax: 10
+  baseDamages: 2
+  baseReloadTime: 2
+  baseFireRate: 0.2
   basePrecision: 0
-  baseBulletsFired: 0
-  isAutomatic: 1
+  baseBulletsFired: 1
+  isAutomatic: 0
 --- !u!114 &1095134730938111766
 MonoBehaviour:
   m_ObjectHideFlags: 0
