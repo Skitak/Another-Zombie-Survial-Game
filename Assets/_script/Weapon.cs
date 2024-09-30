@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using System;
 public class Weapon : MonoBehaviour
 {
-    const int PRECISION_MIN = 45;
+    const int PRECISION_MIN = 30;
     const int PRECISION_MAX = 0;
     #region exposedParameters
     [FoldoutGroup("Boilerplate")][SerializeField] protected Transform fireStart;
@@ -22,10 +22,12 @@ public class Weapon : MonoBehaviour
     [FoldoutGroup("Base values", Expanded = true)][SerializeField] protected int baseAmmoMax;
     [FoldoutGroup("Base values")][SerializeField] protected int baseDamages;
     [FoldoutGroup("Base values")][SerializeField][Range(0, 5)] protected float baseReloadTime;
-    [FoldoutGroup("Base values")][SerializeField][Range(0, 1)] protected float baseFireRate;
+    [FoldoutGroup("Base values")][SerializeField][Range(.2f, 30)] protected float baseFireRate;
     [FoldoutGroup("Base values")][SerializeField][Range(PRECISION_MAX, PRECISION_MIN)] protected int basePrecision;
+    [FoldoutGroup("Base values")][SerializeField][Range(0, 100)] protected int basePrecisionAim;
     [FoldoutGroup("Base values")][SerializeField] protected int baseBulletsFired;
     [FoldoutGroup("Base values")] public bool isAutomatic = false;
+    // [FoldoutGroup("Base values")] public bool isAutomatic = false;
     #endregion
     #region private
     ObjectPool<GameObject> decalPool;
@@ -36,7 +38,7 @@ public class Weapon : MonoBehaviour
     Interactable interactable;
     #endregion
     #region setters
-    private int _ammo, _ammoMax, _precision;
+    private int _ammo, _ammoMax, _precision, _precisionAim;
     protected Timer reloadTimer, fireRateTimer;
     public int ammo
     {
@@ -66,6 +68,15 @@ public class Weapon : MonoBehaviour
             Bus.PushData("precision", _precision);
         }
     }
+    public int precisionAim
+    {
+        get => _precisionAim;
+        set
+        {
+            _precisionAim = Math.Clamp(value, 0, 100);
+            Bus.PushData("precisionAim", _precisionAim);
+        }
+    }
     public int damages { get; set; }
     public int bulletsFired { get; set; }
     public float reloadTime
@@ -80,16 +91,14 @@ public class Weapon : MonoBehaviour
     }
     public float fireRate
     {
-        get => fireRateTimer.endTime;
+        get => 1 / fireRateTimer.endTime;
         set
         {
-            fireRateTimer.endTime = value;
-            float animSpeed = fireAnimation.length / fireRate;
+            fireRateTimer.endTime = 1 / value;
+            float animSpeed = fireAnimation.length / (1 / value);
             Player.player?.animator?.SetFloat("FireSpeed", animSpeed * 1.05f);
         }
     }
-
-
     #endregion
     void Start()
     {
@@ -131,7 +140,13 @@ public class Weapon : MonoBehaviour
             precision = basePrecision;
             bulletsFired = baseBulletsFired;
             fireRate = baseFireRate;
+            precisionAim = basePrecisionAim;
         });
+    }
+
+    void Update()
+    {
+        Bus.PushData("actualPrecision", RealPrecision());
     }
 
     public virtual bool CanReload()
@@ -171,7 +186,8 @@ public class Weapon : MonoBehaviour
 
     void Fire(Vector3 baseDirection)
     {
-        Vector3 impreciseDirection = ApplySpreadToDirection(baseDirection, precision);
+        float realPrecision = RealPrecision();
+        Vector3 impreciseDirection = ApplySpreadToDirection(baseDirection, realPrecision);
         Vector3 endPos = fireStart.position + impreciseDirection * 100;
         if (Physics.Raycast(fireStart.position, impreciseDirection, out RaycastHit hit, Mathf.Infinity, fireLayerMask))
         {
@@ -211,6 +227,7 @@ public class Weapon : MonoBehaviour
     {
         if (reloadTimer.IsStarted())
             return;
+        Player.player.CancelSprinting();
         reloadTimer.ResetPlay();
         Player.player.animator.SetTrigger("Reload");
         // TODO : Play sounds and animations
@@ -236,5 +253,16 @@ public class Weapon : MonoBehaviour
         outline.enabled = false;
         muzzleFlash.gameObject.SetActive(true);
         Player.player.PickupWeapon(this);
+    }
+    public void CancelReload()
+    {
+        if (!reloadTimer.IsPlayingForward())
+            return;
+        reloadTimer.Reset();
+        Player.player.animator.SetTrigger("cancelReload");
+    }
+    int RealPrecision()
+    {
+        return (int)Mathf.Lerp(precision, precision * Mathf.InverseLerp(100, 0, precisionAim), Player.player.aimValue);
     }
 }

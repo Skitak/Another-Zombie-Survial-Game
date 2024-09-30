@@ -672,7 +672,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 2, y: 0, z: 0}
   VerticalArmLength: 0.27
   CameraSide: 0.296
-  CameraDistance: 3.48
+  CameraDistance: 2.42
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 1
@@ -10931,8 +10931,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4164964143128185204}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5174973, y: 1.166, z: -2.7599998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5174973, y: 1.166, z: -1.7000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10978,7 +10978,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 95
+    m_Bits: 223
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -11321,12 +11321,12 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b81cfd1cae67ccf408d2090882d392c5, type: 3}
   m_Controller: {fileID: 9100000, guid: 5ec0ae3897df9744398cddce346f63a6, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -12102,7 +12102,7 @@ Transform:
   m_GameObject: {fileID: 5955811150880343559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5174973, y: 1.166, z: -2.7599998}
+  m_LocalPosition: {x: 2.5174973, y: 1.166, z: -1.7000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12575,22 +12575,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodParticles: {fileID: 3224019458809554059}
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 7727754976837705679}
   playerTarget: {fileID: 3608194838469461756}
   character: {fileID: 4728254049531580680}
-  tpsController: {fileID: 0}
+  tpsController: {fileID: 2565031146471261982}
   interactionMask:
     serializedVersion: 2
     m_Bits: 64
   interactionDistance: 7
   recoveryTime: 1
   baseHealthMax: 10
-  baseSpeed: 1
-  baseSprintSpeed: 2
-  baseStamina: 5
+  baseSpeed: 2.5
+  baseSprintSpeed: 7
+  baseStamina: 2
+  baseAimCameraZoom: 0
+  basePerkRefresh: 3
   weapon: {fileID: 0}
   animator: {fileID: 0}
-  canSprint: 1
 --- !u!1 &7174078060766302878
 GameObject:
   m_ObjectHideFlags: 0

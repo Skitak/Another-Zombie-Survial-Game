@@ -215,8 +215,11 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint && Player.player.canSprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint && Player.player.isSprinting ? SprintSpeed : MoveSpeed;
 
+            // Reducing speed while aiming
+            if (Player.player.aimValue != 0f)
+                targetSpeed /= 2;
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -245,9 +248,9 @@ namespace StarterAssets
             {
                 _speed = targetSpeed;
             }
-
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
+            float animationSpeedTarget = targetSpeed == MoveSpeed ? 1 : 2;
+            animationSpeedTarget = targetSpeed == 0 ? 0 : animationSpeedTarget;
+            _animationBlend = Mathf.Lerp(_animationBlend, animationSpeedTarget, Time.deltaTime * SpeedChangeRate);
 
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;

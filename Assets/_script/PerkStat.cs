@@ -21,9 +21,15 @@ public class PerkStat : Perk
     public override string GetLabel(Rarity rarity)
     {
         int rarityIndex = (int)rarity;
+        string textLabel;
         if (applyPercentageValue)
-            return $"{valuePercent[rarityIndex]}% {label}";
-        return $"+{valueFlat[rarityIndex]} {label}";
+            textLabel = $"{valuePercent[rarityIndex]}% {label}";
+        else
+            textLabel = $"{valueFlat[rarityIndex]} {label}";
+        if (malusPerk)
+            return $"{textLabel}\n{malusPerk.GetLabel(rarity)}";
+        else return textLabel;
+
 
     }
     public override void ApplyUpgrade(Rarity rarity, bool revert = false)
@@ -32,9 +38,6 @@ public class PerkStat : Perk
         {
             case Stat.SPEED:
                 Player.player.speed = GetStatUpgrade(Player.player.speed, rarity, revert);
-                break;
-            case Stat.SPRINT_SPEED:
-                Player.player.speedSprint = GetStatUpgrade(Player.player.speedSprint, rarity, revert);
                 break;
             case Stat.STAMINA:
                 Player.player.staminaMax = GetStatUpgrade(Player.player.staminaMax, rarity, revert);
@@ -48,12 +51,15 @@ public class PerkStat : Perk
             case Stat.PRECISION:
                 Player.player.weapon.precision = GetStatUpgrade(Player.player.weapon.precision, rarity, revert);
                 break;
+            case Stat.PRECISION_AIM:
+                Player.player.weapon.precisionAim = GetStatUpgrade(Player.player.weapon.precisionAim, rarity, revert);
+                break;
             case Stat.DAMAGES:
                 Player.player.weapon.damages = GetStatUpgrade(Player.player.weapon.damages, rarity, revert);
                 break;
-            // case Stat.BULLET_AMOUNT:
-            //             value /= = GetStatUpgrade(//             value /=, rarity, revert);
-            //     break;
+            case Stat.BULLET_AMOUNT:
+                Player.player.weapon.bulletsFired = GetStatUpgrade(Player.player.weapon.bulletsFired, rarity, revert);
+                break;
             case Stat.RELOAD_TIME:
                 Player.player.weapon.reloadTime = GetStatUpgrade(Player.player.weapon.reloadTime, rarity, revert);
                 break;
@@ -70,6 +76,8 @@ public class PerkStat : Perk
                 // Handle default case if stat is not recognized
                 break;
         }
+        malusPerk?.ApplyUpgrade(rarity, revert);
+
     }
 
     float GetStatUpgrade(float value, Rarity rarity, bool revert)
@@ -89,5 +97,5 @@ public class PerkStat : Perk
 
 public enum Stat
 {
-    SPEED, SPRINT_SPEED, STAMINA, HEALTH, MAGAZIN_SIZE, PRECISION, DAMAGES, BULLET_AMOUNT, RELOAD_TIME, FIRE_RATE, EXPLOSION_RADIUS, EXPLOSION_DAMAGES
+    SPEED, STAMINA, HEALTH, MAGAZIN_SIZE, PRECISION, PRECISION_AIM, DAMAGES, BULLET_AMOUNT, RELOAD_TIME, FIRE_RATE, EXPLOSION_RADIUS, EXPLOSION_DAMAGES
 }

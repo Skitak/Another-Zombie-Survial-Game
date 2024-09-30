@@ -1,5 +1,6 @@
 using System;
 using Asmos.Bus;
+using Cinemachine;
 using Sirenix.OdinInspector;
 using StarterAssets;
 using UnityEngine;
@@ -19,24 +20,27 @@ public class Player : MonoBehaviour
     [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
     [FoldoutGroup("Health and Speed")][SerializeField] int baseHealthMax = 10;
     [FoldoutGroup("Health and Speed")][SerializeField] float baseSpeed;
-    [FoldoutGroup("Health and Speed")][SerializeField] float baseSprintSpeed;
+    [FoldoutGroup("Health and Speed")][SerializeField] float sprintMultiplier;
     [FoldoutGroup("Health and Speed")][SerializeField] float baseStamina;
-    [FoldoutGroup("Health and Speed")][SerializeField] int basePerkRefresh;
+    [FoldoutGroup("Health and Speed")][SerializeField] float baseAimCameraZoom;
+    [FoldoutGroup("Others")][SerializeField] int basePerkRefresh;
+    [FoldoutGroup("Others")] public bool fireWhileRunning;
     #endregion
     #region hiddenParameters
     Interactable interactableInRange;
-    InputAction fireAction, reloadAction, interactAction, sprintAction;
+    InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab;
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public Animator animator;
     Vector3 spawnPoint;
     CharacterController controller;
-    float initialHeight;
-    [HideInInspector] public bool canSprint = true;
+    CinemachineVirtualCamera tpsCamera;
+    Cinemachine3rdPersonFollow tpsCameraComponent;
+    float initialHeight, initialCameraDistance;
+    int _health, _healthMax, _perkRefresh;
+    Timer recoveryTimer, staminaTimer, aimTimer, swapSideTimer;
     #endregion
 
     #region setters
-    int _health, _healthMax, _perkRefresh;
-    Timer recoveryTimer, staminaTimer;
     public int health
     {
         get => _health;
@@ -71,14 +75,7 @@ public class Player : MonoBehaviour
         set
         {
             tpsController.MoveSpeed = value;
-        }
-    }
-    public float speedSprint
-    {
-        get => tpsController.SprintSpeed;
-        set
-        {
-            tpsController.SprintSpeed = value;
+            tpsController.SprintSpeed = value * sprintMultiplier;
         }
     }
     public float staminaMax
@@ -91,28 +88,40 @@ public class Player : MonoBehaviour
             staminaTimer.Rewind();
         }
     }
-
+    public float aimValue { get => aimTimer.GetPercentage(); }
+    public bool isSprinting { get => staminaTimer.IsPlayingForward(); }
     #endregion
     void Start()
     {
         player = this;
         animator = GetComponentInChildren<Animator>();
         controller = GetComponentInChildren<CharacterController>();
+        tpsCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        tpsCameraComponent = tpsCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 
         spawnPoint = character.transform.position;
         initialHeight = controller.height;
+        initialCameraDistance = tpsCameraComponent.CameraDistance;
 
+        aimTimer = new(.15f);
         recoveryTimer = new(recoveryTime, EndRecovery);
-        staminaTimer = new(baseStamina, () => canSprint = false);
+        aimTimer.OnTimerUpdate += () => tpsCameraComponent.CameraDistance = Mathf.Lerp(initialCameraDistance, baseAimCameraZoom, aimTimer.GetPercentage());
+        staminaTimer = new(baseStamina);
         staminaTimer.OnTimerUpdate += () => Bus.PushData("stamina", staminaTimer.GetTimeLeft());
         staminaTimer.useUpdateAsRewindAction = true;
         staminaTimer.rewindAutomatic = true;
-        staminaTimer.OnTimerRewindEnd += () => canSprint = true;
+        swapSideTimer = new(.2f);
+        swapSideTimer.OnTimerUpdate += () => tpsCameraComponent.CameraSide = swapSideTimer.GetPercentage();
+        swapSideTimer.useUpdateAsRewindAction = true;
 
         fireAction = InputSystem.actions.FindAction("Fire");
         interactAction = InputSystem.actions.FindAction("Interact");
         reloadAction = InputSystem.actions.FindAction("Reload");
         sprintAction = InputSystem.actions.FindAction("Sprint");
+        moveAction = InputSystem.actions.FindAction("Move");
+        aimAction = InputSystem.actions.FindAction("Aim");
+        swapSide = InputSystem.actions.FindAction("SwapSide");
+        tab = InputSystem.actions.FindAction("Tab");
 
         Timer.OneShotTimer(.05f, () =>
         {
@@ -121,32 +130,52 @@ public class Player : MonoBehaviour
             Bus.PushData("stamina", baseStamina);
             staminaMax = baseStamina;
             speed = baseSpeed;
-            speedSprint = baseSprintSpeed;
             perkRefresh = basePerkRefresh;
         });
     }
 
     void Update()
     {
+        if (sprintAction.WasReleasedThisFrame())
+            CancelSprinting();
+        if (aimAction.WasReleasedThisFrame())
+            aimTimer.Rewind();
+
         if (!playerInput.inputIsActive)
             return;
+
         FindInteractions();
-        if (fireAction.IsPressed() && weapon && weapon.CanFire())
-            Fire();
-        if (reloadAction.IsPressed() && weapon && weapon.CanReload())
+        if (aimAction.WasPressedThisFrame())
+        {
+            aimTimer.Play();
+            CancelSprinting();
+        }
+        Vector2 move = moveAction.ReadValue<Vector2>();
+        if (sprintAction.WasPressedThisFrame() && !aimAction.WasPressedThisFrame() && move.y > 0)
+        {
+            staminaTimer.Play();
+            aimTimer.Rewind();
+            weapon?.CancelReload();
+        }
+
+        if (move.y <= 0)
+            CancelSprinting();
+
+        if (reloadAction.WasPressedThisFrame() && weapon && weapon.CanReload())
             weapon.Reload();
         if (interactAction.IsPressed())
             TryInteract();
 
-        if (sprintAction.WasPressedThisFrame())
-        {
-            canSprint = true;
-            staminaTimer.Play();
-        }
-        else if (sprintAction.WasReleasedThisFrame())
-        {
-            staminaTimer.Rewind();
-        }
+        if (weapon != null && (!staminaTimer.IsPlayingForward() || fireWhileRunning) && fireAction.IsPressed() && weapon.CanFire())
+            Fire();
+
+        if (swapSide.WasPressedThisFrame())
+            if (swapSideTimer.IsFinished() || swapSideTimer.IsPlayingForward())
+                swapSideTimer.Rewind();
+            else
+                swapSideTimer.Play();
+        if (tab.IsPressed())
+            print("tabbing");
     }
 
     void Fire()
@@ -201,6 +230,11 @@ public class Player : MonoBehaviour
     void EndRecovery()
     {
         // Indicate that the player can loose hp again
+    }
+
+    public void CancelSprinting()
+    {
+        staminaTimer.Rewind();
     }
 
     public void RestartGame()

@@ -18,8 +18,8 @@ MonoBehaviour:
   rarityMin: 0
   rarityMax: 3
   timesPerkCanBeApplied: 10000
-  malusPerk: {fileID: 0}
-  stat: 5
+  malusPerk: {fileID: 11400000, guid: 9f0a6c09971af4d49901758ef67ab14a, type: 2}
+  stat: 4
   applyPercentageValue: 0
   valuePercent:
   - -5

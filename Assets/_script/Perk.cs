@@ -11,6 +11,7 @@ public abstract class Perk : ScriptableObject
     public int timesPerkCanBeApplied = 10000;
     [InlineEditor(InlineEditorModes.FullEditor)]
     public Perk malusPerk = null;
+    public virtual bool CanBeApplied() => true;
     public virtual string GetLabel(Rarity rarity) => label;
     public abstract void ApplyUpgrade(Rarity rarity, bool revert = false);
 }
@@ -18,8 +19,4 @@ public abstract class Perk : ScriptableObject
 public enum Rarity
 {
     COMMON, UNCOMMON, RARE, LEGENDARY
-}
-public enum SpecialTraits
-{
-    AUTOMATIC
 }

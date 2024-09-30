@@ -25,13 +25,7 @@ public class PerkCard : MonoBehaviour
         this.perk = perk;
         this.rarity = rarity;
         image.sprite = perk.sprite;
-        if (perk.malusPerk)
-            label.SetText(
-            @$"{perk.GetLabel(rarity)}
-            {perk.malusPerk.GetLabel(rarity)}");
-
-        else
-            label.SetText(perk.GetLabel(rarity));
+        label.SetText(perk.GetLabel(rarity));
         ShowRarity();
     }
 

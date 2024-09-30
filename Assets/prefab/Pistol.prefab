@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6363293312196208721}
   - component: {fileID: 6969955937139760096}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,12 +334,13 @@ MonoBehaviour:
     m_Bits: 129
   animLayer: 1
   nameInHierarchy: pistol_place
-  baseAmmoMax: 10
+  baseAmmoMax: 7
   baseDamages: 2
   baseReloadTime: 2
-  baseFireRate: 0.2
-  basePrecision: 0
-  baseBulletsFired: 1
+  baseFireRate: 0.25
+  basePrecision: 10
+  basePrecisionAim: 50
+  baseBulletsFired: 100
   isAutomatic: 0
 --- !u!114 &1095134730938111766
 MonoBehaviour:
@@ -511,7 +512,7 @@ GameObject:
   - component: {fileID: 6767639106934318682}
   - component: {fileID: 5201851251238370497}
   - component: {fileID: 164939477386159089}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8839238506999428457}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FireStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +629,7 @@ GameObject:
   - component: {fileID: 8388221682866783162}
   - component: {fileID: 6366452298180512231}
   - component: {fileID: 6000676250771450432}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
