@@ -13,16 +13,25 @@ public class PerkCard : MonoBehaviour
     [SerializeField] GameObject beret;
     Perk perk;
     Rarity rarity;
+    [HideInInspector] public Button button;
     void Start()
     {
+        button = GetComponent<Button>();
         perkCards.Add(this);
     }
     public void InitializePerk(Perk perk, Rarity rarity)
     {
+        button.enabled = true;
         this.perk = perk;
         this.rarity = rarity;
         image.sprite = perk.sprite;
-        label.SetText(perk.GetLabel(rarity));
+        if (perk.malusPerk)
+            label.SetText(
+            @$"{perk.GetLabel(rarity)}
+            {perk.malusPerk.GetLabel(rarity)}");
+
+        else
+            label.SetText(perk.GetLabel(rarity));
         ShowRarity();
     }
 

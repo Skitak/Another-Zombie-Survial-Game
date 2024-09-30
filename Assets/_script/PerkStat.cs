@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PerkStat", menuName = "Perks/PerkStat", order = 0)]
 public class PerkStat : Perk
 {
-    [SerializeField] bool applyPercentageValue = false;
     [SerializeField] Stat stat;
+    [SerializeField] bool applyPercentageValue = false;
 
     [InfoBox("This array represents values based on rarity")]
     [ShowIf("applyPercentageValue")]

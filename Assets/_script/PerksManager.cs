@@ -23,20 +23,27 @@ public class PerksManager : MonoBehaviour
         rarityChances = baseRarityChances;
     }
 
-    public void OpenPerks()
+    public void OpenPerks(bool onlyRefresh = false)
     {
+        List<Perk> foundPerks = new();
         foreach (PerkCard card in PerkCard.perkCards)
         {
             int rarity = PickRarity();
             var perks = allPerks.Where((Perk perk) =>
                 (int)perk.rarityMin <= rarity &&
                 (int)perk.rarityMax >= rarity &&
+                !perk.dontShowAsUpgrade &&
+                !foundPerks.Contains(perk) &&
                 perk.timesPerkCanBeApplied > allPerks.Count((Perk _perk) => perk == _perk)
             );
             Perk randomPerk = perks.ElementAt(Random.Range(0, perks.Count()));
+            foundPerks.Add(randomPerk);
             card.InitializePerk(randomPerk, (Rarity)rarity);
         }
+        if (onlyRefresh)
+            return;
         ViewManager.instance.AddView(perkView);
+        // if (Player.player.perkRefresh <=)
     }
 
     private int PickRarity()
@@ -55,11 +62,12 @@ public class PerksManager : MonoBehaviour
 
     public async void PerkChosen(Perk perk, Rarity rarity)
     {
+        foreach (PerkCard card in PerkCard.perkCards)
+            card.button.enabled = false;
         perk.ApplyUpgrade(rarity);
         perksApplied.Push(new PerkApplied(rarity, perk));
         await ViewManager.instance.RemoveView();
         WaveManager.instance.StartNewWave();
-
     }
     struct PerkApplied
     {

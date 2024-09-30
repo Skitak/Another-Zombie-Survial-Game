@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Main view
   m_EditorClassIdentifier: 
   slices:
-  - {fileID: 11400000, guid: 6aa30cf3ec09a18449ea91aea557f52a, type: 2}
-  - {fileID: 11400000, guid: 6a43553e6ec78744eb04841871fcde99, type: 2}
+  - {fileID: 11400000, guid: 3c87924c0b69943428bb5ceb0a651dde, type: 2}
   showTransitionType: 4
   showTime: 2
   showEase: 1

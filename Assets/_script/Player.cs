@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     [FoldoutGroup("Health and Speed")][SerializeField] float baseSpeed;
     [FoldoutGroup("Health and Speed")][SerializeField] float baseSprintSpeed;
     [FoldoutGroup("Health and Speed")][SerializeField] float baseStamina;
+    [FoldoutGroup("Health and Speed")][SerializeField] int basePerkRefresh;
     #endregion
     #region hiddenParameters
     Interactable interactableInRange;
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region setters
-    int _health, _healthMax;
+    int _health, _healthMax, _perkRefresh;
     Timer recoveryTimer, staminaTimer;
     public int health
     {
@@ -53,6 +54,15 @@ public class Player : MonoBehaviour
             _healthMax = value;
             health = Math.Min(_healthMax, health);
             Bus.PushData("healthMax", _healthMax);
+        }
+    }
+    public int perkRefresh
+    {
+        get => _perkRefresh;
+        set
+        {
+            _perkRefresh = value;
+            Bus.PushData("perkRefresh", value);
         }
     }
     public float speed
@@ -78,6 +88,7 @@ public class Player : MonoBehaviour
         {
             staminaTimer.endTime = value;
             Bus.PushData("staminaMax", value);
+            staminaTimer.Rewind();
         }
     }
 
@@ -111,6 +122,7 @@ public class Player : MonoBehaviour
             staminaMax = baseStamina;
             speed = baseSpeed;
             speedSprint = baseSprintSpeed;
+            perkRefresh = basePerkRefresh;
         });
     }
 
