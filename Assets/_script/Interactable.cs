@@ -39,7 +39,7 @@ public class Interactable : MonoBehaviour
     }
     void Update()
     {
-        playerDistance = (Player.player.playerTarget.position - transform.position).magnitude;
+        playerDistance = (Player.player.transform.position - transform.position).magnitude;
         playerDistance = Math.Clamp(playerDistance, MIN_DIST_DISPLAY, MAX_DIST_DISPLAY);
         UpdateColor();
     }

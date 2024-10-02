@@ -525,7 +525,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6491508183098821975}
-  - {fileID: 4135796202621809130}
   m_Father: {fileID: 6355847449908846479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1266694089781043163
@@ -1140,7 +1139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4000165681517486026
 Transform:
   m_ObjectHideFlags: 0
@@ -1150,7 +1149,7 @@ Transform:
   m_GameObject: {fileID: 2386289794977097380}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.053000003, z: -0.009000003}
+  m_LocalPosition: {x: 0, y: 0.041, z: 0.008}
   m_LocalScale: {x: 0.03314, y: 0.31900284, z: 0.088357}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10932,7 +10931,7 @@ Transform:
   m_GameObject: {fileID: 4164964143128185204}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6134973, y: 1.166, z: -1.26}
+  m_LocalPosition: {x: -0.72, y: 1.73, z: -1.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11278,6 +11277,7 @@ GameObject:
   - component: {fileID: 272396033245490608}
   - component: {fileID: 6538805841631571578}
   - component: {fileID: 7727754976837705679}
+  - component: {fileID: 692908681870661791}
   m_Layer: 3
   m_Name: Remy
   m_TagString: Player
@@ -11294,7 +11294,7 @@ Transform:
   m_GameObject: {fileID: 4728254049531580680}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.3334973, y: -0.564, z: 0.72}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11535,6 +11535,34 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &692908681870661791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728254049531580680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3436791dd16d547ba454568d22dfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodParticles: {fileID: 3224019458809554059}
+  aimAnimation: {fileID: 7400000, guid: b7d2362450e399042adbf1ec90181093, type: 2}
+  interactionMask:
+    serializedVersion: 2
+    m_Bits: 64
+  interactionDistance: 7
+  recoveryTime: 1
+  baseHealthMax: 3
+  baseSpeed: 2.5
+  sprintMultiplier: 1.5
+  baseStamina: 2.5
+  baseAimCameraZoom: 1.47
+  basePerkRefresh: 10000
+  fireWhileRunning: 0
+  weapon: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &5037287180153820596
 GameObject:
   m_ObjectHideFlags: 0
@@ -12102,7 +12130,7 @@ Transform:
   m_GameObject: {fileID: 5955811150880343559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.6134973, y: 1.166, z: -1.26}
+  m_LocalPosition: {x: -0.72, y: 1.73, z: -1.9799995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12352,15 +12380,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6262194835669525428}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6253179, y: 0.33302966, z: 0.33536273, w: 0.6209676}
-  m_LocalPosition: {x: 0, y: 0.069, z: 0.034}
-  m_LocalScale: {x: 0.76, y: 0.76, z: 0.76}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0.026, y: 0.164, z: 0.037}
+  m_LocalScale: {x: 0.7600001, y: 0.7600001, z: 0.76000005}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2162002400977844778}
   - {fileID: 4000165681517486026}
-  m_Father: {fileID: 1879235155083467072}
-  m_LocalEulerAnglesHint: {x: -90.4, y: 56.41, z: 0}
+  m_Father: {fileID: 6355847449908846479}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!1 &6272113384376865651
 GameObject:
   m_ObjectHideFlags: 0
@@ -12490,6 +12518,7 @@ Transform:
   - {fileID: 3717033468550602159}
   - {fileID: 4218985453812768765}
   - {fileID: 5009606775219923339}
+  - {fileID: 4135796202621809130}
   m_Father: {fileID: 7511757418640201773}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6965884890026910332
@@ -12535,7 +12564,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5733781769963583473}
-  - component: {fileID: 261847766140839056}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -12562,37 +12590,6 @@ Transform:
   - {fileID: 618761117823008886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &261847766140839056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7136240162183831360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe3436791dd16d547ba454568d22dfa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodParticles: {fileID: 3224019458809554059}
-  playerInput: {fileID: 7727754976837705679}
-  playerTarget: {fileID: 3608194838469461756}
-  character: {fileID: 4728254049531580680}
-  tpsController: {fileID: 2565031146471261982}
-  interactionMask:
-    serializedVersion: 2
-    m_Bits: 64
-  interactionDistance: 7
-  recoveryTime: 1
-  baseHealthMax: 10
-  baseSpeed: 2.5
-  sprintMultiplier: 1.5
-  baseStamina: 2
-  baseAimCameraZoom: 1.47
-  basePerkRefresh: 10000
-  fireWhileRunning: 0
-  weapon: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!1 &7174078060766302878
 GameObject:
   m_ObjectHideFlags: 0
@@ -12673,7 +12670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2162002400977844778
 Transform:
   m_ObjectHideFlags: 0
@@ -12683,7 +12680,7 @@ Transform:
   m_GameObject: {fileID: 7304655280746896962}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.02, z: -0.078}
+  m_LocalPosition: {x: 0, y: -0.032, z: -0.061}
   m_LocalScale: {x: 0.05, y: 0.19, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []

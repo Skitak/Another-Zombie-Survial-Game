@@ -1,8 +1,6 @@
 using System;
 using Asmos.Bus;
-using Asmos.UI;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class WaveManager : MonoBehaviour
 {
@@ -94,14 +92,6 @@ public struct Waves
     // public float totalTime;
     public ZombieSpawnerManager.SpawnDistance distance;
     public ZombieParameters zombieParameters;
-}
-
-[Serializable]
-public struct ZombieParameters
-{
-    public int health;
-    public float speed;
-    public bool walk;
 }
 
 #endregion

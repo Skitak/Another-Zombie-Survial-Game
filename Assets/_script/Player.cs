@@ -11,10 +11,7 @@ public class Player : MonoBehaviour
     public static Player player;
     #region exposedParameters
     [FoldoutGroup("GameObjects and Prefabs")][SerializeField] ParticleSystem bloodParticles;
-    [FoldoutGroup("GameObjects and Prefabs")][SerializeField] PlayerInput playerInput;
-    [FoldoutGroup("GameObjects and Prefabs")] public Transform playerTarget;
-    [FoldoutGroup("GameObjects and Prefabs")][SerializeField] GameObject character;
-    [FoldoutGroup("GameObjects and Prefabs")] public ThirdPersonController tpsController;
+    [FoldoutGroup("GameObjects and Prefabs")][SerializeField] AnimationClip aimAnimation;
     [FoldoutGroup("Interactions")][SerializeField] LayerMask interactionMask;
     [FoldoutGroup("Interactions")][SerializeField] float interactionDistance = 3f;
     [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
@@ -28,6 +25,8 @@ public class Player : MonoBehaviour
     #endregion
     #region hiddenParameters
     Interactable interactableInRange;
+    ThirdPersonController tpsController;
+    PlayerInput playerInput;
     InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab;
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public Animator animator;
@@ -94,12 +93,14 @@ public class Player : MonoBehaviour
     void Start()
     {
         player = this;
-        animator = GetComponentInChildren<Animator>();
-        controller = GetComponentInChildren<CharacterController>();
-        tpsCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        tpsCamera = transform.parent.GetComponentInChildren<CinemachineVirtualCamera>();
+        tpsController = GetComponent<ThirdPersonController>();
+        playerInput = GetComponent<PlayerInput>();
+        animator = GetComponent<Animator>();
+        controller = GetComponent<CharacterController>();
         tpsCameraComponent = tpsCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 
-        spawnPoint = character.transform.position;
+        spawnPoint = transform.parent.transform.position;
         initialHeight = controller.height;
         initialCameraDistance = tpsCameraComponent.CameraDistance;
 
@@ -111,7 +112,11 @@ public class Player : MonoBehaviour
         staminaTimer.useUpdateAsRewindAction = true;
         staminaTimer.rewindAutomatic = true;
         swapSideTimer = new(.2f);
-        swapSideTimer.OnTimerUpdate += () => tpsCameraComponent.CameraSide = swapSideTimer.GetPercentage();
+        swapSideTimer.OnTimerUpdate += () =>
+        {
+            tpsCameraComponent.CameraSide = swapSideTimer.GetPercentage();
+            animator.SetFloat("swap side", swapSideTimer.GetPercentage());
+        };
         swapSideTimer.useUpdateAsRewindAction = true;
 
         fireAction = InputSystem.actions.FindAction("Fire");
@@ -239,7 +244,7 @@ public class Player : MonoBehaviour
 
     public void RestartGame()
     {
-        character.transform.position = spawnPoint;
+        transform.position = spawnPoint;
         health = baseHealthMax;
         controller.height = initialHeight;
         Bus.PushData("health", health);
@@ -281,13 +286,6 @@ public class Player : MonoBehaviour
     #endregion
 
     #region publicUtils
-    public float DistanceWithPlayer(Vector3 otherPos)
-    {
-        Vector3 pos = new(playerTarget.position.x, 0, playerTarget.position.z);
-        otherPos = new(otherPos.x, 0, otherPos.z);
-        return (otherPos - pos).magnitude;
-    }
-
     public bool IsDead() => health <= 0;
     #endregion
 }

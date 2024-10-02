@@ -175,21 +175,18 @@ public class Weapon : MonoBehaviour
         Player.player.animator.SetTrigger("Fire");
         muzzleFlash.Play();
 
-        Vector3 fireDestination = GetFireDestination() - fireStart.position;
         for (int i = 0; i < bulletsFired; i++)
-            Fire(fireDestination.normalized);
-
+            Fire(GetFireDestination());
 
         if (--ammo == 0)
             Reload();
     }
 
-    void Fire(Vector3 baseDirection)
+    void Fire(Vector3 destination)
     {
-        float realPrecision = RealPrecision();
-        Vector3 impreciseDirection = ApplySpreadToDirection(baseDirection, realPrecision);
-        Vector3 endPos = fireStart.position + impreciseDirection * 100;
-        if (Physics.Raycast(fireStart.position, impreciseDirection, out RaycastHit hit, Mathf.Infinity, fireLayerMask))
+        Vector3 endPos = destination;
+        Vector3 direction = destination - fireStart.position;
+        if (Physics.Raycast(fireStart.position, direction, out RaycastHit hit, Mathf.Infinity, fireLayerMask))
         {
             // Hitting a zombie
             if (hit.collider.gameObject.CompareTag("Zombie"))
@@ -210,11 +207,13 @@ public class Weapon : MonoBehaviour
     }
     protected virtual Vector3 GetFireDestination()
     {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, Mathf.Infinity, fireLayerMask))
+        float realPrecision = RealPrecision();
+        Vector3 impreciseDirection = ApplySpreadToDirection(Camera.main.transform.forward, realPrecision);
+        if (Physics.Raycast(Camera.main.transform.position, impreciseDirection, out var hit, Mathf.Infinity, fireLayerMask))
         {
             return hit.point;
         }
-        return Camera.main.transform.position + Camera.main.transform.forward * 10000;
+        return Camera.main.transform.position + impreciseDirection * 1000;
     }
     public Vector3 ApplySpreadToDirection(Vector3 initialDirection, float spread)
     {

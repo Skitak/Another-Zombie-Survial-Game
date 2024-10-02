@@ -28,7 +28,7 @@ public class ZombieSpawnerManager : MonoBehaviour
         Zombie zombie = pool.Get();
         zombiesAlive.Add(zombie);
         Vector3 spawnPoint = spawners[UnityEngine.Random.Range(0, spawners.Length - 1)].transform.position;
-        zombie.Spawn(Vector3.up + spawnPoint, parameters);
+        zombie.Spawn(spawnPoint, parameters);
     }
 
     public void ZombieDied(Zombie zombie)
@@ -76,7 +76,7 @@ public class ZombieSpawnerManager : MonoBehaviour
         var localSpawners = GameObject.FindGameObjectsWithTag("Zombie spawner");
         foreach (GameObject spawner in localSpawners)
         {
-            Gizmos.DrawSphere(spawner.transform.position, 5f);
+            Gizmos.DrawSphere(spawner.transform.position, 1f);
         }
     }
 }

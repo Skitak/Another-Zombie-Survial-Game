@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+using Asmos.Bus;
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,14 +12,23 @@ public class Zombie : MonoBehaviour
         {3, new("crawl under",.5f)},
         {2, new("climb",.5f)}
     };
+    readonly static Dictionary<ZombieMovesKind, float> moveKindSpeed = new()
+    {
+        {ZombieMovesKind.WALK, .5f},
+        {ZombieMovesKind.MEDIUM, 1.2f},
+        {ZombieMovesKind.RUN, 2f},
+        {ZombieMovesKind.SPRINT, 4f},
+    };
     [SerializeField] Collider headCollider;
     [SerializeField] float attackDistance;
     [SerializeField] float attackCooldown;
     [SerializeField] AnimationClip attackAnimation;
     [SerializeField] AnimationClip landingAnimation;
     [SerializeField] AnimationClip endClimbAnimation;
-    Timer attackCooldownTimer;
-    public int healthMax;
+    [SerializeField] AnimationClip spawnAnimation;
+    [SerializeField] ZombieParameters baseParameters;
+    [SerializeField] bool spawnOnAwake;
+    Timer attackCooldownTimer, spawnTimer;
     int health, offMeshAnimIndex;
     bool isOnOffMesh = false;
     bool isDropFinished, isClimbFinished, climbWallHit;
@@ -30,30 +39,38 @@ public class Zombie : MonoBehaviour
     NavMeshAgent navMeshAgent;
     [HideInInspector] public Animator animator;
     Rigidbody[] rigidbodies;
-
     void Awake()
     {
-        health = healthMax;
-
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
+        spawnTimer = new(spawnAnimation.length, () =>
+        {
+            if (health <= 0)
+                return;
+            navMeshAgent.speed = moveKindSpeed[baseParameters.moveKind];
+            navMeshAgent.enabled = true;
+
+        });
+        attackCooldownTimer = new(attackCooldown);
         float animSpeed = attackAnimation.length / attackCooldown;
         animator.SetFloat("attack speed", animSpeed);
-
-        attackCooldownTimer = new(attackCooldown);
-        navMeshAgent.autoTraverseOffMeshLink = false;
+        if (spawnOnAwake)
+            Spawn(transform.position, baseParameters);
     }
 
     void Update()
     {
-        navMeshAgent.destination = Player.player.playerTarget.position;
-        animator.SetFloat("speed", navMeshAgent.velocity.magnitude / navMeshAgent.speed);
-        float distanceWithPlayer = Player.player.DistanceWithPlayer(transform.position);
+        if (!navMeshAgent.enabled)
+            return;
+        navMeshAgent.destination = Player.player.transform.position;
+        animator.SetFloat("speed", navMeshAgent.velocity.magnitude);
+        // animator.SetFloat("anim speed", navMeshAgent.velocity.magnitude);
+        float distanceWithPlayer = Vector3.Distance(Player.player.transform.position, transform.position);
 
         // Attack
-        if (distanceWithPlayer < attackDistance && !attackCooldownTimer.IsStarted())
+        if (distanceWithPlayer < attackDistance && !attackCooldownTimer.IsStarted() && !spawnTimer.IsStarted())
         {
             attackCooldownTimer.ResetPlay();
             animator.SetTrigger("attack");
@@ -113,7 +130,7 @@ public class Zombie : MonoBehaviour
         if (isOnOffMesh && linkData.linkType == OffMeshLinkType.LinkTypeManual && offMeshAnimIndex == 2)
         {
             // TODO : Rotate towards point
-            float elevation = Time.deltaTime * offMeshAnimData.speedModifier * navMeshAgent.speed;
+            float elevation = Time.deltaTime * 2;
             float yPos = Mathf.Min(elevation + transform.position.y, endOffMesh.y);
             Vector3 newPos = transform.position;
             if (yPos >= endOffMesh.y - navMeshAgent.height && !isClimbFinished)
@@ -183,7 +200,7 @@ public class Zombie : MonoBehaviour
     // /!\ This is called from an animation
     public void Attack()
     {
-        float distanceWithPlayer = Player.player.DistanceWithPlayer(transform.position);
+        float distanceWithPlayer = Vector3.Distance(Player.player.transform.position, transform.position);
         if (distanceWithPlayer < attackDistance && attackCooldownTimer.IsStarted())
         {
             if (Player.player.IsDead())
@@ -201,9 +218,6 @@ public class Zombie : MonoBehaviour
 
     public void Hit(int damages, RaycastHit hit)
     {
-        ZombieBloodPool.PlaceBlood(hit.point, Quaternion.LookRotation(hit.normal));
-        if (health <= 0)
-            return;
         if (hit.collider == headCollider)
         {
             damages *= 2;
@@ -213,6 +227,10 @@ public class Zombie : MonoBehaviour
         {
             animator.SetTrigger("hit body");
         }
+        ZombieBloodPool.PlaceBlood(hit.point, Quaternion.LookRotation(hit.normal));
+        Bus.PushData("zombie hit data", hit, damages);
+        if (health <= 0)
+            return;
         health -= damages;
         if (health <= 0)
             Die();
@@ -224,15 +242,23 @@ public class Zombie : MonoBehaviour
         SetRagdoll(true);
         ZombieSpawnerManager.instance.ZombieDied(this);
         navMeshAgent.speed = 0;
+        navMeshAgent.enabled = false;
     }
 
     public void Spawn(Vector3 spawnPoint, ZombieParameters parameters)
     {
         // Initialize();
         SetRagdoll(false);
-        navMeshAgent.speed = parameters.speed;
+        baseParameters = parameters;
         transform.position = spawnPoint;
         health = parameters.health;
+        navMeshAgent.speed = 0f;
+        navMeshAgent.enabled = false;
+
+        animator.SetTrigger("spawn");
+        animator.SetInteger("move kind", (int)parameters.moveKind);
+        spawnTimer.ResetPlay();
+
         // TODO : sound
         // TODO : animation
         // TODO : particles
@@ -266,4 +292,14 @@ public class Zombie : MonoBehaviour
         }
     }
 }
+[Serializable]
+public struct ZombieParameters
+{
+    public int health;
+    public ZombieMovesKind moveKind;
+}
 
+public enum ZombieMovesKind
+{
+    WALK = 0, MEDIUM = 1, RUN = 2, SPRINT = 3
+}

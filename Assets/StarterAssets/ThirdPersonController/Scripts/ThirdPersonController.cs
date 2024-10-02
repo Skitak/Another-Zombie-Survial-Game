@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -248,8 +248,13 @@ namespace StarterAssets
             {
                 _speed = targetSpeed;
             }
-            float animationSpeedTarget = targetSpeed == MoveSpeed ? 1 : 2;
-            animationSpeedTarget = targetSpeed == 0 ? 0 : animationSpeedTarget;
+            float animationSpeedTarget;
+            if (targetSpeed <= MoveSpeed)
+            {
+                animationSpeedTarget = Mathf.InverseLerp(0, MoveSpeed, targetSpeed);
+            }
+            else
+                animationSpeedTarget = 1 + Mathf.InverseLerp(MoveSpeed, SprintSpeed, targetSpeed);
             _animationBlend = Mathf.Lerp(_animationBlend, animationSpeedTarget, Time.deltaTime * SpeedChangeRate);
 
             // normalise input direction
@@ -297,8 +302,8 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
                 _animator.SetFloat("Body Orientation", torsoAnimParam);
-                _animator.SetFloat("Straff", inputDirection.x);
-                _animator.SetFloat("Forward", inputDirection.z);
+                _animator.SetFloat("Straff", inputDirection.x); // TODO : Smooth blend anim
+                _animator.SetFloat("Forward", inputDirection.z); // TODO : Smooth blend anim
             }
         }
 

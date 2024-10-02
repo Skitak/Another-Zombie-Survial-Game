@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299653195be53ef458c407cd64d67833, type: 3}
   m_Name: Speed
   m_EditorClassIdentifier: 
+  dontShowAsUpgrade: 0
   label: Speed
   sprite: {fileID: 21300000, guid: beb8f1f1d9064a74abdaec0d2eb55078, type: 3}
   rarityMin: 0
   rarityMax: 3
   timesPerkCanBeApplied: 10000
+  malusPerk: {fileID: 0}
   stat: 0
   applyPercentageValue: 1
   valuePercent:
+  - 5
   - 10
-  - 25
+  - 20
   - 50
-  - 100
   valueFlat: 03000000060000000c00000018000000

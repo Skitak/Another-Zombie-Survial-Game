@@ -1,7 +1,7 @@
 using Asmos.Bus;
 using Asmos.UI;
 using UnityEngine;
-
+// 1EEB0D
 public class GameManager : MonoBehaviour
 {
     [SerializeField] ViewConfig mainView;

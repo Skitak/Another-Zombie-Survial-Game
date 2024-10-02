@@ -335,12 +335,12 @@ MonoBehaviour:
   animLayer: 1
   nameInHierarchy: pistol_place
   baseAmmoMax: 7
-  baseDamages: 2
+  baseDamages: 3
   baseReloadTime: 2
-  baseFireRate: 0.25
-  basePrecision: 10
-  basePrecisionAim: 50
-  baseBulletsFired: 100
+  baseFireRate: 18.5
+  basePrecision: 7
+  basePrecisionAim: 30
+  baseBulletsFired: 1
   isAutomatic: 0
 --- !u!114 &1095134730938111766
 MonoBehaviour:
@@ -527,13 +527,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2789094954613752370}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.25832108, y: -0, z: -0, w: 0.96605915}
   m_LocalPosition: {x: 0, y: -0.02, z: -0.078}
   m_LocalScale: {x: 0.05, y: 0.19, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8831223415980518810}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 29.941, y: 0, z: 0}
 --- !u!33 &5201851251238370497
 MeshFilter:
   m_ObjectHideFlags: 0
