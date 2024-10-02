@@ -1,0 +1,231 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3317617073684668435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6248412691561384712}
+  - component: {fileID: 3505765083672619707}
+  - component: {fileID: 1045154511962030062}
+  - component: {fileID: 4256748739514852423}
+  - component: {fileID: 7154707341513353251}
+  - component: {fileID: 6443249690922008514}
+  - component: {fileID: 8390933983793406429}
+  - component: {fileID: 5477377377788741849}
+  - component: {fileID: 574649533882680607}
+  - component: {fileID: 708645877114274120}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6248412691561384712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3505765083672619707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09eca3d9192f40e4fabcdd6e3e103dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainView: {fileID: 11400000, guid: d9928f9a2b306f44182da6f55238136a, type: 2}
+  endView: {fileID: 11400000, guid: 727f1597daa305e40a2231ccd4c6143d, type: 2}
+--- !u!114 &1045154511962030062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d4d3daa567574428ac3e63422a79e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startDepth: 50
+  startingView: {fileID: 11400000, guid: d9928f9a2b306f44182da6f55238136a, type: 2}
+  useMainCamera: 1
+  allViewConfigs:
+  - {fileID: 11400000, guid: 727f1597daa305e40a2231ccd4c6143d, type: 2}
+  - {fileID: 11400000, guid: d9928f9a2b306f44182da6f55238136a, type: 2}
+  - {fileID: 11400000, guid: 3cb80a683234f7b46b0cb1b9a95bf7ab, type: 2}
+--- !u!114 &4256748739514852423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f76f2ad86ecf69479621d1b0c4df51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombieBlood: {fileID: 5105501371196974855, guid: 83d2f6d74ef137c499f05a056c2c0a06, type: 3}
+  bloodTimeout: 0.2
+--- !u!114 &7154707341513353251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &6443249690922008514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &8390933983793406429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
+--- !u!114 &5477377377788741849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24967bbdd3ee90b40895594ace4592ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveCooldown: 0
+  maxZombies: 0
+  zombiePrefab: {fileID: 7190902268958121158, guid: 889553fc601c5cb458ded6efb2ad78af, type: 3}
+  waves:
+  - zombiesAmount: 1
+    spawnTime: 2
+    distance: 0
+    zombieParameters:
+      health: 1
+      speed: 0.08
+      walk: 0
+  - zombiesAmount: 1
+    spawnTime: 1
+    distance: 0
+    zombieParameters:
+      health: 1
+      speed: 0.08
+      walk: 0
+  - zombiesAmount: 1
+    spawnTime: 0.5
+    distance: 0
+    zombieParameters:
+      health: 1
+      speed: 0.08
+      walk: 0
+--- !u!114 &574649533882680607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11b4ed1c0330f245b8468c9d2d3f829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBeforeDissapear: 10
+--- !u!114 &708645877114274120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed77a8a789db2024d8ba328e9aac0525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perkView: {fileID: 11400000, guid: 3cb80a683234f7b46b0cb1b9a95bf7ab, type: 2}
+  baseRarityChances:
+  - 0.7
+  - 0.2
+  - 0.1
+  - 0
+  allPerks:
+  - {fileID: 11400000, guid: 55878c862736dca42ad676761532d379, type: 2}
+  - {fileID: 11400000, guid: b62cc724b113b724d9d1419222b2285c, type: 2}
+  - {fileID: 11400000, guid: 512436d4f29775644907a29bf16a61df, type: 2}
+  - {fileID: 11400000, guid: 56075c3828a75064599c67bd9296345f, type: 2}
+  - {fileID: 11400000, guid: 36001d9f80f2bd748824e18c32c22515, type: 2}
+  - {fileID: 11400000, guid: 66a402938fab96b49b9526b9efb3ab5f, type: 2}
+  - {fileID: 11400000, guid: 6a562a6b9f535904b9a6d65d58cbf369, type: 2}
+  - {fileID: 11400000, guid: f3ba3f97bb3a5944c8178d2cbc22c78c, type: 2}
+  - {fileID: 11400000, guid: 9f0a6c09971af4d49901758ef67ab14a, type: 2}
+  - {fileID: 11400000, guid: 66a0fed2637cbda4e919b3ff0f96e514, type: 2}
+  - {fileID: 11400000, guid: 510f9e6401cc50f40a67f38d3b6697ce, type: 2}
+  - {fileID: 11400000, guid: 588cb5a531532984a89aedf81723c334, type: 2}
+  - {fileID: 11400000, guid: 31f3e05732285c14db760a9988acb7d5, type: 2}
+  - {fileID: 11400000, guid: ece544686d27acf4ca9c827588848e32, type: 2}

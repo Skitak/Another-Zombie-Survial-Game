@@ -669,10 +669,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0.1, y: 0.25, z: 0.3}
-  ShoulderOffset: {x: 2, y: 0, z: 0}
+  ShoulderOffset: {x: 0.72, y: 0, z: 0}
   VerticalArmLength: 0.27
-  CameraSide: 0.296
-  CameraDistance: 2.42
+  CameraSide: 0
+  CameraDistance: 1.98
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 1
@@ -10932,7 +10932,7 @@ Transform:
   m_GameObject: {fileID: 4164964143128185204}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5174973, y: 1.166, z: -1.7000003}
+  m_LocalPosition: {x: 2.6134973, y: 1.166, z: -1.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12102,7 +12102,7 @@ Transform:
   m_GameObject: {fileID: 5955811150880343559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5174973, y: 1.166, z: -1.7000003}
+  m_LocalPosition: {x: 2.6134973, y: 1.166, z: -1.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12586,10 +12586,11 @@ MonoBehaviour:
   recoveryTime: 1
   baseHealthMax: 10
   baseSpeed: 2.5
-  baseSprintSpeed: 7
+  sprintMultiplier: 1.5
   baseStamina: 2
-  baseAimCameraZoom: 0
-  basePerkRefresh: 3
+  baseAimCameraZoom: 1.47
+  basePerkRefresh: 10000
+  fireWhileRunning: 0
   weapon: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1 &7174078060766302878
