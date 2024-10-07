@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1916983334804654135}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wall zombie passage down .2x3x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6736940988861829704}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Passage A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3643538399429224891}
   - component: {fileID: 5048398609751136002}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Zombie passage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 4997443542115701455}
   - component: {fileID: 2290698647625640598}
   - component: {fileID: 2134176808917160406}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109640681130758263}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Passage B
   m_TagString: Untagged
   m_Icon: {fileID: 0}

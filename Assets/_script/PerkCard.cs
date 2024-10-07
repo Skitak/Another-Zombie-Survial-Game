@@ -14,7 +14,7 @@ public class PerkCard : MonoBehaviour
     Perk perk;
     Rarity rarity;
     [HideInInspector] public Button button;
-    void Start()
+    void Awake()
     {
         button = GetComponent<Button>();
         perkCards.Add(this);

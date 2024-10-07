@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     [FoldoutGroup("Boilerplate")][SerializeField] float decalTimeout = 10f;
     [FoldoutGroup("Boilerplate")][SerializeField] LayerMask fireLayerMask;
     [FoldoutGroup("Boilerplate")] public int animLayer;
-    [FoldoutGroup("Boilerplate")] public string nameInHierarchy;
+    [FoldoutGroup("Boilerplate")] public GameObject modelInHierarchy;
     [FoldoutGroup("Base values", Expanded = true)][SerializeField] protected int baseAmmoMax;
     [FoldoutGroup("Base values")][SerializeField] protected int baseDamages;
     [FoldoutGroup("Base values")][SerializeField][Range(0, 5)] protected float baseReloadTime;
@@ -32,10 +32,6 @@ public class Weapon : MonoBehaviour
     #region private
     ObjectPool<GameObject> decalPool;
     ObjectPool<Line> linePool;
-    new Collider collider;
-    new Rigidbody rigidbody;
-    Outline outline;
-    Interactable interactable;
     #endregion
     #region setters
     private int _ammo, _ammoMax, _precision, _precisionAim;
@@ -100,15 +96,10 @@ public class Weapon : MonoBehaviour
         }
     }
     #endregion
-    void Start()
+    void Awake()
     {
         reloadTimer = new Timer(baseReloadTime, ReloadCompleted);
         fireRateTimer = new Timer(baseFireRate);
-
-        collider = GetComponent<Collider>();
-        rigidbody = GetComponent<Rigidbody>();
-        outline = GetComponent<Outline>();
-        interactable = GetComponent<Interactable>();
 
         decalPool = new(
             () => Instantiate(decal),
@@ -131,17 +122,18 @@ public class Weapon : MonoBehaviour
             (Line line) => Destroy(line.gameObject)
         );
 
-        Timer.OneShotTimer(.1f, () =>
-        {
-            ammoMax = baseAmmoMax;
-            ammo = baseAmmoMax;
-            damages = baseDamages;
-            reloadTime = baseReloadTime;
-            precision = basePrecision;
-            bulletsFired = baseBulletsFired;
-            fireRate = baseFireRate;
-            precisionAim = basePrecisionAim;
-        });
+    }
+
+    void Start()
+    {
+        ammoMax = baseAmmoMax;
+        ammo = baseAmmoMax;
+        damages = baseDamages;
+        reloadTime = baseReloadTime;
+        precision = basePrecision;
+        bulletsFired = baseBulletsFired;
+        fireRate = baseFireRate;
+        precisionAim = basePrecisionAim;
     }
 
     void Update()
@@ -238,20 +230,6 @@ public class Weapon : MonoBehaviour
         Bus.PushData("ammo", ammo);
         // TODO : Play sounds and stuff
         // TODO : Tell Player reload is done
-    }
-
-    public virtual void Pickup()
-    {
-        if (Player.player.weapon == this)
-            return;
-        Bus.PushData("ammo", ammo);
-        Bus.PushData("ammoMax", ammoMax);
-        rigidbody.isKinematic = true;
-        collider.enabled = false;
-        interactable.enabled = false;
-        outline.enabled = false;
-        muzzleFlash.gameObject.SetActive(true);
-        Player.player.PickupWeapon(this);
     }
     public void CancelReload()
     {

@@ -619,7 +619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ROUND [wave]'
+  m_text: 'ROUND [wave start]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}
   m_sharedMaterial: {fileID: -6394897030437033188, guid: b5181c5af4aa44a44b8dfc6eadfbe581, type: 2}

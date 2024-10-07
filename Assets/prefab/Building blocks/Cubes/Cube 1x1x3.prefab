@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7029244833321030004}
   - component: {fileID: 610756423546293628}
   - component: {fileID: 3706168640496800150}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4118864307879589812}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube 1x1x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

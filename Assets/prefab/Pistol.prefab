@@ -331,15 +331,15 @@ MonoBehaviour:
   decalTimeout: 10
   fireLayerMask:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 3201
   animLayer: 1
   nameInHierarchy: pistol_place
   baseAmmoMax: 7
   baseDamages: 3
   baseReloadTime: 2
-  baseFireRate: 18.5
+  baseFireRate: 6
   basePrecision: 7
-  basePrecisionAim: 30
+  basePrecisionAim: 50
   baseBulletsFired: 1
   isAutomatic: 0
 --- !u!114 &1095134730938111766

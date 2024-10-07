@@ -22,7 +22,7 @@ public class RefreshPerksButton : MonoBehaviour
         if (Player.player.perkRefresh <= 0 || refreshCooldown.IsStarted())
             return;
         refreshCooldown.ResetPlay();
-        PerksManager.instance.OpenPerks(onlyRefresh: true);
+        PerksManager.instance.RefreshPerks();
         --Player.player.perkRefresh;
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using Asmos.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,32 +19,27 @@ public class PerksManager : MonoBehaviour
     [SerializeField]
     [ReadOnly]
     Perk[] allPerks;
-    void Start()
+    int perksToPick = 0;
+    void Awake()
     {
         instance = this;
         rarityChances = baseRarityChances;
     }
 
-    public void OpenPerks(bool onlyRefresh = false)
+    public async Task OpenPerks(int perksAmout = 1)
     {
-        List<Perk> foundPerks = new();
-        foreach (PerkCard card in PerkCard.perkCards)
-        {
-            int rarity = PickRarity();
-            var perks = allPerks.Where((Perk perk) =>
-                (int)perk.rarityMin <= rarity &&
-                (int)perk.rarityMax >= rarity &&
-                !perk.dontShowAsUpgrade &&
-                !foundPerks.Contains(perk) &&
-                perk.timesPerkCanBeApplied > allPerks.Count((Perk _perk) => perk == _perk)
-            );
-            Perk randomPerk = perks.ElementAt(Random.Range(0, perks.Count()));
-            foundPerks.Add(randomPerk);
-            card.InitializePerk(randomPerk, (Rarity)rarity);
-        }
-        if (onlyRefresh)
-            return;
-        ViewManager.instance.AddView(perkView);
+        Player.player.SetInputEnabled(false);
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+        perksToPick = perksAmout;
+        RefreshPerks();
+        await ViewManager.instance.AddView(perkView);
+        while (perksToPick > 0)
+            await Task.Delay(100);
+        await ViewManager.instance.RemoveView();
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+        Player.player.SetInputEnabled(true);
         // if (Player.player.perkRefresh <=)
     }
 
@@ -60,14 +57,33 @@ public class PerksManager : MonoBehaviour
         return rarityChances.Length - 1;
     }
 
-    public async void PerkChosen(Perk perk, Rarity rarity)
+    public void RefreshPerks()
+    {
+        List<Perk> foundPerks = new();
+        foreach (PerkCard card in PerkCard.perkCards)
+        {
+            int rarity = PickRarity();
+            var perks = allPerks.Where((Perk perk) =>
+                (int)perk.rarityMin <= rarity &&
+                (int)perk.rarityMax >= rarity &&
+                !perk.dontShowAsUpgrade &&
+                !foundPerks.Contains(perk) &&
+                perk.timesPerkCanBeApplied > allPerks.Count((Perk _perk) => perk == _perk)
+            );
+            Perk randomPerk = perks.ElementAt(Random.Range(0, perks.Count()));
+            foundPerks.Add(randomPerk);
+            card.InitializePerk(randomPerk, (Rarity)rarity);
+        }
+    }
+
+    public void PerkChosen(Perk perk, Rarity rarity)
     {
         foreach (PerkCard card in PerkCard.perkCards)
             card.button.enabled = false;
         perk.ApplyUpgrade(rarity);
         perksApplied.Push(new PerkApplied(rarity, perk));
-        await ViewManager.instance.RemoveView();
-        WaveManager.instance.StartNewWave();
+        if (--perksToPick > 0)
+            RefreshPerks();
     }
     struct PerkApplied
     {

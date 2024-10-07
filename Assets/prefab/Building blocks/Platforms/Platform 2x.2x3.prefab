@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7449725925452567646}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Platform 2x.2x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4464598891094212813}
   - component: {fileID: 7086028875253658693}
   - component: {fileID: 8056076898725583389}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: a7a100f8dcd0b5c45a1a88e369c68103, type: 2}
   m_BuildHeightMesh: 0

@@ -7,11 +7,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] ViewConfig mainView;
     [SerializeField] ViewConfig endView;
     public static GameManager instance;
-    void Start()
+    void Awake()
     {
         instance = this;
         Bus.Subscribe("replay", RestartGame);
         Bus.Subscribe("exit", ExitGame);
+    }
+
+    void Start()
+    {
+        StartGame();
+    }
+
+    public void StartGame()
+    {
+        WaveManager.instance.StartGame();
     }
 
     public void EndGame()

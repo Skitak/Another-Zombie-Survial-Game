@@ -7,26 +7,28 @@ public class WaveManager : MonoBehaviour
     public static WaveManager instance;
     [SerializeField] float waveCooldown;
     [SerializeField] int maxZombies;
+    [SerializeField][Min(1)] int startingWave;
     [SerializeField] GameObject zombiePrefab;
     [SerializeField] Waves[] waves;
     Waves currentWave;
     Timer waveCooldownTimer, spawnTimer;
     int waveCount, zombieCount;
-    void Start()
+    void Awake()
     {
         instance = this;
         waveCooldownTimer = new(waveCooldown, StartNewWave);
         spawnTimer = new(100f, SpawnZombie);
-        StartGame();
     }
 
     #region Gameloop
 
-    public void StartGame()
+    public async void StartGame()
     {
-        waveCount = 0;
+        waveCount = startingWave - 1;
+        if (waveCount > 0)
+            await PerksManager.instance.OpenPerks(waveCount);
         waveCooldownTimer.ResetPlay();
-        Bus.PushData("wave", 1);
+        Bus.PushData("wave", waveCount);
     }
 
     public void EndGame()
@@ -54,15 +56,15 @@ public class WaveManager : MonoBehaviour
         zombieCount = 0;
         spawnTimer.EndTime = currentWave.spawnTime;
         spawnTimer.ResetPlay();
-        Bus.PushData("wave", waveCount);
+        Bus.PushData("wave start", waveCount);
     }
 
-    void EndWave()
+    async void EndWave()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Player.player.SetInputEnabled(false);
-        PerksManager.instance.OpenPerks();
-        // StartNewWave();
+        await PerksManager.instance.OpenPerks();
+        StartNewWave();
     }
 
     void SpawnZombie()

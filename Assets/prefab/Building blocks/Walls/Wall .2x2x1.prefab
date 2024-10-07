@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6863609958513861655}
   - component: {fileID: 553165602051320469}
   - component: {fileID: 8115619184853419897}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8638179762275564430}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wall .2x2x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

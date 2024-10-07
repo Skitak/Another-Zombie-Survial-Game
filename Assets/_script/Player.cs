@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     #region exposedParameters
     [FoldoutGroup("GameObjects and Prefabs")][SerializeField] ParticleSystem bloodParticles;
     [FoldoutGroup("GameObjects and Prefabs")][SerializeField] AnimationClip aimAnimation;
+    [FoldoutGroup("GameObjects and Prefabs")] public Weapon weapon;
     [FoldoutGroup("Interactions")][SerializeField] LayerMask interactionMask;
     [FoldoutGroup("Interactions")][SerializeField] float interactionDistance = 3f;
     [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
@@ -28,7 +29,6 @@ public class Player : MonoBehaviour
     ThirdPersonController tpsController;
     PlayerInput playerInput;
     InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab;
-    [HideInInspector] public Weapon weapon;
     [HideInInspector] public Animator animator;
     Vector3 spawnPoint;
     CharacterController controller;
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
     public float aimValue { get => aimTimer.GetPercentage(); }
     public bool isSprinting { get => staminaTimer.IsPlayingForward(); }
     #endregion
-    void Start()
+    void Awake()
     {
         player = this;
         tpsCamera = transform.parent.GetComponentInChildren<CinemachineVirtualCamera>();
@@ -128,17 +128,20 @@ public class Player : MonoBehaviour
         swapSide = InputSystem.actions.FindAction("SwapSide");
         tab = InputSystem.actions.FindAction("Tab");
 
-        Timer.OneShotTimer(.05f, () =>
-        {
-            healthMax = baseHealthMax;
-            health = baseHealthMax;
-            Bus.PushData("stamina", baseStamina);
-            staminaMax = baseStamina;
-            speed = baseSpeed;
-            perkRefresh = basePerkRefresh;
-        });
     }
 
+    void Start()
+    {
+        healthMax = baseHealthMax;
+        health = baseHealthMax;
+        staminaMax = baseStamina;
+        speed = baseSpeed;
+        perkRefresh = basePerkRefresh;
+        Bus.PushData("stamina", baseStamina);
+        animator.SetLayerWeight(weapon.animLayer, 1);
+        weapon.modelInHierarchy.SetActive(true);
+
+    }
     void Update()
     {
         if (sprintAction.WasReleasedThisFrame())
@@ -257,17 +260,6 @@ public class Player : MonoBehaviour
     {
         if (interactableInRange)
             interactableInRange.Interact();
-    }
-
-    public void PickupWeapon(Weapon newWeapon)
-    {
-        weapon = newWeapon;
-        animator.SetLayerWeight(1, 0);
-        animator.SetLayerWeight(newWeapon.animLayer, 1);
-        GameObject template = GameObject.Find(weapon.nameInHierarchy);
-        weapon.gameObject.transform.SetParent(template.transform.parent);
-        weapon.gameObject.transform.SetPositionAndRotation(template.transform.position, template.transform.rotation);
-        weapon.gameObject.transform.localScale = template.transform.localScale;
     }
 
     void FindInteractions()

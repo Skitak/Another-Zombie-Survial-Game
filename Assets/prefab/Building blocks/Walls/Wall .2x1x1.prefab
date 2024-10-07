@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3640630379645778333}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wall .2x1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6376234869272446901}
   - component: {fileID: 8920757113154340440}
   - component: {fileID: 3938357054931255214}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
