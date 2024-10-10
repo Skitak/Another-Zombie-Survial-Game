@@ -1,27 +1,67 @@
+using System.Collections.Generic;
+using System.Data;
 using Asmos.Bus;
+using Cinemachine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class BusReaderSlider : MonoBehaviour
 {
     [SerializeField] SliderKind kind;
-    [SerializeField] string value;
-    [ShowIf("kind", SliderKind.UNITY_SLIDER)][SerializeField] string valueMax;
+
+    [SerializeField] bool usesBus = true;
+    [ShowIf("usesBus")][SerializeField] string value;
+    [ShowIf("usesBus")][ShowIf("kind", SliderKind.UNITY_SLIDER)][SerializeField] string valueMax;
+
     [SerializeField] bool fadeAfterTime;
     [ShowIf("fadeAfterTime")][SerializeField] float timeBeforeFading;
     [ShowIf("fadeAfterTime")][SerializeField] float fadeInTime;
     [ShowIf("fadeAfterTime")][SerializeField] float fadeOutTime;
 
+    [SerializeField][Tooltip("In case slider is in world")] bool sliderLookAtMainCamera;
+    [SerializeField] bool useAppearAsDissapearRevert;
     [SerializeField] DOTweenAnimation[] onSliderFilledAnimations;
     [SerializeField] DOTweenAnimation[] onSliderEmptiedAnimations;
+    [SerializeField] DOTweenAnimation[] onSliderAppearAnimations;
+    [HideIf("useAppearAsDissapearRevert")][SerializeField] DOTweenAnimation[] onSliderDissapearAnimations;
 
     Timer fadeStartTimer, fadeTimer;
     CanvasGroup canvasGroup;
     Slider slider;
     Image image;
+    LookAtConstraint lookAt;
+    public float fillAmount
+    {
+        get => kind == SliderKind.UNITY_SLIDER ? slider.value : image.fillAmount;
+        set
+        {
+            if (kind == SliderKind.UNITY_SLIDER)
+                slider.value = value;
+            else
+                image.fillAmount = value;
+
+            if (fillAmount == fillMax)
+                PlayFilledAnimations();
+            if (fillAmount == 0f)
+                PlayEmptiedAnimations();
+            RefreshVisuals();
+        }
+    }
+
+    public float fillMax
+    {
+        get => kind == SliderKind.UNITY_SLIDER ? slider.maxValue : 1;
+        set
+        {
+            if (kind == SliderKind.UNITY_SLIDER)
+                slider.maxValue = value;
+        }
+    }
+
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -29,6 +69,8 @@ public class BusReaderSlider : MonoBehaviour
             slider = GetComponent<Slider>();
         else
             image = GetComponent<Image>();
+        if (sliderLookAtMainCamera)
+            lookAt = transform.parent.GetComponentInChildren<LookAtConstraint>();
     }
 
     void Start()
@@ -45,41 +87,25 @@ public class BusReaderSlider : MonoBehaviour
         if (fadeAfterTime)
             fadeStartTimer.ResetPlay();
 
-        Bus.Subscribe(value, (o) =>
-        {
-            if (kind == SliderKind.UNITY_SLIDER)
-            {
-                slider.value = (float)o[0];
-                if (slider.value == slider.maxValue)
-                    PlayFilledAnimations();
-                if (slider.value == 0f)
-                    PlayEmptiedAnimations();
-            }
-            else
-            {
-                image.fillAmount = (float)o[0];
-                if (image.fillAmount == 1f)
-                    PlayFilledAnimations();
-                if (image.fillAmount == 0f)
-                    PlayEmptiedAnimations();
-            }
-            RefreshVisuals();
-        });
+        Bus.Subscribe(value, (o) => fillAmount = (float)o[0]);
         if (kind == SliderKind.UNITY_SLIDER)
-            Bus.Subscribe(valueMax, (o) =>
+            Bus.Subscribe(valueMax, (o) => fillMax = (float)o[0]);
+
+        if (sliderLookAtMainCamera)
+        {
+            lookAt.AddSource(new ConstraintSource()
             {
-                slider.maxValue = (float)o[0];
-                RefreshVisuals();
+                sourceTransform = Camera.main.transform,
+                weight = 1
             });
+        }
     }
 
     private void RefreshVisuals()
     {
-        if (fadeAfterTime)
-        {
-            FadeIn();
-            fadeStartTimer.ResetPlay();
-        }
+        if (!fadeAfterTime) return;
+        FadeIn();
+        fadeStartTimer.ResetPlay();
     }
     void PlayFilledAnimations()
     {
@@ -95,6 +121,29 @@ public class BusReaderSlider : MonoBehaviour
     }
     void FadeOut() => fadeTimer.Rewind();
     void FadeIn() => fadeTimer.Play();
+    public void LookAt(Transform lookAtTransform)
+    {
+        List<ConstraintSource> sources = new();
+        lookAt.GetSources(sources);
+        bool found = false;
+        for (int i = 0; i < sources.Count; i++)
+        {
+            ConstraintSource source = lookAt.GetSource(i);
+            source.weight = 0;
+            if (source.sourceTransform == lookAtTransform)
+            {
+                source.weight = 1;
+                found = true;
+            }
+            lookAt.SetSource(i, source);
+        }
+        if (!found)
+            lookAt.AddSource(new ConstraintSource()
+            {
+                sourceTransform = lookAtTransform,
+                weight = 1
+            });
+    }
 }
 
 public enum SliderKind

@@ -944,16 +944,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kind: 0
+  usesBus: 1
   value: stamina
   valueMax: staminaMax
   fadeAfterTime: 1
   timeBeforeFading: 4
   fadeInTime: 0.5
   fadeOutTime: 2
+  sliderLookAtMainCamera: 0
+  useAppearAsDissapearRevert: 0
   onSliderFilledAnimations:
   - {fileID: 2358822660506583807}
   onSliderEmptiedAnimations:
   - {fileID: 4167038959432279606}
+  onSliderAppearAnimations: []
+  onSliderDissapearAnimations: []
 --- !u!225 &3681024693196679382
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1223,16 +1228,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kind: 1
+  usesBus: 1
   value: arm
   valueMax: throw max
   fadeAfterTime: 1
   timeBeforeFading: 0.1
   fadeInTime: 0.2
   fadeOutTime: 0.5
+  sliderLookAtMainCamera: 0
+  useAppearAsDissapearRevert: 0
   onSliderFilledAnimations:
   - {fileID: 8490146229848138470}
   - {fileID: 690357558309406942}
   onSliderEmptiedAnimations: []
+  onSliderAppearAnimations: []
+  onSliderDissapearAnimations: []
 --- !u!225 &4247486401285127621
 CanvasGroup:
   m_ObjectHideFlags: 0

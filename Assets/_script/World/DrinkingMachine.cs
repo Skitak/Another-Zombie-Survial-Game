@@ -15,7 +15,10 @@ public class DrinkingMachine : MonoBehaviour
         set
         {
             _isPowerOn = value;
-            interactable.canInteract = CanDrink();
+            if (CanDrink() && !interactable.canInteract)
+                EnableMachine();
+            else if (!CanDrink() && interactable.canInteract)
+                DisableMachine();
             UpdateDisabledText();
             // Play animations accordingly
         }
@@ -28,7 +31,6 @@ public class DrinkingMachine : MonoBehaviour
     void Start()
     {
         DisableMachine();
-        isPowerOn = true;
         Bus.Subscribe("wave start", (o) =>
         {
             ++roundsInCooldown;
@@ -64,11 +66,11 @@ public class DrinkingMachine : MonoBehaviour
     void UpdateDisabledText()
     {
         if (!isPowerOn)
-            interactable.displayedTextDisabled = $"Turn the power on to use the machine.";
+            interactable.SetDisplayedTextDisabled($"Turn the power on to use the machine.");
         else
         {
             string plural = roundsCooldown - roundsInCooldown > 1 ? "s" : "";
-            interactable.displayedTextDisabled = $"Enabled in {roundsCooldown - roundsInCooldown} round{plural}.";
+            interactable.SetDisplayedTextDisabled($"Enabled in {roundsCooldown - roundsInCooldown} round{plural}.");
         }
     }
 }

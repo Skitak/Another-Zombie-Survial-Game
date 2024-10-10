@@ -24815,7 +24815,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2367137829131118360, guid: 0dd1ad20ff7bfb043ae4c14bda60bf4b, type: 3}
       propertyPath: force
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2367137829131118360, guid: 0dd1ad20ff7bfb043ae4c14bda60bf4b, type: 3}
       propertyPath: timeout

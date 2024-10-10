@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    const float PICKUP_DISTANCE = 2f;
+    const float PICKUP_DISTANCE = 1f;
     public PickupType type;
     [ShowIf("type", PickupType.PERK)][SerializeField] Perk perk;
     [ShowIf("type", PickupType.PERK)][SerializeField] Rarity rarity;

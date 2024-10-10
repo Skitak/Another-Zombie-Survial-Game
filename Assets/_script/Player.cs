@@ -50,8 +50,8 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     Cinemachine3rdPersonFollow tpsCameraComponent;
     float initialHeight, initialCameraDistance, _explosionTime, _explosionRadius;
     int _health, _healthMax, _perkRefresh, _grenades, _grenadeDamages;
-    bool isThrowingGrenade;
-    Timer recoveryTimer, staminaTimer, aimTimer, swapSideTimer, interactionTimer, drinkTimer, armGrenadeTimer, throwingGrenadeTimer, throwGrenadeDelayTimer;
+    bool isThrowingGrenade, isInteracting;
+    Timer recoveryTimer, staminaTimer, aimTimer, swapSideTimer, drinkTimer, armGrenadeTimer, throwingGrenadeTimer, throwGrenadeDelayTimer;
     #endregion
     #region setters
     public int health
@@ -147,7 +147,10 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         if (tab.IsPressed())
             print("tabbing");
 
-        if (interactionTimer.IsStarted())
+        if (isInteracting && interactAction.WasReleasedThisFrame())
+            CancelInteracting();
+
+        if (isInteracting)
             return;
 
         if (sprintAction.WasReleasedThisFrame())
@@ -264,7 +267,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         initialCameraDistance = tpsCameraComponent.CameraDistance;
 
         aimTimer = new(.15f);
-        interactionTimer = new(.15f);
         armGrenadeTimer = new(maxThrowingTime);
         armGrenadeTimer.OnTimerUpdate += () => Bus.PushData("arm", armGrenadeTimer.GetPercentage());
         throwingGrenadeTimer = new(throwAnimation.length, () => isThrowingGrenade = false);
@@ -323,8 +325,24 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     #region interactions
     void TryInteract()
     {
-        if (interactableInRange)
+        if (!interactableInRange) return;
+        if (!interactableInRange.isInteractionTimed)
+        {
             interactableInRange.Interact();
+            return;
+        }
+        CancelEverything();
+        SetMovementEnabled(false);
+        interactableInRange.StartInteracting();
+        isInteracting = true;
+    }
+    public void CancelInteracting()
+    {
+        if (!isInteracting)
+            return;
+        interactableInRange.CancelInteracting();
+        isInteracting = false;
+        SetMovementEnabled(true);
     }
     void FindInteractions()
     {
@@ -379,6 +397,10 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     #endregion
     #region utils
     public bool IsDead() => health <= 0;
+    public void SetMovementEnabled(bool enabled)
+    {
+        tpsController.enabled = enabled;
+    }
     public void SetInputEnabled(bool enabled)
     {
         if (enabled)
@@ -402,6 +424,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         weapon.CancelReload();
         CancelAiming();
         CancelSprinting();
+        CancelInteracting();
     }
 
     #endregion

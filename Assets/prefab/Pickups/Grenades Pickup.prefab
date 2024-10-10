@@ -478,6 +478,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grenades Pickup
       objectReference: {fileID: 0}
+    - target: {fileID: 6225323460979695167, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6225323460979695167, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
+      propertyPath: grenades
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8552295322709279717, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
