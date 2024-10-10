@@ -22,11 +22,11 @@ public class DamageIndicatorPool : MonoBehaviour
     }
     void PlaceIndicator(params object[] args)
     {
-        RaycastHit hit = (RaycastHit)args[0];
+        Vector3 position = (Vector3)args[0];
         TMP_Text indicator = pool.Get();
-        indicator.SetText(args[1].ToString());
+        indicator.SetText(args[2].ToString());
         indicator.transform.SetParent(canvas.transform);
-        indicator.transform.position = hit.point;
+        indicator.transform.position = position;
         indicator.color = baseColor;
         Rigidbody rigid = indicator.GetComponent<Rigidbody>();
         rigid.isKinematic = false;

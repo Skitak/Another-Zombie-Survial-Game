@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField][Min(1)] int startingWave;
     [SerializeField] GameObject zombiePrefab;
     [SerializeField] Waves[] waves;
+    [SerializeField] PickupChances[] pickups;
     Waves currentWave;
     Timer waveCooldownTimer, spawnTimer;
     int waveCount, zombieCount;
@@ -26,7 +27,7 @@ public class WaveManager : MonoBehaviour
     {
         waveCount = startingWave - 1;
         if (waveCount > 0)
-            await PerksManager.instance.OpenPerks(waveCount);
+            await PerksManager.instance.OpenPerksMenu(waveCount);
         waveCooldownTimer.ResetPlay();
         Bus.PushData("wave", waveCount);
     }
@@ -63,17 +64,17 @@ public class WaveManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         Player.player.SetInputEnabled(false);
-        await PerksManager.instance.OpenPerks();
+        await PerksManager.instance.OpenPerksMenu();
         StartNewWave();
     }
 
     void SpawnZombie()
     {
-        ZombieSpawnerManager.instance.Spawn(zombiePrefab, currentWave.distance, currentWave.zombieParameters);
+        GameObject pickup = FindPickup();
+        ZombieSpawnerManager.instance.Spawn(zombiePrefab, currentWave.distance, currentWave.zombieParameters, pickup);
         if (++zombieCount < currentWave.zombiesAmount)
             spawnTimer.ResetPlay();
     }
-
     public void NoZombiesLeft()
     {
         if (zombieCount == currentWave.zombiesAmount)
@@ -81,6 +82,17 @@ public class WaveManager : MonoBehaviour
     }
 
     #endregion
+
+    GameObject FindPickup()
+    {
+        foreach (PickupChances pickupChances in pickups)
+        {
+            int maxRandom = (int)(currentWave.zombiesAmount / pickupChances.dropRate);
+            if (UnityEngine.Random.Range(0, maxRandom) == 0)
+                return pickupChances.pickup;
+        }
+        return null;
+    }
 }
 
 

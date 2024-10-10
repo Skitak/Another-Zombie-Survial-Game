@@ -38,6 +38,6 @@ public class PerkCard : MonoBehaviour
 
     public void PerkSelected()
     {
-        PerksManager.instance.PerkChosen(perk, rarity);
+        PerksManager.instance.PerkChosenFromMenu(perk, rarity);
     }
 }

@@ -15,7 +15,7 @@ public class HelperMenu : MonoBehaviour
         if (Vector3.Distance(Player.player.transform.position, transform.position) < 2 && !used)
         {
             used = true;
-            PerksManager.instance.OpenPerks();
+            PerksManager.instance.OpenPerksMenu();
         }
     }
 }

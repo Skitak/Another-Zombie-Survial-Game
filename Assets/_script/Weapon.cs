@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
     const int PRECISION_MIN = 30;
     const int PRECISION_MAX = 0;
     #region exposedParameters
-    [FoldoutGroup("Boilerplate")][SerializeField] protected Transform fireStart;
+    [FoldoutGroup("Boilerplate")] public Transform fireStart;
     [FoldoutGroup("Boilerplate")][SerializeField] GameObject decal;
     [FoldoutGroup("Boilerplate")][SerializeField] GameObject linePrefab;
     [FoldoutGroup("Boilerplate")][SerializeField] AnimationClip reloadAnimation;

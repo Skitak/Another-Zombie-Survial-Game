@@ -1,24 +1,24 @@
+using Asmos.Bus;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class ZombieBloodPool : MonoBehaviour
 {
-    public static ZombieBloodPool instance;
     ObjectPool<GameObject> pool;
     [SerializeField] GameObject zombieBlood;
     [SerializeField] float bloodTimeout;
 
     void Start()
     {
-        instance = this;
         pool = new(CreateBlood, GetBlood, ReleaseBlood, DestroyBlood, true, 40, 150);
+        Bus.Subscribe("zombie hit data", (o) => PlaceBlood((Vector3)o[0], Quaternion.LookRotation((Vector3)o[1])));
     }
-    public static void PlaceBlood(Vector3 position, Quaternion rotation)
+    public void PlaceBlood(Vector3 position, Quaternion rotation)
     {
-        GameObject blood = instance.pool.Get();
+        GameObject blood = pool.Get();
         blood.transform.SetPositionAndRotation(position, rotation);
         blood.GetComponent<ParticleSystem>().Play();
-        new Timer(instance.bloodTimeout, () => instance.pool.Release(blood)).Play();
+        new Timer(bloodTimeout, () => pool.Release(blood)).Play();
     }
     GameObject CreateBlood()
     {

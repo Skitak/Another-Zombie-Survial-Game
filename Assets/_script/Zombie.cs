@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Asmos.Bus;
 using Unity.AI.Navigation;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Zombie : MonoBehaviour
+public class Zombie : MonoBehaviour, ITakeExplosionDamages
 {
     readonly static Dictionary<int, OffMeshAnimData> offMeshAnims = new()
     {
@@ -29,6 +30,7 @@ public class Zombie : MonoBehaviour
     [SerializeField] ZombieParameters baseParameters;
     [SerializeField] bool spawnOnAwake;
     Timer attackCooldownTimer, spawnTimer;
+    GameObject pickup;
     int health, offMeshAnimIndex;
     bool isOnOffMesh = false;
     bool isDropFinished, isClimbFinished, climbWallHit;
@@ -210,7 +212,7 @@ public class Zombie : MonoBehaviour
                 return;
             }
 
-            Player.player.Hit();
+            Player.player.Hit(1);
             // SUGGESTION : Play a zombie sound
         }
 
@@ -227,14 +229,19 @@ public class Zombie : MonoBehaviour
         {
             animator.SetTrigger("hit body");
         }
-        ZombieBloodPool.PlaceBlood(hit.point, Quaternion.LookRotation(hit.normal));
-        Bus.PushData("zombie hit data", hit, damages);
+
+        TakeDamages(damages, hit.point, hit.normal);
+        // Start a decal for damages
+    }
+
+    void TakeDamages(int damages, Vector3 position, Vector3 fromDirection)
+    {
+        Bus.PushData("zombie hit data", position, fromDirection, damages);
         if (health <= 0)
             return;
         health -= damages;
         if (health <= 0)
             Die();
-        // Start a decal for damages
     }
 
     void Die()
@@ -243,9 +250,11 @@ public class Zombie : MonoBehaviour
         ZombieSpawnerManager.instance.ZombieDied(this);
         navMeshAgent.speed = 0;
         navMeshAgent.enabled = false;
+        if (pickup)
+            Instantiate(pickup, transform.position, Quaternion.identity);
     }
 
-    public void Spawn(Vector3 spawnPoint, ZombieParameters parameters)
+    public void Spawn(Vector3 spawnPoint, ZombieParameters parameters, GameObject pickup = null)
     {
         // Initialize();
         SetRagdoll(false);
@@ -254,6 +263,7 @@ public class Zombie : MonoBehaviour
         health = parameters.health;
         navMeshAgent.speed = 0f;
         navMeshAgent.enabled = false;
+        this.pickup = pickup;
 
         animator.SetTrigger("spawn");
         animator.SetInteger("move kind", (int)parameters.moveKind);
@@ -280,6 +290,12 @@ public class Zombie : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position + Vector3.up * 1.8f, attackDistance);
     }
+
+    public void TakeExplosionDamages(float distancePercent)
+    {
+        TakeDamages((int)(Player.player.grenadeDamages * distancePercent), headCollider.transform.position, Vector3.down);
+    }
+
     struct OffMeshAnimData
     {
         public string name;

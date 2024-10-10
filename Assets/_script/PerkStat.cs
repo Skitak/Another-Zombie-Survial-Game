@@ -66,12 +66,12 @@ public class PerkStat : Perk
             case Stat.FIRE_RATE:
                 Player.player.weapon.fireRate = GetStatUpgrade(Player.player.weapon.fireRate, rarity, revert);
                 break;
-            // case Stat.EXPLOSION_RADIUS:
-            //             value /= = GetStatUpgrade(//             value /=, rarity, revert);
-            //     break;
-            // case Stat.EXPLOSION_DAMAGES:
-            //             value /= = GetStatUpgrade(//             value /=, rarity, revert);
-            //     break;
+            case Stat.EXPLOSION_RADIUS:
+                Player.player.explosionRadius = GetStatUpgrade(Player.player.explosionRadius, rarity, revert);
+                break;
+            case Stat.EXPLOSION_DAMAGES:
+                Player.player.grenadeDamages = GetStatUpgrade(Player.player.grenadeDamages, rarity, revert);
+                break;
             default:
                 // Handle default case if stat is not recognized
                 break;

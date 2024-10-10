@@ -15,6 +15,7 @@ public class PerksManager : MonoBehaviour
     [InfoBox("This array represents chances of rarity perks, it MUST have as much elements as there are rarities and it's total SHOULD be of 1.")]
     float[] baseRarityChances = new float[] { .5f, .4f, .1f, 0f };
     float[] rarityChances;
+    Timer timeScaleTimer;
     Stack<PerkApplied> perksApplied = new();
     [SerializeField]
     [ReadOnly]
@@ -24,12 +25,16 @@ public class PerksManager : MonoBehaviour
     {
         instance = this;
         rarityChances = baseRarityChances;
+        timeScaleTimer = new Timer(.5f);
+        timeScaleTimer.OnTimerUpdate += () => Time.timeScale = timeScaleTimer.GetPercentageLeft();
+        timeScaleTimer.useUpdateAsRewindAction = true;
+        timeScaleTimer.useTimeScale = false;
     }
 
-    public async Task OpenPerks(int perksAmout = 1)
+    public async Task OpenPerksMenu(int perksAmout = 1)
     {
         Player.player.SetInputEnabled(false);
-        Time.timeScale = 0;
+        timeScaleTimer.Play();
         Cursor.lockState = CursorLockMode.Confined;
         perksToPick = perksAmout;
         RefreshPerks();
@@ -38,9 +43,9 @@ public class PerksManager : MonoBehaviour
             await Task.Delay(100);
         await ViewManager.instance.RemoveView();
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
+        timeScaleTimer.Rewind();
+        // Time.timeScale = 1;
         Player.player.SetInputEnabled(true);
-        // if (Player.player.perkRefresh <=)
     }
 
     private int PickRarity()
@@ -76,14 +81,18 @@ public class PerksManager : MonoBehaviour
         }
     }
 
-    public void PerkChosen(Perk perk, Rarity rarity)
+    public void PerkChosenFromMenu(Perk perk, Rarity rarity)
     {
         foreach (PerkCard card in PerkCard.perkCards)
             card.button.enabled = false;
-        perk.ApplyUpgrade(rarity);
-        perksApplied.Push(new PerkApplied(rarity, perk));
+        AddPerk(perk, rarity);
         if (--perksToPick > 0)
             RefreshPerks();
+    }
+    public void AddPerk(Perk perk, Rarity rarity)
+    {
+        perk.ApplyUpgrade(rarity);
+        perksApplied.Push(new PerkApplied(rarity, perk));
     }
     struct PerkApplied
     {

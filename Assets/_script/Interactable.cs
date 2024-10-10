@@ -7,8 +7,11 @@ public class Interactable : MonoBehaviour
 {
     public UnityEvent action;
     [SerializeField] Color baseColor = Color.white;
-    [SerializeField] Color highlightColor = Color.magenta;
-    [TextArea] public string displayedText = "Press E to pickup item.";
+    public Color enabledColor = Color.green;
+    public Color disabledColor = Color.red;
+    public bool canInteract = true;
+    [TextArea] public string displayedTextEnabled = "Press E to pickup item.";
+    [TextArea] public string displayedTextDisabled = "Come back in X rounds";
     Outline outline;
     const float MAX_DIST_DISPLAY = 15f;
     const float MIN_DIST_DISPLAY = 5f;
@@ -24,7 +27,7 @@ public class Interactable : MonoBehaviour
             if (value == Highlight)
                 return;
             if (value == true)
-                Bus.PushData("interact_label", displayedText);
+                Bus.PushData("interact_label", canInteract ? displayedTextEnabled : displayedTextDisabled);
             else
                 Bus.PushData("interact_label", "");
             highlight = value;
@@ -45,14 +48,16 @@ public class Interactable : MonoBehaviour
     }
     void UpdateColor()
     {
-        Color newColor = Highlight ? highlightColor : baseColor;
-        newColor.a = 1f - (playerDistance - MIN_DIST_DISPLAY) / (MAX_DIST_DISPLAY - MIN_DIST_DISPLAY);
+        Color newColor = Highlight ? (canInteract ? enabledColor : disabledColor) : baseColor;
+        if (!Highlight)
+            newColor.a = 1f - (playerDistance - MIN_DIST_DISPLAY) / (MAX_DIST_DISPLAY - MIN_DIST_DISPLAY);
         outline.OutlineColor = newColor;
     }
     public void Interact()
     {
-        if (!cooldownTimer.IsStarted())
+        if (!cooldownTimer.IsStarted() && canInteract)
             action.Invoke();
         cooldownTimer.ResetPlay();
+        Bus.PushData("interact_label", canInteract ? displayedTextEnabled : displayedTextDisabled);
     }
 }

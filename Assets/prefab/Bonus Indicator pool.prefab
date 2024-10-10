@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8765202079063345415}
-  - component: {fileID: 4240224094316370555}
+  - component: {fileID: 2367137829131118360}
   m_Layer: 0
-  m_Name: Damage Indicator 1
+  m_Name: Bonus Indicator pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 6722158043393206927}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4240224094316370555
+--- !u!114 &2367137829131118360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,12 +42,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2822017287244509185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d416c27a7f99c4aa6c5c14aed6a361, type: 3}
+  m_Script: {fileID: 11500000, guid: fec434372750d6e4a9f7ae635a90ab43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 2399822832034820882, guid: 0d631c5f9d135c74096005ecffebe62d, type: 3}
-  timeout: 0.5
-  force: 150
+  indicator: {fileID: 0}
+  timeout: 0
+  force: 0
 --- !u!1 &5097709270653453427
 GameObject:
   m_ObjectHideFlags: 0

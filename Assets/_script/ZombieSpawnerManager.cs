@@ -22,13 +22,13 @@ public class ZombieSpawnerManager : MonoBehaviour
         spawners = GameObject.FindGameObjectsWithTag("Zombie spawner");
         pool = new(CreateZombie, GetZombie, ReleaseZombie, DestroyZombie, true, 20, 100);
     }
-    public void Spawn(GameObject zombiePrefab, SpawnDistance distance, ZombieParameters parameters)
+    public void Spawn(GameObject zombiePrefab, SpawnDistance distance, ZombieParameters parameters, GameObject pickup)
     {
         currentZombiePrefab = zombiePrefab;
         Zombie zombie = pool.Get();
         zombiesAlive.Add(zombie);
         Vector3 spawnPoint = spawners[UnityEngine.Random.Range(0, spawners.Length - 1)].transform.position;
-        zombie.Spawn(spawnPoint, parameters);
+        zombie.Spawn(spawnPoint, parameters, pickup);
     }
 
     public void ZombieDied(Zombie zombie)
