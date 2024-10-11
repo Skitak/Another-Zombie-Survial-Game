@@ -42,7 +42,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     Interactable interactableInRange;
     ThirdPersonController tpsController;
     PlayerInput playerInput;
-    InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab, grenadeAction;
+    InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab, grenadeAction, pauseAction;
     [HideInInspector] public Animator animator;
     Vector3 spawnPoint;
     CharacterController controller;
@@ -144,9 +144,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     # region update
     void Update()
     {
-        if (tab.IsPressed())
-            print("tabbing");
-
         if (isInteracting && interactAction.WasReleasedThisFrame())
             CancelInteracting();
 
@@ -293,7 +290,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         moveAction = InputSystem.actions.FindAction("Move");
         aimAction = InputSystem.actions.FindAction("Aim");
         swapSide = InputSystem.actions.FindAction("SwapSide");
-        tab = InputSystem.actions.FindAction("Tab");
         grenadeAction = InputSystem.actions.FindAction("Grenade");
     }
     void Start()
@@ -301,6 +297,8 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         healthMax = baseHealthMax;
         health = baseHealthMax;
         staminaMax = baseStamina;
+        staminaTimer.Reset();
+        Bus.PushData("stamina", staminaTimer.GetTimeLeft());
         speed = baseSpeed;
         perkRefresh = basePerkRefresh;
         grenades = baseGrenades;
@@ -325,7 +323,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     #region interactions
     void TryInteract()
     {
-        if (!interactableInRange) return;
+        if (!interactableInRange || !interactableInRange.canInteract) return;
         if (!interactableInRange.isInteractionTimed)
         {
             interactableInRange.Interact();

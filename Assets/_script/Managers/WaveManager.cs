@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Asmos.Bus;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -9,8 +11,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField] int maxZombies;
     [SerializeField][Min(1)] int startingWave;
     [SerializeField] GameObject zombiePrefab;
+    [ListDrawerSettings(ShowIndexLabels = true)]
     [SerializeField] Waves[] waves;
-    [SerializeField] PickupChances[] pickups;
+    [TableList][SerializeField] PickupChances[] pickups;
     Waves currentWave;
     Timer waveCooldownTimer, spawnTimer;
     int waveCount, zombieCount;
@@ -65,13 +68,13 @@ public class WaveManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Player.player.SetInputEnabled(false);
         await PerksManager.instance.OpenPerksMenu();
-        StartNewWave();
+        waveCooldownTimer.ResetPlay();
     }
 
     void SpawnZombie()
     {
         GameObject pickup = FindPickup();
-        ZombieSpawnerManager.instance.Spawn(zombiePrefab, currentWave.distance, currentWave.zombieParameters, pickup);
+        ZombieSpawnerManager.instance.Spawn(zombiePrefab, currentWave.zombieParameters, pickup);
         if (++zombieCount < currentWave.zombiesAmount)
             spawnTimer.ResetPlay();
     }
@@ -83,6 +86,7 @@ public class WaveManager : MonoBehaviour
 
     #endregion
 
+    # region utils
     GameObject FindPickup()
     {
         foreach (PickupChances pickupChances in pickups)
@@ -93,6 +97,8 @@ public class WaveManager : MonoBehaviour
         }
         return null;
     }
+    public int GetWaveCount() => waveCount;
+    #endregion
 }
 
 
@@ -103,9 +109,21 @@ public struct Waves
 {
     public int zombiesAmount;
     public float spawnTime;
-    // public float totalTime;
-    public ZombieSpawnerManager.SpawnDistance distance;
     public ZombieParameters zombieParameters;
+
+    public Waves(int zombiesAmount, float spawnTime, ZombieParameters zombieParameters) : this()
+    {
+        this.zombiesAmount = zombiesAmount;
+        this.spawnTime = spawnTime;
+        if (zombieParameters.moveKinds == null || zombieParameters.moveKinds.Count == 0)
+            zombieParameters.moveKinds = new List<ZombieMovesKindChances>(){
+                new(ZombieMovesKind.WALK, 1),
+                new(ZombieMovesKind.MEDIUM, 0),
+                new(ZombieMovesKind.RUN, 0),
+                new(ZombieMovesKind.SPRINT, 0),
+            };
+        this.zombieParameters = zombieParameters;
+    }
 }
 
 #endregion

@@ -57,24 +57,30 @@ public class BusReaderSlider : MonoBehaviour
         get => kind == SliderKind.UNITY_SLIDER ? slider.maxValue : 1;
         set
         {
-            if (kind == SliderKind.UNITY_SLIDER)
-                slider.maxValue = value;
+            if (kind != SliderKind.UNITY_SLIDER)
+                return;
+            if (slider.value > value)
+                slider.value = value;
+            slider.maxValue = value;
         }
     }
 
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+
         if (kind == SliderKind.UNITY_SLIDER)
             slider = GetComponent<Slider>();
         else
             image = GetComponent<Image>();
+
         if (sliderLookAtMainCamera)
             lookAt = transform.parent.GetComponentInChildren<LookAtConstraint>();
-    }
 
-    void Start()
-    {
+        Bus.Subscribe(value, (o) => fillAmount = (float)o[0]);
+        if (kind == SliderKind.UNITY_SLIDER)
+            Bus.Subscribe(valueMax, (o) => fillMax = (float)o[0]);
+
         fadeStartTimer = new(timeBeforeFading, FadeOut);
         fadeTimer = new(fadeInTime)
         {
@@ -83,13 +89,12 @@ public class BusReaderSlider : MonoBehaviour
         };
         fadeTimer.rewindSpeed = fadeInTime / fadeOutTime;
         fadeTimer.OnTimerUpdate += () => canvasGroup.alpha = fadeTimer.GetPercentage();
+    }
 
+    void Start()
+    {
         if (fadeAfterTime)
             fadeStartTimer.ResetPlay();
-
-        Bus.Subscribe(value, (o) => fillAmount = (float)o[0]);
-        if (kind == SliderKind.UNITY_SLIDER)
-            Bus.Subscribe(valueMax, (o) => fillMax = (float)o[0]);
 
         if (sliderLookAtMainCamera)
         {

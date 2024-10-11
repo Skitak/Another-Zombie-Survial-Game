@@ -36,11 +36,8 @@ public class Interactable : MonoBehaviour
         {
             if (value == Highlight)
                 return;
-            if (value == true)
-                Bus.PushData("interact_label", canInteract ? displayedTextEnabled : displayedTextDisabled);
-            else
-                Bus.PushData("interact_label", "");
             highlight = value;
+            UpdateLabel();
 
         }
     }
@@ -104,7 +101,13 @@ public class Interactable : MonoBehaviour
         Player.player.CancelInteracting();
     }
 
-    void UpdateLabel() => Bus.PushData("interact_label", canInteract ? displayedTextEnabled : displayedTextDisabled);
+    void UpdateLabel()
+    {
+        if (Highlight)
+            Bus.PushData("interact_label", canInteract ? displayedTextEnabled : displayedTextDisabled);
+        else
+            Bus.PushData("interact_label", "");
+    }
     public void SetDisplayedTextDisabled(string value)
     {
         displayedTextDisabled = value;

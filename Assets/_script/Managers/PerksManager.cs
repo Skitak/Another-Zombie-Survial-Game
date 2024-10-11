@@ -21,6 +21,7 @@ public class PerksManager : MonoBehaviour
     [ReadOnly]
     Perk[] allPerks;
     int perksToPick = 0;
+    [HideInInspector] public bool isOpened;
     void Awake()
     {
         instance = this;
@@ -33,6 +34,7 @@ public class PerksManager : MonoBehaviour
 
     public async Task OpenPerksMenu(int perksAmout = 1)
     {
+        isOpened = true;
         Player.player.SetInputEnabled(false);
         timeScaleTimer.Play();
         Cursor.lockState = CursorLockMode.Confined;
@@ -46,6 +48,7 @@ public class PerksManager : MonoBehaviour
         timeScaleTimer.Rewind();
         // Time.timeScale = 1;
         Player.player.SetInputEnabled(true);
+        isOpened = false;
     }
 
     private int PickRarity()

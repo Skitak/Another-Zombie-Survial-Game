@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5477377377788741849}
   - component: {fileID: 574649533882680607}
   - component: {fileID: 708645877114274120}
+  - component: {fileID: 7328796883996482230}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -72,6 +73,7 @@ MonoBehaviour:
   allViewConfigs:
   - {fileID: 11400000, guid: 727f1597daa305e40a2231ccd4c6143d, type: 2}
   - {fileID: 11400000, guid: d9928f9a2b306f44182da6f55238136a, type: 2}
+  - {fileID: 11400000, guid: 496df4a8d2f718d43ac4bdd85f281230, type: 2}
   - {fileID: 11400000, guid: 3cb80a683234f7b46b0cb1b9a95bf7ab, type: 2}
 --- !u!114 &4256748739514852423
 MonoBehaviour:
@@ -160,29 +162,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveCooldown: 0
   maxZombies: 0
+  startingWave: 4
   zombiePrefab: {fileID: 7190902268958121158, guid: 889553fc601c5cb458ded6efb2ad78af, type: 3}
   waves:
-  - zombiesAmount: 1
-    spawnTime: 2
+  - zombiesAmount: 6
+    spawnTime: 3
     distance: 0
     zombieParameters:
-      health: 1
-      speed: 0.08
-      walk: 0
-  - zombiesAmount: 1
+      health: 9
+      moveKind: 0
+  - zombiesAmount: 8
+    spawnTime: 1.5
+    distance: 0
+    zombieParameters:
+      health: 11
+      moveKind: 0
+  - zombiesAmount: 13
+    spawnTime: 1.3
+    distance: 0
+    zombieParameters:
+      health: 13
+      moveKind: 1
+  - zombiesAmount: 4
+    spawnTime: 1.3
+    distance: 0
+    zombieParameters:
+      health: 15
+      moveKind: 2
+  - zombiesAmount: 24
     spawnTime: 1
     distance: 0
     zombieParameters:
-      health: 1
-      speed: 0.08
-      walk: 0
-  - zombiesAmount: 1
-    spawnTime: 0.5
-    distance: 0
-    zombieParameters:
-      health: 1
-      speed: 0.08
-      walk: 0
+      health: 18
+      moveKind: 1
+  pickups:
+  - dropRate: 1
+    pickup: {fileID: 8533624146289054780, guid: 93f81e174613e8d4ba86383b59954132, type: 3}
+  - dropRate: 0.5
+    pickup: {fileID: 5135952797982183956, guid: f1fb84a82a74b6f4ab5ea650cc7e7253, type: 3}
+  - dropRate: 0.1
+    pickup: {fileID: 1731955900971860917, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
+  - dropRate: 0.1
+    pickup: {fileID: 6112985647573198687, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
+  - dropRate: 0.1
+    pickup: {fileID: 633391652309405401, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
+  - dropRate: 1
+    pickup: {fileID: 7808801018164881091, guid: ccd527ca59aa7dc449adf29e8062e613, type: 3}
 --- !u!114 &574649533882680607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,13 +244,31 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b62cc724b113b724d9d1419222b2285c, type: 2}
   - {fileID: 11400000, guid: 512436d4f29775644907a29bf16a61df, type: 2}
   - {fileID: 11400000, guid: 56075c3828a75064599c67bd9296345f, type: 2}
+  - {fileID: 11400000, guid: 9d1ee4d3ba6ca6b408b2ca94ef27301c, type: 2}
+  - {fileID: 11400000, guid: 12e0ddd928c3ef84aba3ff883beca7c1, type: 2}
   - {fileID: 11400000, guid: 36001d9f80f2bd748824e18c32c22515, type: 2}
+  - {fileID: 11400000, guid: de1b2e46f43b2d343b3ccc9d98be08cb, type: 2}
   - {fileID: 11400000, guid: 66a402938fab96b49b9526b9efb3ab5f, type: 2}
   - {fileID: 11400000, guid: 6a562a6b9f535904b9a6d65d58cbf369, type: 2}
   - {fileID: 11400000, guid: f3ba3f97bb3a5944c8178d2cbc22c78c, type: 2}
   - {fileID: 11400000, guid: 9f0a6c09971af4d49901758ef67ab14a, type: 2}
   - {fileID: 11400000, guid: 66a0fed2637cbda4e919b3ff0f96e514, type: 2}
   - {fileID: 11400000, guid: 510f9e6401cc50f40a67f38d3b6697ce, type: 2}
+  - {fileID: 11400000, guid: 24b3b516d5d56b04a9af68a22d4b9366, type: 2}
   - {fileID: 11400000, guid: 588cb5a531532984a89aedf81723c334, type: 2}
   - {fileID: 11400000, guid: 31f3e05732285c14db760a9988acb7d5, type: 2}
   - {fileID: 11400000, guid: ece544686d27acf4ca9c827588848e32, type: 2}
+  isOpened: 0
+--- !u!114 &7328796883996482230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e695f8016838c4899b9b6b37b6e9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseView: {fileID: 11400000, guid: 496df4a8d2f718d43ac4bdd85f281230, type: 2}

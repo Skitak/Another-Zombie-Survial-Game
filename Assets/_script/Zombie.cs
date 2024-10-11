@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Asmos.Bus;
+using Sirenix.OdinInspector;
 using Unity.AI.Navigation;
 using Unity.Mathematics;
 using UnityEngine;
@@ -16,10 +17,11 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
     readonly static Dictionary<ZombieMovesKind, float> moveKindSpeed = new()
     {
         {ZombieMovesKind.WALK, .5f},
-        {ZombieMovesKind.MEDIUM, 1.2f},
-        {ZombieMovesKind.RUN, 2f},
-        {ZombieMovesKind.SPRINT, 4f},
+        {ZombieMovesKind.MEDIUM, 2f},
+        {ZombieMovesKind.RUN, 3f},
+        {ZombieMovesKind.SPRINT, 4.5f},
     };
+    static Dictionary<SpawnKind, ZombieSpawnParameters> spawnKindAnims;
     [SerializeField] Collider headCollider;
     [SerializeField] float attackDistance;
     [SerializeField] float attackCooldown;
@@ -39,6 +41,7 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
     OffMeshAnimData offMeshAnimData;
     Vector3 startOffMesh, endOffMesh;
     NavMeshAgent navMeshAgent;
+    ZombieMovesKind moveKind;
     [HideInInspector] public Animator animator;
     Rigidbody[] rigidbodies;
     void Awake()
@@ -51,8 +54,7 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
         {
             if (health <= 0)
                 return;
-            navMeshAgent.speed = moveKindSpeed[baseParameters.moveKind];
-            navMeshAgent.enabled = true;
+            EnableZombie();
 
         });
         attackCooldownTimer = new(attackCooldown);
@@ -60,6 +62,11 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
         animator.SetFloat("attack speed", animSpeed);
         if (spawnOnAwake)
             Spawn(transform.position, baseParameters);
+
+        spawnKindAnims ??= new() {
+            {SpawnKind.INSTANT, new(0f, "")},
+            {SpawnKind.GROUND, new(spawnAnimation.length, "spawn")},
+        };
     }
 
     void Update()
@@ -254,24 +261,46 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
             Instantiate(pickup, transform.position, Quaternion.identity);
     }
 
-    public void Spawn(Vector3 spawnPoint, ZombieParameters parameters, GameObject pickup = null)
+    public void Spawn(Vector3 spawnPoint, ZombieParameters parameters, GameObject pickup = null, SpawnKind spawnKind = SpawnKind.GROUND)
     {
         // Initialize();
         SetRagdoll(false);
         baseParameters = parameters;
+        moveKind = PickMoveKind();
         transform.position = spawnPoint;
         health = parameters.health;
         navMeshAgent.speed = 0f;
         navMeshAgent.enabled = false;
         this.pickup = pickup;
 
-        animator.SetTrigger("spawn");
-        animator.SetInteger("move kind", (int)parameters.moveKind);
-        spawnTimer.ResetPlay();
+        animator.SetInteger("move kind", (int)moveKind);
+
+        spawnTimer.Reset();
+        if (spawnKind != SpawnKind.INSTANT)
+        {
+            animator.SetTrigger(spawnKindAnims[spawnKind].anim);
+            spawnTimer.endTime = spawnKindAnims[spawnKind].time;
+            spawnTimer.Play();
+        }
+        else
+            EnableZombie();
 
         // TODO : sound
         // TODO : animation
         // TODO : particles
+    }
+
+    # region utils
+    private ZombieMovesKind PickMoveKind()
+    {
+        float randomValue = UnityEngine.Random.Range(0f, 1f);
+        for (int i = 0; i < baseParameters.moveKinds.Count; i++)
+        {
+            randomValue -= baseParameters.moveKinds[i].chances;
+            if (randomValue <= 0f)
+                return baseParameters.moveKinds[i].kind;
+        }
+        return ZombieMovesKind.WALK;
     }
 
     void SetRagdoll(bool enabled)
@@ -296,26 +325,81 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
         TakeDamages((int)(Player.player.grenadeDamages * distancePercent), headCollider.transform.position, Vector3.down);
     }
 
+    private void EnableZombie()
+    {
+        navMeshAgent.speed = moveKindSpeed[moveKind];
+        navMeshAgent.enabled = true;
+    }
+
     struct OffMeshAnimData
     {
         public string name;
         public float speedModifier;
-
         public OffMeshAnimData(string name, float speedModifier)
         {
             this.name = name;
             this.speedModifier = speedModifier;
         }
     }
+    #endregion
 }
+
+# region structs and enums
 [Serializable]
 public struct ZombieParameters
 {
+    // [Range(0, 1)] public float chances;
     public int health;
-    public ZombieMovesKind moveKind;
+    [TableList]
+    public List<ZombieMovesKindChances> moveKinds;
+
+    public ZombieParameters(int health, List<ZombieMovesKindChances> moveKinds) : this()
+    {
+        this.health = health;
+        this.moveKinds = moveKinds;
+    }
+    [OnInspectorInit]
+    private void CreateData()
+    {
+        moveKinds = new List<ZombieMovesKindChances>(){
+            new(ZombieMovesKind.WALK, 1),
+            new(ZombieMovesKind.MEDIUM, 0),
+            new(ZombieMovesKind.RUN, 0),
+            new(ZombieMovesKind.SPRINT, 0),
+        };
+    }
 }
 
 public enum ZombieMovesKind
 {
     WALK = 0, MEDIUM = 1, RUN = 2, SPRINT = 3
 }
+[Serializable]
+public struct ZombieMovesKindChances
+{
+    [TableColumnWidth(50)]
+    public ZombieMovesKind kind;
+    [TableColumnWidth(50)]
+    [Range(0, 1)]
+    public float chances;
+
+    public ZombieMovesKindChances(ZombieMovesKind kind, float chances)
+    {
+        this.kind = kind;
+        this.chances = chances;
+    }
+}
+
+public struct ZombieSpawnParameters
+{
+    public float time;
+    public string anim;
+
+    public ZombieSpawnParameters(float time, string anim)
+    {
+        this.time = time;
+        this.anim = anim;
+    }
+}
+
+#endregion

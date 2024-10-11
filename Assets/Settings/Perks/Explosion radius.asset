@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontShowAsUpgrade: 0
   label: Explosion radius
-  sprite: {fileID: 21300000, guid: b228946a64e9c27499e86956794a0326, type: 3}
+  sprite: {fileID: 21300000, guid: ad1a1d004a806a141839870e9c6c5f7f, type: 3}
   rarityMin: 0
   rarityMax: 2
   timesPerkCanBeApplied: 10000

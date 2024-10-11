@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,28 +8,23 @@ public class ZombieSpawnerManager : MonoBehaviour
 {
     [SerializeField] float timeBeforeDissapear;
     public static ZombieSpawnerManager instance;
-    GameObject[] spawners;
+    public List<ZombieSpawner> spawners;
     ObjectPool<Zombie> pool;
     GameObject currentZombiePrefab;
     List<Zombie> zombiesAlive = new();
 
-    public enum SpawnDistance
-    {
-        CLOSE, NORMAL, FAR
-    }
     void Awake()
     {
         instance = this;
-        spawners = GameObject.FindGameObjectsWithTag("Zombie spawner");
         pool = new(CreateZombie, GetZombie, ReleaseZombie, DestroyZombie, true, 20, 100);
     }
-    public void Spawn(GameObject zombiePrefab, SpawnDistance distance, ZombieParameters parameters, GameObject pickup)
+    public void Spawn(GameObject zombiePrefab, ZombieParameters parameters, GameObject pickup)
     {
         currentZombiePrefab = zombiePrefab;
         Zombie zombie = pool.Get();
         zombiesAlive.Add(zombie);
-        Vector3 spawnPoint = spawners[UnityEngine.Random.Range(0, spawners.Length - 1)].transform.position;
-        zombie.Spawn(spawnPoint, parameters, pickup);
+        ZombieSpawner spawnerSelected = SelectZombieSpawner();
+        zombie.Spawn(spawnerSelected.transform.position, parameters, pickup, spawnerSelected.spawnKind);
     }
 
     public void ZombieDied(Zombie zombie)
@@ -68,6 +64,11 @@ public class ZombieSpawnerManager : MonoBehaviour
         Destroy(zombie.gameObject);
     }
     #endregion
+
+    ZombieSpawner SelectZombieSpawner()
+    {
+        return spawners[UnityEngine.Random.Range(0, spawners.Count - 1)];
+    }
 
     void OnDrawGizmosSelected()
     {

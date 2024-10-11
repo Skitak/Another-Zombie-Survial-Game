@@ -95,6 +95,8 @@ public enum PickupType
 [Serializable]
 public struct PickupChances
 {
-    public float dropRate;
+    [TableColumnWidth(60)]
     public GameObject pickup;
+    [TableColumnWidth(40)]
+    public float dropRate;
 }

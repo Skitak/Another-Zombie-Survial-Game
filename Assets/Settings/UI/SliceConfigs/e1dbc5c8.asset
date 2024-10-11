@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f4cc62d007356544ab4b124f67ac523, type: 3}
-  m_Name: 9837990a-14
+  m_Name: e1dbc5c8
   m_EditorClassIdentifier: 
-  slicePrefab: {fileID: 7543130120781482306, guid: f7b39806df968644ca2e33b6309ad00f, type: 3}
+  slicePrefab: {fileID: 7543130120781482306, guid: 9bb034a95fd3b234bb0b6be21eeb9fc4, type: 3}
   overrideShowTransition: 1
   overrideHideTransition: 1

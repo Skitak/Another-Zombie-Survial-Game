@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 299653195be53ef458c407cd64d67833, type: 3}
-  m_Name: Explosion damages
+  m_Name: Health machine
   m_EditorClassIdentifier: 
-  dontShowAsUpgrade: 0
-  label: Explosion damages
-  sprite: {fileID: 21300000, guid: d2495f1a2f675fa4d86d025b0677ffe6, type: 3}
+  dontShowAsUpgrade: 1
+  label: Health
+  sprite: {fileID: 21300000, guid: 7baed6fdc93001541bf3c4e64a475357, type: 3}
   rarityMin: 0
-  rarityMax: 2
+  rarityMax: 0
   timesPerkCanBeApplied: 10000
   malusPerk: {fileID: 0}
-  stat: 11
-  applyPercentageValue: 1
+  stat: 2
+  applyPercentageValue: 0
   valuePercent:
-  - 30
-  - 60
-  - 120
   - 0
-  valueFlat: 03000000060000000c00000018000000
+  - 0
+  - 0
+  - 0
+  valueFlat: 01000000000000000000000000000000
