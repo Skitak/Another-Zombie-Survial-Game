@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -15,13 +16,10 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        float MoveSpeed { get => StatManager.Get(StatType.SPEED); }
+        float SprintSpeed { get => StatManager.Get(StatType.SPRINT_SPEED) * MoveSpeed; }
+
         [Header("Player")]
-        [Tooltip("Move speed of the character in m/s")]
-        public float MoveSpeed = 2.0f;
-
-        [Tooltip("Sprint speed of the character in m/s")]
-        public float SprintSpeed = 5.335f;
-
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
@@ -76,6 +74,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [HideInInspector] public float yawAdjustment = 0f;
+        [HideInInspector] public float pitchAdjustment = 0f;
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -203,6 +203,11 @@ namespace StarterAssets
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
             }
 
+            _cinemachineTargetYaw += yawAdjustment;
+            _cinemachineTargetPitch -= pitchAdjustment;
+
+            yawAdjustment = 0f;
+            pitchAdjustment = 0f;
             // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);

@@ -3,15 +3,15 @@ using UnityEngine;
 public class PerkTraits : Perk
 {
     public Traits trait;
-    public override void ApplyUpgrade(Rarity rarity, bool revert = false)
+    public override void ApplyUpgrades()
     {
         switch (trait)
         {
             case Traits.AUTOMATIC:
-                Player.player.weapon.isAutomatic = revert;
+                Player.player.weapon.isAutomatic = true;
                 break;
             case Traits.FIRE_WHILE_RUNNING:
-                Player.player.fireWhileRunning = revert;
+                Player.player.fireWhileRunning = true;
                 break;
             default:
                 break;

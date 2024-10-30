@@ -2685,7 +2685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headCollider: {fileID: 4861995979878277504}
-  attackDistance: 1.19
+  attackDistance: 1.6
   attackCooldown: 1
   attackAnimation: {fileID: 7400000, guid: 5ed51f20c03c4cd4aad69d962be21608, type: 2}
   landingAnimation: {fileID: -203655887218126122, guid: 1857b42b609e10e47b970dd6efe65ad4, type: 3}
@@ -2693,8 +2693,16 @@ MonoBehaviour:
   spawnAnimation: {fileID: -203655887218126122, guid: 3b3975e301eee32489af964d48c5a784, type: 3}
   baseParameters:
     health: 10
-    speed: 2
-    walk: 0
+    moveKinds:
+    - kind: 0
+      chances: 1
+    - kind: 1
+      chances: 0
+    - kind: 2
+      chances: 0
+    - kind: 3
+      chances: 0
+  spawnOnAwake: 0
   animator: {fileID: 0}
 --- !u!195 &9196419849113437074
 NavMeshAgent:

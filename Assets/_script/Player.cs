@@ -19,19 +19,12 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     [FoldoutGroup("Interactions")][SerializeField] AnimationClip drinkAnimation;
     [FoldoutGroup("Interactions")][SerializeField] GameObject can;
     [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
-    [FoldoutGroup("Health and Speed")][SerializeField] int baseHealthMax = 10;
-    [FoldoutGroup("Health and Speed")][SerializeField] float baseSpeed;
-    [FoldoutGroup("Health and Speed")][SerializeField] float sprintMultiplier;
-    [FoldoutGroup("Health and Speed")][SerializeField] float baseStamina;
     [FoldoutGroup("Health and Speed")][SerializeField] float baseAimCameraZoom;
     [FoldoutGroup("Grenades")][SerializeField] AnimationClip armAnimation;
     [FoldoutGroup("Grenades")][SerializeField] AnimationClip throwAnimation;
     [FoldoutGroup("Grenades")][SerializeField] GameObject grenadeMesh;
     [FoldoutGroup("Grenades")][SerializeField] GameObject grenadePrefab;
     [FoldoutGroup("Grenades")][SerializeField] int baseGrenades;
-    [FoldoutGroup("Grenades")][SerializeField] int baseGrenadeDamages;
-    [FoldoutGroup("Grenades")][SerializeField] float baseExplosionRadius;
-    [FoldoutGroup("Grenades")][SerializeField] float baseExplosionTime;
     [FoldoutGroup("Grenades")][SerializeField] float maxThrowingTime;
     [FoldoutGroup("Grenades")][SerializeField] float minThrowingForce;
     [FoldoutGroup("Grenades")][SerializeField] float maxThrowingForce;
@@ -40,7 +33,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     #endregion
     #region hiddenParameters
     Interactable interactableInRange;
-    ThirdPersonController tpsController;
+    [HideInInspector] public ThirdPersonController tpsController;
     PlayerInput playerInput;
     InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab, grenadeAction, pauseAction;
     [HideInInspector] public Animator animator;
@@ -63,16 +56,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
             Bus.PushData("health", _health);
         }
     }
-    public int healthMax
-    {
-        get => _healthMax;
-        set
-        {
-            _healthMax = value;
-            health = Math.Min(_healthMax, health);
-            Bus.PushData("healthMax", _healthMax);
-        }
-    }
+    public int healthMax { get => (int)StatManager.Get(StatType.HEALTH_MAX); }
     public int perkRefresh
     {
         get => _perkRefresh;
@@ -80,25 +64,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         {
             _perkRefresh = value;
             Bus.PushData("perkRefresh", value);
-        }
-    }
-    public float speed
-    {
-        get => tpsController.MoveSpeed;
-        set
-        {
-            tpsController.MoveSpeed = value;
-            tpsController.SprintSpeed = value * sprintMultiplier;
-        }
-    }
-    public float staminaMax
-    {
-        get => staminaTimer.endTime;
-        set
-        {
-            staminaTimer.endTime = value;
-            Bus.PushData("staminaMax", value);
-            staminaTimer.Rewind();
         }
     }
     public float aimValue { get => aimTimer.GetPercentage(); }
@@ -112,33 +77,8 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
             Bus.PushData("grenades", _grenades);
         }
     }
-    public int grenadeDamages
-    {
-        get => _grenadeDamages;
-        set
-        {
-            _grenadeDamages = value;
-            Bus.PushData("grenade damages", _grenadeDamages);
-        }
-    }
-    public float explosionRadius
-    {
-        get => _explosionRadius;
-        set
-        {
-            _explosionRadius = value;
-            Bus.PushData("explosion radius", _explosionRadius);
-        }
-    }
-    public float explosionTime
-    {
-        get => _explosionTime;
-        set
-        {
-            _explosionTime = value;
-            Bus.PushData("explosion time", _explosionTime);
-        }
-    }
+    public int grenadeDamages { get => (int)StatManager.Get(StatType.EXPLOSION_DAMAGES); }
+    public float explosionRadius { get => StatManager.Get(StatType.EXPLOSION_RADIUS); }
 
     #endregion
     # region update
@@ -263,7 +203,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         initialHeight = controller.height;
         initialCameraDistance = tpsCameraComponent.CameraDistance;
 
-        aimTimer = new(.15f);
+        aimTimer = new(.1f);
         armGrenadeTimer = new(maxThrowingTime);
         armGrenadeTimer.OnTimerUpdate += () => Bus.PushData("arm", armGrenadeTimer.GetPercentage());
         throwingGrenadeTimer = new(throwAnimation.length, () => isThrowingGrenade = false);
@@ -271,8 +211,8 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         drinkTimer = new(drinkAnimation.length, () => can.SetActive(false));
         recoveryTimer = new(recoveryTime, EndRecovery);
         aimTimer.OnTimerUpdate += () => tpsCameraComponent.CameraDistance = Mathf.Lerp(initialCameraDistance, baseAimCameraZoom, aimTimer.GetPercentage());
-        staminaTimer = new(baseStamina);
-        staminaTimer.OnTimerUpdate += () => Bus.PushData("stamina", staminaTimer.GetTimeLeft());
+        staminaTimer = new(1f);
+        staminaTimer.OnTimerUpdate += () => Bus.PushData("stamina", staminaTimer.GetPercentageLeft());
         staminaTimer.useUpdateAsRewindAction = true;
         staminaTimer.rewindAutomatic = true;
         swapSideTimer = new(.2f);
@@ -291,29 +231,30 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         aimAction = InputSystem.actions.FindAction("Aim");
         swapSide = InputSystem.actions.FindAction("SwapSide");
         grenadeAction = InputSystem.actions.FindAction("Grenade");
+
+        StatManager.Subscribe(StatType.STAMINA_MAX, (value) =>
+        {
+            staminaTimer.endTime = value;
+            staminaTimer.Rewind();
+        });
     }
     void Start()
     {
-        healthMax = baseHealthMax;
-        health = baseHealthMax;
-        staminaMax = baseStamina;
+        health = healthMax;
         staminaTimer.Reset();
-        Bus.PushData("stamina", staminaTimer.GetTimeLeft());
-        speed = baseSpeed;
         perkRefresh = basePerkRefresh;
         grenades = baseGrenades;
-        grenadeDamages = baseGrenadeDamages;
-        explosionRadius = baseExplosionRadius;
-        explosionTime = baseExplosionTime;
-        Bus.PushData("stamina", baseStamina);
         animator.SetLayerWeight(weapon.animLayer, 1);
         weapon.modelInHierarchy.SetActive(true);
+        staminaTimer.endTime = StatManager.Get(StatType.STAMINA_MAX);
+        // Bus.PushData("stamina", staminaTimer.GetTimeLeft());
+        // Bus.PushData("stamina", baseStamina);
 
     }
     public void RestartGame()
     {
         transform.position = spawnPoint;
-        health = baseHealthMax;
+        health = (int)StatManager.Get(StatType.HEALTH_MAX);
         controller.height = initialHeight;
         Bus.PushData("health", health);
         animator.SetTrigger("Reset death");
@@ -346,9 +287,12 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, interactionDistance, interactionMask))
         {
-            interactableInRange = hit.collider.gameObject.GetComponentInParent<Interactable>();
-            interactableInRange.Highlight = true;
-            return;
+            if (hit.collider.tag == Interactable.tag)
+            {
+                interactableInRange = hit.collider.gameObject.GetComponentInParent<Interactable>();
+                interactableInRange.Highlight = true;
+                return;
+            }
         }
         if (interactableInRange)
             interactableInRange.Highlight = false;
@@ -385,7 +329,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         Grenade grenade = grenadeObj.GetComponent<Grenade>();
         float throwingForce = Mathf.Lerp(minThrowingForce, maxThrowingForce, armGrenadeTimer.GetPercentage());
         grenade.rigidbody.AddForce(Camera.main.transform.forward * throwingForce, ForceMode.Impulse);
-        grenade.InitializeExplosionTimer(explosionTime);
 
         armGrenadeTimer.Reset();
         throwGrenadeDelayTimer.Reset();
@@ -424,7 +367,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         CancelSprinting();
         CancelInteracting();
     }
-
     #endregion
     public void TakeExplosionDamages(float distancePercent)
     {

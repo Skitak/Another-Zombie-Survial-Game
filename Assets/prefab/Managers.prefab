@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6248412691561384712}
   - component: {fileID: 3505765083672619707}
   - component: {fileID: 1045154511962030062}
+  - component: {fileID: 7146849317784579013}
   - component: {fileID: 4256748739514852423}
   - component: {fileID: 7154707341513353251}
   - component: {fileID: 6443249690922008514}
@@ -19,6 +20,8 @@ GameObject:
   - component: {fileID: 574649533882680607}
   - component: {fileID: 708645877114274120}
   - component: {fileID: 7328796883996482230}
+  - component: {fileID: 3390488342889399285}
+  - component: {fileID: 2345194554914406046}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -75,6 +78,844 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9928f9a2b306f44182da6f55238136a, type: 2}
   - {fileID: 11400000, guid: 496df4a8d2f718d43ac4bdd85f281230, type: 2}
   - {fileID: 11400000, guid: 3cb80a683234f7b46b0cb1b9a95bf7ab, type: 2}
+--- !u!114 &7146849317784579013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0eb8413dccc80d4483571716601be2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 580de3a984e2c76478ac0beae13cef50, type: 3}
+    - {fileID: 21300000, guid: 40068ecfd869e2b48a3de770d1b11a11, type: 3}
+    - {fileID: 21300000, guid: dbeb513d2d50dfa49a27b051d7565d83, type: 3}
+    - {fileID: 21300000, guid: 7baed6fdc93001541bf3c4e64a475357, type: 3}
+    - {fileID: 21300000, guid: c836f17a1fefac944a5471398233ce0c, type: 3}
+    - {fileID: 21300000, guid: 6016a672d048d2842afc94f8cbecc170, type: 3}
+    - {fileID: 21300000, guid: 6e4c69a9be0f26f42ae59f799d10f3b0, type: 3}
+    - {fileID: 21300000, guid: bc77e55aa9951aa4b8c6822b89b69bab, type: 3}
+    - {fileID: 21300000, guid: 4d687e336c9887c4594eec3351fa7beb, type: 3}
+    - {fileID: 21300000, guid: eb0e02bdc65af1d4ea78572b864246fa, type: 3}
+    - {fileID: 21300000, guid: ef81e293b600f2b40978c706edb94db4, type: 3}
+    - {fileID: 21300000, guid: c844523da0da84f4fa0b3f4b76a87dc8, type: 3}
+    - {fileID: 21300000, guid: 45bc20cb9d0a74e42832ba0f8eaf26c4, type: 3}
+    - {fileID: 21300000, guid: ad1a1d004a806a141839870e9c6c5f7f, type: 3}
+    - {fileID: 21300000, guid: d2495f1a2f675fa4d86d025b0677ffe6, type: 3}
+    - {fileID: 21300000, guid: 21553d3e93e51284bb0193986cab83bd, type: 3}
+    - {fileID: 21300000, guid: 0698a15fa81c98a49a3ea0080c710483, type: 3}
+    - {fileID: 21300000, guid: 03b68328911c613438338150115ebe4b, type: 3}
+    - {fileID: 21300000, guid: c8467e4c4b73b494cb5a0de9c58daa1c, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: statDescriptions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[StatType, Assembly-CSharp],[StatDescription,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[StatType, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 21
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 2.5
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 10
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 0
+    - Name: displayedName
+      Entry: 1
+      Data: Speed
+    - Name: icon
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 2.5
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 1000
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 0
+    - Name: displayedName
+      Entry: 1
+      Data: Stamina
+    - Name: icon
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 1.5
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 10
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 0
+    - Name: displayedName
+      Entry: 1
+      Data: Sprint speed
+    - Name: icon
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 3
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 10000
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 0
+    - Name: displayedName
+      Entry: 1
+      Data: Health
+    - Name: icon
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 7
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 1000
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Magazine
+    - Name: icon
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 1.5
+    - Name: min
+      Entry: 4
+      Data: 0.0001
+    - Name: max
+      Entry: 4
+      Data: 100
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Reload time
+    - Name: icon
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 2
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 30
+    - Name: displayType
+      Entry: 3
+      Data: 3
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Precision
+    - Name: icon
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 50
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 100
+    - Name: displayType
+      Entry: 3
+      Data: 2
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Aim precision
+    - Name: icon
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 3
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 100000
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Damages
+    - Name: icon
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 9
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 200
+    - Name: min
+      Entry: 4
+      Data: 100
+    - Name: max
+      Entry: 4
+      Data: 1000000
+    - Name: displayType
+      Entry: 3
+      Data: 2
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Headshot damages
+    - Name: icon
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 10
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 6
+    - Name: min
+      Entry: 4
+      Data: 0.001
+    - Name: max
+      Entry: 4
+      Data: 200
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Fire rate
+    - Name: icon
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 11
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 1
+    - Name: min
+      Entry: 4
+      Data: 1
+    - Name: max
+      Entry: 4
+      Data: 100
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Bullets fired
+    - Name: icon
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 12
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 0
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 100
+    - Name: displayType
+      Entry: 3
+      Data: 2
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Crit chances
+    - Name: icon
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 200
+    - Name: min
+      Entry: 4
+      Data: 100
+    - Name: max
+      Entry: 4
+      Data: 100000
+    - Name: displayType
+      Entry: 3
+      Data: 2
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Crit damages
+    - Name: icon
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 14
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 4
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 100
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 2
+    - Name: displayedName
+      Entry: 1
+      Data: Explosion radius
+    - Name: icon
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 15
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 10
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 1000000
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 2
+    - Name: displayedName
+      Entry: 1
+      Data: Explosion damages
+    - Name: icon
+      Entry: 10
+      Data: 14
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 3
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 10000
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 2
+    - Name: displayedName
+      Entry: 1
+      Data: Grenade timer
+    - Name: icon
+      Entry: 10
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 17
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 50
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 1000000
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 3
+    - Name: displayedName
+      Entry: 1
+      Data: Income
+    - Name: icon
+      Entry: 10
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 18
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 3
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 10000
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 0
+    - Name: displayedName
+      Entry: 1
+      Data: Pickup distance
+    - Name: icon
+      Entry: 10
+      Data: 17
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 19
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 100
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 100000
+    - Name: displayType
+      Entry: 3
+      Data: 2
+    - Name: category
+      Entry: 3
+      Data: 3
+    - Name: displayedName
+      Entry: 1
+      Data: Drinks effectiveness
+    - Name: icon
+      Entry: 10
+      Data: 18
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 20
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 2
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 100
+    - Name: displayType
+      Entry: 3
+      Data: 1
+    - Name: category
+      Entry: 3
+      Data: 1
+    - Name: displayedName
+      Entry: 1
+      Data: Recoil
+    - Name: icon
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: mutationDescriptions
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[StatType, Assembly-CSharp],[MutationDescription,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!114 &4256748739514852423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,52 +1003,165 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveCooldown: 0
   maxZombies: 0
-  startingWave: 4
+  startingWave: 2
   zombiePrefab: {fileID: 7190902268958121158, guid: 889553fc601c5cb458ded6efb2ad78af, type: 3}
   waves:
   - zombiesAmount: 6
     spawnTime: 3
-    distance: 0
     zombieParameters:
       health: 9
-      moveKind: 0
+      moveKinds:
+      - kind: 0
+        chances: 1
+      - kind: 1
+        chances: 0
+      - kind: 2
+        chances: 0
+      - kind: 3
+        chances: 0
   - zombiesAmount: 8
     spawnTime: 1.5
-    distance: 0
     zombieParameters:
       health: 11
-      moveKind: 0
+      moveKinds:
+      - kind: 0
+        chances: 1
+      - kind: 1
+        chances: 0
+      - kind: 2
+        chances: 0
+      - kind: 3
+        chances: 0
   - zombiesAmount: 13
     spawnTime: 1.3
-    distance: 0
     zombieParameters:
       health: 13
-      moveKind: 1
+      moveKinds:
+      - kind: 0
+        chances: 0.9
+      - kind: 1
+        chances: 0.1
+      - kind: 2
+        chances: 0
+      - kind: 3
+        chances: 0
   - zombiesAmount: 4
     spawnTime: 1.3
-    distance: 0
     zombieParameters:
       health: 15
-      moveKind: 2
+      moveKinds:
+      - kind: 0
+        chances: 0
+      - kind: 1
+        chances: 0
+      - kind: 2
+        chances: 1
+      - kind: 3
+        chances: 0
   - zombiesAmount: 24
     spawnTime: 1
-    distance: 0
     zombieParameters:
       health: 18
-      moveKind: 1
+      moveKinds:
+      - kind: 0
+        chances: 0.8
+      - kind: 1
+        chances: 0.2
+      - kind: 2
+        chances: 0
+      - kind: 3
+        chances: 0
+  - zombiesAmount: 30
+    spawnTime: 1
+    zombieParameters:
+      health: 21
+      moveKinds:
+      - kind: 0
+        chances: 0.5
+      - kind: 1
+        chances: 0.5
+      - kind: 2
+        chances: 0
+      - kind: 3
+        chances: 0
+  - zombiesAmount: 33
+    spawnTime: 1
+    zombieParameters:
+      health: 24
+      moveKinds:
+      - kind: 0
+        chances: 0.3
+      - kind: 1
+        chances: 0.6
+      - kind: 2
+        chances: 0.1
+      - kind: 3
+        chances: 0
+  - zombiesAmount: 36
+    spawnTime: 1
+    zombieParameters:
+      health: 26
+      moveKinds:
+      - kind: 0
+        chances: 0.2
+      - kind: 1
+        chances: 0.7
+      - kind: 2
+        chances: 0.1
+      - kind: 3
+        chances: 0
+  - zombiesAmount: 40
+    spawnTime: 1
+    zombieParameters:
+      health: 29
+      moveKinds:
+      - kind: 0
+        chances: 0.1
+      - kind: 1
+        chances: 0.7
+      - kind: 2
+        chances: 0.2
+      - kind: 3
+        chances: 0
+  - zombiesAmount: 10
+    spawnTime: 0.8
+    zombieParameters:
+      health: 33
+      moveKinds:
+      - kind: 0
+        chances: 0
+      - kind: 1
+        chances: 0
+      - kind: 2
+        chances: 0
+      - kind: 3
+        chances: 1
+  - zombiesAmount: 45
+    spawnTime: 0.8
+    zombieParameters:
+      health: 36
+      moveKinds:
+      - kind: 0
+        chances: 0
+      - kind: 1
+        chances: 0.7
+      - kind: 2
+        chances: 0.25
+      - kind: 3
+        chances: 0.05
   pickups:
-  - dropRate: 1
-    pickup: {fileID: 8533624146289054780, guid: 93f81e174613e8d4ba86383b59954132, type: 3}
-  - dropRate: 0.5
-    pickup: {fileID: 5135952797982183956, guid: f1fb84a82a74b6f4ab5ea650cc7e7253, type: 3}
-  - dropRate: 0.1
-    pickup: {fileID: 1731955900971860917, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
-  - dropRate: 0.1
-    pickup: {fileID: 6112985647573198687, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
-  - dropRate: 0.1
-    pickup: {fileID: 633391652309405401, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
-  - dropRate: 1
-    pickup: {fileID: 7808801018164881091, guid: ccd527ca59aa7dc449adf29e8062e613, type: 3}
+  - pickup: {fileID: 8533624146289054780, guid: 93f81e174613e8d4ba86383b59954132, type: 3}
+    dropRate: 1
+  - pickup: {fileID: 5135952797982183956, guid: f1fb84a82a74b6f4ab5ea650cc7e7253, type: 3}
+    dropRate: 0.5
+  - pickup: {fileID: 1731955900971860917, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
+    dropRate: 0.1
+  - pickup: {fileID: 6112985647573198687, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
+    dropRate: 0.1
+  - pickup: {fileID: 633391652309405401, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
+    dropRate: 0.1
+  - pickup: {fileID: 7808801018164881091, guid: ccd527ca59aa7dc449adf29e8062e613, type: 3}
+    dropRate: 1
 --- !u!114 &574649533882680607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +1175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDissapear: 10
+  spawners: []
 --- !u!114 &708645877114274120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,31 +1188,200 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed77a8a789db2024d8ba328e9aac0525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: baseRarityChances
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Rarity, Assembly-CSharp],[System.Collections.Generic.List`1[[System.Int32,
+        mscorlib]], mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Rarity, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 3
+      Data: 90
+    - Name: 
+      Entry: 3
+      Data: 75
+    - Name: 
+      Entry: 3
+      Data: 40
+    - Name: 
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 3
+      Data: 20
+    - Name: 
+      Entry: 3
+      Data: 40
+    - Name: 
+      Entry: 3
+      Data: 40
+    - Name: 
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 3
+      Data: 50
+    - Name: 
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[System.Int32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 3
+      Data: 60
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   perkView: {fileID: 11400000, guid: 3cb80a683234f7b46b0cb1b9a95bf7ab, type: 2}
-  baseRarityChances:
-  - 0.7
-  - 0.2
-  - 0.1
-  - 0
-  allPerks:
-  - {fileID: 11400000, guid: 55878c862736dca42ad676761532d379, type: 2}
-  - {fileID: 11400000, guid: b62cc724b113b724d9d1419222b2285c, type: 2}
-  - {fileID: 11400000, guid: 512436d4f29775644907a29bf16a61df, type: 2}
-  - {fileID: 11400000, guid: 56075c3828a75064599c67bd9296345f, type: 2}
-  - {fileID: 11400000, guid: 9d1ee4d3ba6ca6b408b2ca94ef27301c, type: 2}
-  - {fileID: 11400000, guid: 12e0ddd928c3ef84aba3ff883beca7c1, type: 2}
-  - {fileID: 11400000, guid: 36001d9f80f2bd748824e18c32c22515, type: 2}
-  - {fileID: 11400000, guid: de1b2e46f43b2d343b3ccc9d98be08cb, type: 2}
-  - {fileID: 11400000, guid: 66a402938fab96b49b9526b9efb3ab5f, type: 2}
-  - {fileID: 11400000, guid: 6a562a6b9f535904b9a6d65d58cbf369, type: 2}
-  - {fileID: 11400000, guid: f3ba3f97bb3a5944c8178d2cbc22c78c, type: 2}
-  - {fileID: 11400000, guid: 9f0a6c09971af4d49901758ef67ab14a, type: 2}
-  - {fileID: 11400000, guid: 66a0fed2637cbda4e919b3ff0f96e514, type: 2}
-  - {fileID: 11400000, guid: 510f9e6401cc50f40a67f38d3b6697ce, type: 2}
-  - {fileID: 11400000, guid: 24b3b516d5d56b04a9af68a22d4b9366, type: 2}
-  - {fileID: 11400000, guid: 588cb5a531532984a89aedf81723c334, type: 2}
-  - {fileID: 11400000, guid: 31f3e05732285c14db760a9988acb7d5, type: 2}
-  - {fileID: 11400000, guid: ece544686d27acf4ca9c827588848e32, type: 2}
+  rarityChances: 
+  perksToPick: 0
   isOpened: 0
 --- !u!114 &7328796883996482230
 MonoBehaviour:
@@ -272,3 +1396,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseView: {fileID: 11400000, guid: 496df4a8d2f718d43ac4bdd85f281230, type: 2}
+--- !u!114 &3390488342889399285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b945ebb2cb8c659489ada6827ca0bc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAmount: 0
+--- !u!114 &2345194554914406046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317617073684668435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ed6714c6347dd4e8484ca4a3b27e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseComboTime: 5

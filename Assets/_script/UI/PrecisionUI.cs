@@ -9,13 +9,13 @@ public class PrecisionUI : MonoBehaviour
     void Start()
     {
         disc = GetComponent<Disc>();
-        Bus.Subscribe("actualPrecision", (o) => UpdateCursor((int)o[0]));
+        Bus.Subscribe("actualPrecision", (o) => UpdateCursor((float)o[0]));
     }
-    void UpdateCursor(int precision)
+    void UpdateCursor(float precision)
     {
         if (precision == 0)
             return;
-        float hypotenuse = distanceToRealCursor / Mathf.Cos((precision / 2) * Mathf.Deg2Rad);
-        disc.Radius = Mathf.Sin((int)(precision / 2) * Mathf.Deg2Rad) * hypotenuse;
+        float hypotenuse = distanceToRealCursor / Mathf.Cos(precision / 2f * Mathf.Deg2Rad);
+        disc.Radius = Mathf.Sin(precision / 2f * Mathf.Deg2Rad) * hypotenuse;
     }
 }

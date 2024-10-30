@@ -14,13 +14,8 @@ public class Grenade : MonoBehaviour
     {
         particleSystem = GetComponentInChildren<ParticleSystem>();
         rigidbody = GetComponentInChildren<Rigidbody>();
-        timerToExplosion = new Timer(10f, Explode).Play();
+        timerToExplosion = new Timer(StatManager.Get(StatType.EXPLOSION_SPEED), Explode).Play();
     }
-    public void InitializeExplosionTimer(float time)
-    {
-        timerToExplosion.endTime = time;
-    }
-
     void Explode()
     {
         rigidbody.isKinematic = true;

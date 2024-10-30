@@ -1,3 +1,4 @@
+using Asmos.Bus;
 using Asmos.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,6 +35,7 @@ public class InGameUIManager : MonoBehaviour
         ViewManager.instance.AddView(pauseView);
         if (!PerksManager.instance.isOpened)
             Time.timeScale = 0;
+        Bus.PushData("Pause", true);
     }
 
     void RemovePause()
@@ -42,10 +44,11 @@ public class InGameUIManager : MonoBehaviour
         if (!PerksManager.instance.isOpened)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 0;
+            Time.timeScale = 1;
         }
 
         isInPause = false;
         Player.player.SetMovementEnabled(true);
+        Bus.PushData("Pause", false);
     }
 }

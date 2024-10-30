@@ -9,6 +9,8 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour, ITakeExplosionDamages
 {
+    public static int headshots = 0;
+    public static int kills = 0;
     readonly static Dictionary<int, OffMeshAnimData> offMeshAnims = new()
     {
         {3, new("crawl under",.5f)},
@@ -32,7 +34,7 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
     [SerializeField] ZombieParameters baseParameters;
     [SerializeField] bool spawnOnAwake;
     Timer attackCooldownTimer, spawnTimer;
-    GameObject pickup;
+    GameObject drop;
     int health, offMeshAnimIndex;
     bool isOnOffMesh = false;
     bool isDropFinished, isClimbFinished, climbWallHit;
@@ -68,7 +70,6 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
             {SpawnKind.GROUND, new(spawnAnimation.length, "spawn")},
         };
     }
-
     void Update()
     {
         if (!navMeshAgent.enabled)
@@ -206,7 +207,7 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
         }
     }
 
-    // /!\ This is called from an animation
+    // /!\ This is called from the animator
     public void Attack()
     {
         float distanceWithPlayer = Vector3.Distance(Player.player.transform.position, transform.position);
@@ -227,38 +228,44 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
 
     public void Hit(int damages, RaycastHit hit)
     {
+        bool headshot = false;
         if (hit.collider == headCollider)
         {
             damages *= 2;
             animator.SetTrigger("hit head");
+            headshot = true;
         }
         else
         {
             animator.SetTrigger("hit body");
         }
 
-        TakeDamages(damages, hit.point, hit.normal);
+        TakeDamages(damages, hit.point, hit.normal, headshot);
         // Start a decal for damages
     }
 
-    void TakeDamages(int damages, Vector3 position, Vector3 fromDirection)
+    void TakeDamages(int damages, Vector3 position, Vector3 fromDirection, bool headshot = false)
     {
-        Bus.PushData("zombie hit data", position, fromDirection, damages);
+        Bus.PushData("zombie hit data", position, fromDirection, damages, headshot);
         if (health <= 0)
             return;
         health -= damages;
         if (health <= 0)
-            Die();
+            Die(headshot);
     }
 
-    void Die()
+    void Die(bool headshot = false)
     {
+        if (headshot)
+            headshots++;
+        kills++;
+        Bus.PushData("zombie died", headshot);
         SetRagdoll(true);
         ZombieSpawnerManager.instance.ZombieDied(this);
         navMeshAgent.speed = 0;
         navMeshAgent.enabled = false;
-        if (pickup)
-            Instantiate(pickup, transform.position, Quaternion.identity);
+        if (drop)
+            Instantiate(drop, transform.position, Quaternion.identity);
     }
 
     public void Spawn(Vector3 spawnPoint, ZombieParameters parameters, GameObject pickup = null, SpawnKind spawnKind = SpawnKind.GROUND)
@@ -271,7 +278,7 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
         health = parameters.health;
         navMeshAgent.speed = 0f;
         navMeshAgent.enabled = false;
-        this.pickup = pickup;
+        this.drop = pickup;
 
         animator.SetInteger("move kind", (int)moveKind);
 
@@ -361,7 +368,8 @@ public struct ZombieParameters
     [OnInspectorInit]
     private void CreateData()
     {
-        moveKinds = new List<ZombieMovesKindChances>(){
+        if (moveKinds == null || moveKinds.Count == 0)
+            moveKinds = new List<ZombieMovesKindChances>(){
             new(ZombieMovesKind.WALK, 1),
             new(ZombieMovesKind.MEDIUM, 0),
             new(ZombieMovesKind.RUN, 0),

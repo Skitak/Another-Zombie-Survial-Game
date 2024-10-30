@@ -1,38 +1,41 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Asmos.Bus;
 using Asmos.UI;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class PerksManager : MonoBehaviour
+public class PerksManager : SerializedMonoBehaviour
 {
     public static PerksManager instance;
     [SerializeField] ViewConfig perkView;
-    [SerializeField]
-    [RequiredListLength(4)]
-    [InfoBox("This array represents chances of rarity perks, it MUST have as much elements as there are rarities and it's total SHOULD be of 1.")]
-    float[] baseRarityChances = new float[] { .5f, .4f, .1f, 0f };
-    float[] rarityChances;
+    [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
+    [SerializeField] Dictionary<Rarity, List<int>> baseRarityChances;
+    [ReadOnly] Perk[] allPerks;
+    int rarityChancesIndex = 0;
+    [HideInInspector] public int[] rarityChances;
     Timer timeScaleTimer;
-    Stack<PerkApplied> perksApplied = new();
+    Stack<Perk> perksApplied = new();
     [SerializeField]
-    [ReadOnly]
-    Perk[] allPerks;
     int perksToPick = 0;
     [HideInInspector] public bool isOpened;
     void Awake()
     {
         instance = this;
-        rarityChances = baseRarityChances;
+        rarityChances = GetRarityChances(0);
         timeScaleTimer = new Timer(.5f);
         timeScaleTimer.OnTimerUpdate += () => Time.timeScale = timeScaleTimer.GetPercentageLeft();
         timeScaleTimer.useUpdateAsRewindAction = true;
         timeScaleTimer.useTimeScale = false;
+        Bus.Subscribe("close perks", (o) => isOpened = false);
+        Bus.Subscribe("refresh perks", (o) => RefreshPerks());
+        Bus.Subscribe("improve drop", (o) => ImproveDropChances());
     }
-
-    public async Task OpenPerksMenu(int perksAmout = 1)
+    public async Task OpenPerksMenu(int perksAmout = 0)
     {
         isOpened = true;
         Player.player.SetInputEnabled(false);
@@ -41,8 +44,12 @@ public class PerksManager : MonoBehaviour
         perksToPick = perksAmout;
         RefreshPerks();
         await ViewManager.instance.AddView(perkView);
-        while (perksToPick > 0)
-            await Task.Delay(100);
+        if (perksToPick != 0)
+            while (perksToPick > 0)
+                await Task.Delay(100);
+        else
+            while (isOpened)
+                await Task.Delay(100);
         await ViewManager.instance.RemoveView();
         Cursor.lockState = CursorLockMode.Locked;
         timeScaleTimer.Rewind();
@@ -50,69 +57,67 @@ public class PerksManager : MonoBehaviour
         Player.player.SetInputEnabled(true);
         isOpened = false;
     }
-
-    private int PickRarity()
+    private Rarity PickRarity()
     {
-        float randomValue = UnityEngine.Random.Range(0f, 1f);
+        int randomValue = UnityEngine.Random.Range(0, 100);
         for (int i = 0; i < rarityChances.Length; i++)
         {
-            randomValue -= baseRarityChances[i];
+            randomValue -= rarityChances[i];
             if (randomValue <= 0f)
             {
-                return i;
+                return (Rarity)i;
             }
         }
-        return rarityChances.Length - 1;
+        return (Rarity)rarityChances.Length - 1;
     }
-
+    int[] GetRarityChances(int chancesIndex)
+    {
+        int[] rarityChances = new int[4];
+        for (int i = 0; i < 4; i++)
+        {
+            var list = baseRarityChances[(Rarity)i];
+            rarityChances[i] = list[math.min(chancesIndex, list.Count - 1)];
+        }
+        return rarityChances;
+    }
     public void RefreshPerks()
     {
         List<Perk> foundPerks = new();
         foreach (PerkCard card in PerkCard.perkCards)
         {
-            int rarity = PickRarity();
-            var perks = allPerks.Where((Perk perk) =>
-                (int)perk.rarityMin <= rarity &&
-                (int)perk.rarityMax >= rarity &&
-                !perk.dontShowAsUpgrade &&
-                !foundPerks.Contains(perk) &&
-                perk.timesPerkCanBeApplied > allPerks.Count((Perk _perk) => perk == _perk)
-            );
-            Perk randomPerk = perks.ElementAt(Random.Range(0, perks.Count()));
+            Rarity rarity = PickRarity();
+            IEnumerable<Perk> perks;
+            do
+            {
+                perks = allPerks.Where((Perk perk) =>
+                    perk.CanBeApplied() &&
+                    perk.rarity == rarity &&
+                    !foundPerks.Contains(perk) &&
+                    perk.showInShop
+                );
+                rarity = (Rarity)Math.Max(0, ((int)rarity) - 1);
+            } while (perks.Count() == 0);
+            Perk randomPerk = perks.ElementAt(UnityEngine.Random.Range(0, perks.Count()));
             foundPerks.Add(randomPerk);
-            card.InitializePerk(randomPerk, (Rarity)rarity);
+            card.InitializePerk(randomPerk, rarity);
         }
     }
-
-    public void PerkChosenFromMenu(Perk perk, Rarity rarity)
+    public void AddPerk(Perk perk)
     {
-        foreach (PerkCard card in PerkCard.perkCards)
-            card.button.enabled = false;
-        AddPerk(perk, rarity);
-        if (--perksToPick > 0)
-            RefreshPerks();
+        perk.ApplyUpgrades();
+        perksApplied.Push(perk);
+        if (perksToPick > 0)
+            --perksToPick;
     }
-    public void AddPerk(Perk perk, Rarity rarity)
+    void ImproveDropChances()
     {
-        perk.ApplyUpgrade(rarity);
-        perksApplied.Push(new PerkApplied(rarity, perk));
+        rarityChances = GetRarityChances(++rarityChancesIndex);
+        Bus.PushData("drop updated");
     }
-    struct PerkApplied
-    {
-        public Rarity rarity;
-        public Perk perk;
-
-        public PerkApplied(Rarity rarity, Perk perk)
-        {
-            this.rarity = rarity;
-            this.perk = perk;
-        }
-    }
-
 #if UNITY_EDITOR
     void OnValidate()
     {
-        allPerks = Utils.GetAllInstances<Perk>();
+        allPerks = Asmos.UI.Utils.GetAllInstances<Perk>();
     }
 #endif
 }

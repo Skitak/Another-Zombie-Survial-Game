@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="40.704948mm"
+   height="40.704948mm"
+   viewBox="0 0 40.704948 40.704949"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="Cross.svg"
+   inkscape:export-filename="Cross.png"
+   inkscape:export-xdpi="94.623001"
+   inkscape:export-ydpi="94.623001"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.6730219"
+     inkscape:cx="41.541596"
+     inkscape:cy="-3.8851853"
+     inkscape:window-width="1920"
+     inkscape:window-height="1177"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g5" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-112.33019,-124.04624)">
+    <g
+       id="g5">
+      <rect
+         style="fill:#1eeb0d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect5"
+         width="13.916932"
+         height="43.64856"
+         x="188.96765"
+         y="-13.53978"
+         transform="rotate(45)" />
+      <rect
+         style="fill:#1eeb0d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect5-1"
+         width="13.916932"
+         height="43.64856"
+         x="1.3260331"
+         y="174.10184"
+         transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,0,0)" />
+    </g>
+  </g>
+</svg>

@@ -68,8 +68,8 @@ public class Pickup : MonoBehaviour
                 Bus.PushData("bonus label", $"+{grenades} grenades");
                 break;
             case PickupType.PERK:
-                PerksManager.instance.AddPerk(perk, rarity);
-                Bus.PushData("bonus label", "+" + perk.GetLabel(rarity));
+                PerksManager.instance.AddPerk(perk);
+                Bus.PushData("bonus label", "+" + perk.GetLabel());
                 break;
             default:
                 break;

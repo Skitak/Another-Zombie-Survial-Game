@@ -4,10 +4,10 @@ using UnityEngine.Pool;
 using Shapes;
 using Sirenix.OdinInspector;
 using System;
+using DG.Tweening;
 public class Weapon : MonoBehaviour
 {
-    const int PRECISION_MIN = 30;
-    const int PRECISION_MAX = 0;
+    public static int reloads = 0;
     #region exposedParameters
     [FoldoutGroup("Boilerplate")] public Transform fireStart;
     [FoldoutGroup("Boilerplate")][SerializeField] GameObject decal;
@@ -19,22 +19,22 @@ public class Weapon : MonoBehaviour
     [FoldoutGroup("Boilerplate")][SerializeField] LayerMask fireLayerMask;
     [FoldoutGroup("Boilerplate")] public int animLayer;
     [FoldoutGroup("Boilerplate")] public GameObject modelInHierarchy;
-    [FoldoutGroup("Base values", Expanded = true)][SerializeField] protected int baseAmmoMax;
-    [FoldoutGroup("Base values")][SerializeField] protected int baseDamages;
-    [FoldoutGroup("Base values")][SerializeField][Range(0, 5)] protected float baseReloadTime;
-    [FoldoutGroup("Base values")][SerializeField][Range(.2f, 30)] protected float baseFireRate;
-    [FoldoutGroup("Base values")][SerializeField][Range(PRECISION_MAX, PRECISION_MIN)] protected int basePrecision;
-    [FoldoutGroup("Base values")][SerializeField][Range(0, 100)] protected int basePrecisionAim;
-    [FoldoutGroup("Base values")][SerializeField] protected int baseBulletsFired;
-    [FoldoutGroup("Base values")] public bool isAutomatic = false;
-    // [FoldoutGroup("Base values")] public bool isAutomatic = false;
+    [FoldoutGroup("Precision")] public Ease aimEase;
+    [FoldoutGroup("Recoil")][SerializeField] float recoilX = .2f;
+    [FoldoutGroup("Recoil")][SerializeField][Range(0, 1)] float recoilRandomness = .2f;
+    [FoldoutGroup("Recoil")][SerializeField][Range(0, 1)] float baseRecoilTime = .1f;
+    [FoldoutGroup("Recoil")][SerializeField][Range(0, 1)] float baseRecoilRecoveryTime = .4f;
+
+    [FoldoutGroup("Special behaviors")] public bool isAutomatic = false;
     #endregion
     #region private
     ObjectPool<GameObject> decalPool;
     ObjectPool<Line> linePool;
+    Timer recoilTimer, recoilRecoveryTimer;
+    Vector2 totalRecoilAmount, currentRecoilAmount, recoilRecoveryAmount;
     #endregion
     #region setters
-    private int _ammo, _ammoMax, _precision, _precisionAim;
+    private int _ammo;
     protected Timer reloadTimer, fireRateTimer;
     public int ammo
     {
@@ -45,62 +45,19 @@ public class Weapon : MonoBehaviour
             Bus.PushData("ammo", _ammo);
         }
     }
-    public int ammoMax
-    {
-        get => _ammoMax;
-        set
-        {
-            _ammoMax = value;
-            ammo = Math.Min(ammoMax, ammo);
-            Bus.PushData("ammoMax", _ammoMax);
-        }
-    }
-    public int precision
-    {
-        get => _precision;
-        set
-        {
-            _precision = Math.Clamp(value, PRECISION_MAX, PRECISION_MIN);
-            Bus.PushData("precision", _precision);
-        }
-    }
-    public int precisionAim
-    {
-        get => _precisionAim;
-        set
-        {
-            _precisionAim = Math.Clamp(value, 0, 100);
-            Bus.PushData("precisionAim", _precisionAim);
-        }
-    }
-    public int damages { get; set; }
-    public int bulletsFired { get; set; }
-    public float reloadTime
-    {
-        get => reloadTimer.endTime;
-        set
-        {
-            reloadTimer.endTime = value;
-            float animSpeed = reloadAnimation.length / reloadTime;
-            Player.player?.animator?.SetFloat("ReloadSpeed", animSpeed);
-        }
-    }
-    public float fireRate
-    {
-        get => 1 / fireRateTimer.endTime;
-        set
-        {
-            fireRateTimer.endTime = 1 / value;
-            float animSpeed = fireAnimation.length / (1 / value);
-            Player.player?.animator?.SetFloat("FireSpeed", animSpeed * 1.05f);
-        }
-    }
+    public int ammoMax { get => (int)StatManager.Get(StatType.MAGAZINE_SIZE); }
+    public float precision { get => StatManager.Get(StatType.PRECISION); }
+    public int precisionAim { get => (int)StatManager.Get(StatType.PRECISION_AIM); }
+    public int damages { get => (int)StatManager.Get(StatType.DAMAGES); }
+    public int bulletsFired { get => (int)StatManager.Get(StatType.BULLET_AMOUNT); }
+    public float reloadTime { get => StatManager.Get(StatType.RELOAD_TIME); }
+    public float fireRate { get => StatManager.Get(StatType.FIRE_RATE); }
+    public float recoil { get => (int)StatManager.Get(StatType.RECOIL); }
     #endregion
     void Awake()
     {
-        reloadTimer = new Timer(baseReloadTime, ReloadCompleted);
-        fireRateTimer = new Timer(baseFireRate);
-
+        reloadTimer = new Timer(1f, ReloadCompleted);
+        fireRateTimer = new Timer(1f);
         decalPool = new(
             () => Instantiate(decal),
             (GameObject newDecal) => newDecal.SetActive(true),
@@ -122,20 +79,36 @@ public class Weapon : MonoBehaviour
             (Line line) => Destroy(line.gameObject)
         );
 
-    }
+        recoilTimer = new(baseRecoilTime, () =>
+        {
+            Player.player.tpsController.pitchAdjustment -= currentRecoilAmount.y;
+            Player.player.tpsController.yawAdjustment -= currentRecoilAmount.x;
+            currentRecoilAmount = Vector2.zero;
+            recoilRecoveryTimer.ResetPlay();
+        });
+        recoilTimer.OnTimerUpdate += () =>
+        {
+            float recoilXApplied = Time.deltaTime * (totalRecoilAmount.x / baseRecoilTime);
+            float recoilYApplied = Time.deltaTime * (totalRecoilAmount.y / baseRecoilTime);
+            currentRecoilAmount -= new Vector2(recoilXApplied, recoilYApplied);
+            Player.player.tpsController.pitchAdjustment = recoilYApplied;
+            Player.player.tpsController.yawAdjustment = recoilXApplied;
+        };
 
+        recoilRecoveryTimer = new(baseRecoilRecoveryTime);
+        recoilRecoveryTimer.OnTimerUpdate += () =>
+        {
+            float recoilXApplied = Time.deltaTime * (recoilRecoveryAmount.x / baseRecoilRecoveryTime);
+            float recoilYApplied = Time.deltaTime * (recoilRecoveryAmount.y / baseRecoilRecoveryTime);
+            // recoilRecoveryAmount -= new Vector2(recoilXApplied, recoilYApplied);
+            Player.player.tpsController.yawAdjustment = -recoilXApplied;
+            Player.player.tpsController.pitchAdjustment = -recoilYApplied;
+        };
+    }
     void Start()
     {
-        ammoMax = baseAmmoMax;
-        ammo = baseAmmoMax;
-        damages = baseDamages;
-        reloadTime = baseReloadTime;
-        precision = basePrecision;
-        bulletsFired = baseBulletsFired;
-        fireRate = baseFireRate;
-        precisionAim = basePrecisionAim;
+        ammo = ammoMax;
     }
-
     void Update()
     {
         Bus.PushData("actualPrecision", RealPrecision());
@@ -163,6 +136,9 @@ public class Weapon : MonoBehaviour
     protected virtual void Trigger()
     {
         // Feedbacks
+        fireRateTimer.endTime = 1 / fireRate;
+        float animSpeed = fireAnimation.length / fireRateTimer.endTime;
+        Player.player.animator.SetFloat("FireSpeed", animSpeed * 1.05f);
         fireRateTimer.ResetPlay();
         Player.player.animator.SetTrigger("Fire");
         muzzleFlash.Play();
@@ -170,10 +146,11 @@ public class Weapon : MonoBehaviour
         for (int i = 0; i < bulletsFired; i++)
             Fire(GetFireDestination());
 
+        AddRecoil();
+
         if (--ammo == 0)
             Reload();
     }
-
     void Fire(Vector3 destination)
     {
         Vector3 endPos = destination;
@@ -214,13 +191,33 @@ public class Weapon : MonoBehaviour
         Vector3 newDirection = Quaternion.AngleAxis(randomRotation.x, Vector3.up) * initialDirection;
         return Quaternion.AngleAxis(randomRotation.y, Vector3.Cross(newDirection, Vector3.up)) * newDirection;
     }
+    void AddRecoil()
+    {
+        float recoilXAngle = recoil * recoilX;
+        Vector2 recoilAmount = new Vector2(
+            UnityEngine.Random.Range(-recoilXAngle, recoilXAngle),
+            UnityEngine.Random.Range(recoil, recoil - recoil * recoilRandomness)
+        );
+        recoilRecoveryAmount = recoilAmount;
+        currentRecoilAmount += recoilAmount;
+        totalRecoilAmount = currentRecoilAmount;
+        recoilTimer.ResetPlay();
+        recoilRecoveryTimer.Pause();
+    }
     public virtual void Reload()
     {
         if (reloadTimer.IsStarted())
             return;
+
         Player.player.CancelSprinting();
+        reloadTimer.endTime = reloadTime;
         reloadTimer.ResetPlay();
+
+        float animSpeed = reloadAnimation.length / reloadTime;
+        Player.player.animator.SetFloat("ReloadSpeed", animSpeed);
         Player.player.animator.SetTrigger("Reload");
+
+        reloads++;
         // TODO : Play sounds and animations
         // TODO : Return a value so that player knows what is hapenning
     }
@@ -238,8 +235,6 @@ public class Weapon : MonoBehaviour
         reloadTimer.Reset();
         Player.player.animator.SetTrigger("cancelReload");
     }
-    int RealPrecision()
-    {
-        return (int)Mathf.Lerp(precision, precision * Mathf.InverseLerp(100, 0, precisionAim), Player.player.aimValue);
-    }
+    float RealPrecision()
+        => Mathf.Lerp(precision, precision * Mathf.InverseLerp(100, 0, precisionAim), DOVirtual.EasedValue(0, 1, Player.player.aimValue, aimEase));
 }

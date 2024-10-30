@@ -30,7 +30,7 @@ public class WaveManager : MonoBehaviour
     {
         waveCount = startingWave - 1;
         if (waveCount > 0)
-            await PerksManager.instance.OpenPerksMenu(waveCount);
+            await PerksManager.instance.OpenPerksMenu();
         waveCooldownTimer.ResetPlay();
         Bus.PushData("wave", waveCount);
     }

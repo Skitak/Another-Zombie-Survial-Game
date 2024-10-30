@@ -47,8 +47,8 @@ public class DrinkingMachine : MonoBehaviour
             return;
         roundsInCooldown = 0;
         DisableMachine();
-        PerksManager.instance.AddPerk(perk, rarity);
-        Bus.PushData("bonus label", perk.GetLabel(rarity));
+        PerksManager.instance.AddPerk(perk);
+        Bus.PushData("bonus label", perk.GetLabel());
         Player.player.Drink();
     }
     void EnableMachine()

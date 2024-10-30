@@ -17,7 +17,7 @@ MonoBehaviour:
   useOldUnityPreviewField: 0
   useOldTypeSelector: 0
   useNewObjectSelector: 1
-  showNoneItem: 1
+  showNoneItem: 0
   showCategoriesByDefault: 0
   preferNamespacesOverAssemblyCategories: 1
   useOldPolymorphicField: 0

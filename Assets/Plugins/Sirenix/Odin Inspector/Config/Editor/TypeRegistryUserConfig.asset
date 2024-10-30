@@ -15,7 +15,8 @@ MonoBehaviour:
   shownTypes:
     serializedCollection: []
   hiddenTypes:
-    serializedCollection: []
+    serializedCollection:
+    - ContextStat, Assembly-CSharp
   addedIllegalTypes:
     serializedCollection: []
   typeSettings:
