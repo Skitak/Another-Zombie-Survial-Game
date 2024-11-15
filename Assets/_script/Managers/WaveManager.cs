@@ -92,9 +92,10 @@ public class WaveManager : MonoBehaviour
     # region utils
     GameObject FindPickup()
     {
+        float dropRate = StatManager.Get(StatType.DROP_RATE) / 100;
         foreach (PickupChances pickupChances in pickups)
         {
-            int maxRandom = (int)(currentWave.zombiesAmount / pickupChances.dropRate);
+            int maxRandom = (int)(currentWave.zombiesAmount / (pickupChances.dropRate * dropRate));
             if (UnityEngine.Random.Range(0, maxRandom) == 0)
                 return pickupChances.pickup;
         }

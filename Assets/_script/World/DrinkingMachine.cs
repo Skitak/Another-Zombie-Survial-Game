@@ -4,7 +4,6 @@ using UnityEngine;
 public class DrinkingMachine : MonoBehaviour
 {
     public Perk perk;
-    public Rarity rarity;
     [Min(1)] public int roundsCooldown;
     int roundsInCooldown;
     Interactable interactable;
@@ -47,7 +46,7 @@ public class DrinkingMachine : MonoBehaviour
             return;
         roundsInCooldown = 0;
         DisableMachine();
-        PerksManager.instance.AddPerk(perk);
+        perk.ApplyUpgrades(true);
         Bus.PushData("bonus label", perk.GetLabel());
         Player.player.Drink();
     }

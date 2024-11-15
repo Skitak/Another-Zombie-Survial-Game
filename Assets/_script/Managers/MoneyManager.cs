@@ -12,6 +12,7 @@ public class MoneyManager : MonoBehaviour
     {
         instance = this;
         Bus.Subscribe("zombie died", ZombieDied);
+        Bus.Subscribe("MONEY_UPDATE", (o) => UpdateMoney((int)(float)o[0], IncomeType.PERK));
     }
 
     void Start()

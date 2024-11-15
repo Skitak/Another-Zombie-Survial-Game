@@ -361,7 +361,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   perk: {fileID: 0}
-  rarity: 0
-  health: 5
-  healthPercentage: 0
-  grenades: 0
+  value: 1
+  asPercent: 0

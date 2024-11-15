@@ -27,7 +27,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 6
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
@@ -68,7 +68,13 @@ MonoBehaviour:
       Entry: 7
       Data: 3|ContextCondition, Assembly-CSharp
     - Name: context
-      Entry: 6
+      Entry: 7
+      Data: 4|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: type
       Entry: 3
@@ -90,7 +96,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|StatModifier, Assembly-CSharp
+      Data: 5|StatModifier, Assembly-CSharp
     - Name: hasContextData
       Entry: 5
       Data: false
@@ -105,12 +111,18 @@ MonoBehaviour:
       Data: true
     - Name: value
       Entry: 4
-      Data: -33
+      Data: -20
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
-      Entry: 6
+      Entry: 7
+      Data: 6|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: isConditional
       Entry: 5
@@ -119,14 +131,38 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: condition
-      Entry: 6
+      Entry: 7
+      Data: 7|ContextCondition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 8|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: conditionValue
+      Entry: 3
+      Data: 0
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|StatModifier, Assembly-CSharp
+      Data: 9|StatModifier, Assembly-CSharp
     - Name: hasContextData
       Entry: 5
       Data: false
@@ -146,7 +182,13 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: context
-      Entry: 6
+      Entry: 7
+      Data: 10|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: isConditional
       Entry: 5
@@ -155,7 +197,229 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: condition
-      Entry: 6
+      Entry: 7
+      Data: 11|ContextCondition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 12|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: conditionValue
+      Entry: 3
+      Data: 0
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|StatModifier, Assembly-CSharp
+    - Name: hasContextData
+      Entry: 5
+      Data: false
+    - Name: _applyToBaseValue
+      Entry: 5
+      Data: true
+    - Name: stat
+      Entry: 3
+      Data: 20
+    - Name: applyPercentageValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: 1
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 0
+    - Name: context
+      Entry: 7
+      Data: 14|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: isConditional
+      Entry: 5
+      Data: false
+    - Name: _appliedOnce
+      Entry: 5
+      Data: false
+    - Name: condition
+      Entry: 7
+      Data: 15|ContextCondition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 16|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: conditionValue
+      Entry: 3
+      Data: 0
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|StatModifier, Assembly-CSharp
+    - Name: hasContextData
+      Entry: 5
+      Data: false
+    - Name: _applyToBaseValue
+      Entry: 5
+      Data: true
+    - Name: stat
+      Entry: 3
+      Data: 6
+    - Name: applyPercentageValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: 1
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 0
+    - Name: context
+      Entry: 7
+      Data: 18|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: isConditional
+      Entry: 5
+      Data: false
+    - Name: _appliedOnce
+      Entry: 5
+      Data: false
+    - Name: condition
+      Entry: 7
+      Data: 19|ContextCondition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 20|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: conditionValue
+      Entry: 3
+      Data: 0
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 21|StatModifier, Assembly-CSharp
+    - Name: hasContextData
+      Entry: 5
+      Data: false
+    - Name: _applyToBaseValue
+      Entry: 5
+      Data: true
+    - Name: stat
+      Entry: 3
+      Data: 10
+    - Name: applyPercentageValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: -1
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 0
+    - Name: context
+      Entry: 7
+      Data: 22|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: isConditional
+      Entry: 5
+      Data: false
+    - Name: _appliedOnce
+      Entry: 5
+      Data: false
+    - Name: condition
+      Entry: 7
+      Data: 23|ContextCondition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 24|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: conditionValue
+      Entry: 3
+      Data: 0
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8

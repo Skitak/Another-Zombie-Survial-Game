@@ -3,19 +3,21 @@ using Asmos.Bus;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Linq;
-using Sirenix.Serialization;
+using System.Runtime.InteropServices.WindowsRuntime;
 public class StatManager : SerializedMonoBehaviour
 {
+    // [ShowInInspector]
+    [OnInspectorGUI("@instance = this")]
+    [SerializeField]
     public static StatManager instance;
-    [DictionaryDrawerSettings(KeyLabel = "Stat", ValueLabel = "Description", DisplayMode = DictionaryDisplayOptions.OneLine)]
     [Searchable]
-    [ShowInInspector]
-
-    public static Dictionary<StatType, StatDescription> statDescriptions;
+    [DictionaryDrawerSettings(KeyLabel = "Stat", ValueLabel = "Description", DisplayMode = DictionaryDisplayOptions.OneLine)]
+    public Dictionary<StatType, StatDescription> statDescriptions = new();
     // [DictionaryDrawerSettings(KeyLabel = "Stat", ValueLabel = "Description", DisplayMode = DictionaryDisplayOptions.OneLine)]
     // [Searchable]
     // public Dictionary<StatType, StatDescription> statDescriptions;
     [DictionaryDrawerSettings(KeyLabel = "Mutation", ValueLabel = "Description", DisplayMode = DictionaryDisplayOptions.OneLine)]
+
     [Searchable]
     [SerializeField] Dictionary<StatType, MutationDescription> mutationDescriptions;
 
@@ -26,8 +28,8 @@ public class StatManager : SerializedMonoBehaviour
         foreach (StatType statType in System.Enum.GetValues(typeof(StatType)))
         {
             if (!statDescriptions.ContainsKey(statType))
-                stats[statType] = new(0, statType.ToString());
-            stats[statType] = new(statDescriptions[statType].baseValue, statType.ToString());
+                stats[statType] = new(0, statType);
+            stats[statType] = new(statDescriptions[statType].baseValue, statType);
         }
         var timer = new Asmos.Timers.Timer(2f);
         timer.OnTimerEnd += () =>
@@ -46,8 +48,8 @@ public class StatManager : SerializedMonoBehaviour
     }
     public static float Get(StatType type, bool addContextualModifier = true)
         => Mathf.Clamp(instance.stats[type].GetValue(addContextualModifier),
-            statDescriptions[type].min,
-            statDescriptions[type].max);
+            instance.statDescriptions[type].min,
+            instance.statDescriptions[type].max);
     public static Stat GetStat(StatType type) => instance.stats[type];
 
     public static void Subscribe(StatType type, System.Action<float> action) =>
@@ -63,12 +65,21 @@ public class StatManager : SerializedMonoBehaviour
 }
 public class Stat
 {
-    public string buskey;
+    public StatType statType;
+    public StatDescription description;
     public float baseValue, modifierFlat, modifierPercent;
-    public Stat(float baseValue, string buskey) { this.baseValue = baseValue; this.buskey = buskey; }
+    public Stat(float baseValue, StatType statType)
+    {
+        this.baseValue = baseValue; this.statType = statType; this.description = StatManager.instance.statDescriptions[statType];
+    }
     public List<StatModifier> modifiers = new();
-    public float GetValue(bool addContextualModifier = true) =>
-        (GetBaseValue() + GetFlatValue(addContextualModifier)) * GetPercentValue(addContextualModifier);
+    public float GetValue(bool addContextualModifier = true)
+    {
+        float value = (GetBaseValue() + GetFlatValue(addContextualModifier)) * GetPercentValue(addContextualModifier);
+        if (description.displayType == StatDisplayType.INT)
+            return Mathf.Floor(value);
+        return value;
+    }
     public float GetBaseValue() => baseValue;
     public float GetFlatValue(bool addContextualModifier = true)
         => modifierFlat + (addContextualModifier ? GetContextualModifierFlat() : 0);
@@ -77,14 +88,14 @@ public class Stat
     public float GetContextualModifierFlat()
     {
         float value = 0;
-        foreach (StatModifier modifier in modifiers.Where(x => !x.ShouldApplyOnUpdate() && !x.applyPercentageValue))
+        foreach (StatModifier modifier in modifiers.Where(x => IsContextModifier(x, false)))
             value += modifier.GetValue();
         return value;
     }
     public float GetContextualModifierPercent()
     {
         float value = 0;
-        foreach (StatModifier modifier in modifiers.Where(x => !x.ShouldApplyOnUpdate() && x.applyPercentageValue))
+        foreach (StatModifier modifier in modifiers.Where(x => IsContextModifier(x, true)))
             value += modifier.GetValue();
         return value;
     }
@@ -96,9 +107,9 @@ public class Stat
         else if (!modifier.UseContext())
             ApplyModifier(modifier);
     }
-
     void ApplyModifier(StatModifier modifier)
     {
+        float oldValue = description.onlyPushDifference ? GetValue() : 0;
         if (modifier.applyToBaseValue)
         {
             if (modifier.applyPercentageValue)
@@ -113,8 +124,10 @@ public class Stat
             else
                 modifierFlat += modifier.GetUnappliedValue();
         }
-        Bus.PushData(buskey, GetValue());
+        Bus.PushData(statType.ToString(), GetValue() - oldValue);
     }
+    bool IsContextModifier(StatModifier modifier, bool applyPercentageValue) =>
+        !modifier.ShouldApplyOnUpdate() && modifier.UseContext() && modifier.applyPercentageValue == applyPercentageValue;
 }
 public struct StatDescription
 {
@@ -124,6 +137,7 @@ public struct StatDescription
     public StatDisplayType displayType;
     public StatCategory category;
     public string displayedName;
+    public bool onlyPushDifference;
     public Sprite icon;
     public string ValueToString(float value)
     {
@@ -146,17 +160,7 @@ public struct StatDescription
         }
     }
 }
-public enum StatDisplayType
-{
-    INT, FLOAT, PERCENT, DEGREE, SECONDS, M_PER_SEC
-}
-public struct MutationDescription
-{
-    public bool baseValue;
-    public string displayedName;
-    public Sprite icon;
-    // DisplayType
-}
+public enum StatDisplayType { INT, FLOAT, PERCENT, DEGREE, SECONDS, M_PER_SEC }
 public enum StatType
 {
     // Player
@@ -184,8 +188,13 @@ public enum StatType
     // MISC
     PICK_DISTANCE,
     DRINKS,
-    RECOIL
+    RECOIL,
+    HEALTH_UPDATE,
+    MONEY_UPDATE,
+    DROP_RATE
 }
+public enum StatCategory { PLAYER, WEAPON, EXPLOSION, MISC, HIDDEN }
+public enum ContextStatType { HEALTH, AMMO, MONEY, COMBO, WAVE, HEADSHOT, KILL, RELOAD }
 public enum MutationType
 {
     WEAPON_AUTOMATIC,
@@ -196,12 +205,11 @@ public enum MutationType
     RELOAD_ONE_BULLET,
     FIRE_WHILE_RUNNING
 }
-
-public enum StatCategory
+public struct MutationDescription
 {
-    PLAYER, WEAPON, EXPLOSION, MISC
+    public bool baseValue;
+    public string displayedName;
+    public Sprite icon;
 }
-
-public enum ContextStatType { HEALTH, AMMO, MONEY, COMBO, WAVE, HEADSHOT, KILL, RELOAD }
 
 // public enum RefreshFrequence { NEVER, RARELY, SOMETIMES, FREQUENTLY, ALWAYS }

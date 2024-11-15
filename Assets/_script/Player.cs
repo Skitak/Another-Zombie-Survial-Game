@@ -237,6 +237,17 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
             staminaTimer.endTime = value;
             staminaTimer.Rewind();
         });
+        Bus.Subscribe("HEALTH_UPDATE", (o) =>
+        {
+            int diff = (int)(float)o[0];
+            if (diff < 0)
+                Hit(diff);
+            else
+            {
+                Bus.PushData("bonus label", $"+{diff}% health");
+                health += diff;
+            }
+        });
     }
     void Start()
     {
@@ -332,8 +343,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         armGrenadeTimer.Reset();
         throwGrenadeDelayTimer.Reset();
     }
-
-
     #endregion
     #region utils
     public bool IsDead() => health <= 0;

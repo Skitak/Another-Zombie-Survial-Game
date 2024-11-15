@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  perk: {fileID: 11400000, guid: 6a562a6b9f535904b9a6d65d58cbf369, type: 2}
-  rarity: 0
+  perk: {fileID: 11400000, guid: 90dceb2d1e1ee4e4495aff9d3f5082c0, type: 2}
   health: 0
   healthPercentage: 0.5
   grenades: 0

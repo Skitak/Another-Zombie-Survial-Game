@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 755259900202416057, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
       propertyPath: perk
       value: 
-      objectReference: {fileID: 11400000, guid: ece544686d27acf4ca9c827588848e32, type: 2}
+      objectReference: {fileID: 11400000, guid: 840c12b61485bc04d9683b74f68aeac7, type: 2}
     - target: {fileID: 3076003747263064675, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6112985647573198687, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
       propertyPath: m_Name
-      value: Base Pickup (4) Variant
+      value: Perk Stamina Pickup
       objectReference: {fileID: 0}
     - target: {fileID: 9034662997743525282, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

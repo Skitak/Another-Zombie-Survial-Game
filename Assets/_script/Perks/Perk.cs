@@ -41,18 +41,30 @@ public class Perk : SerializedScriptableObject
         return endLabel;
 
     }
-    public virtual void ApplyUpgrades()
+    public virtual void ApplyUpgrades(bool isDrink = false)
     {
         foreach (StatModifier modifier in statModifiers)
         {
             StatModifier clonedModifier = modifier.Clone();
             clonedModifier.Initialize();
+            if (isDrink)
+                clonedModifier.value *= StatManager.Get(StatType.DRINKS) / 100;
             StatManager.ApplyStatModifier(clonedModifier);
         }
         foreach (MutationType mutation in mutations)
             StatManager.ApplyMutation(mutation);
     }
-    public Sprite GetSprite() => sprite != null ? sprite : StatManager.statDescriptions[statModifiers[0].stat].icon;
+    public Sprite GetSprite() => sprite != null ? sprite : StatManager.instance.statDescriptions[statModifiers[0].stat].icon;
+    [OnInspectorGUI] private void Space2() { GUILayout.Space(20); }
+
+    [ShowInInspector]
+    [PropertyOrder(11)]
+    [MultiLineProperty(10)]
+    [HideLabel]
+    [DisplayAsString(false)]
+    [OnInspectorGUI("UpdateLabelPreview")]
+    string _labelPreview = "";
+    void UpdateLabelPreview() => _labelPreview = StatManager.instance != null ? GetLabel(false) : "";
 }
 
 public enum Rarity { COMMON, UNCOMMON, RARE, LEGENDARY }
@@ -74,7 +86,7 @@ public class StatModifier
         get => !UseContext() || _applyToBaseValue;
         set => _applyToBaseValue = value;
     }
-
+    #region context
     [ShowIfGroup("hasContextData")]
     [PropertyOrder(5)]
     [BoxGroup("hasContextData/Context")]
@@ -83,8 +95,17 @@ public class StatModifier
     public int appliedPerContextValue = 0;
     [PropertyOrder(6)]
     [BoxGroup("hasContextData/Context")]
-    public ContextStat context;
-
+    [OnInspectorInit("InitContext")]
+    public ContextStat context = new ContextStatFlat();
+    void InitContext() => context ??= new ContextStatFlat();
+    [GUIColor("@this.hasContextData? Color.green:Color.white")]
+    [Button("Context", 20)]
+    [PropertyOrder(4)]
+    [ButtonGroup("Context")]
+    void ToggleContextData() => hasContextData = !hasContextData;
+    public bool HasPerContextValue() => hasContextData;
+    #endregion
+    #region conditional
     [SerializeField][HideInInspector] bool isConditional;
     [SerializeField][HideInInspector] bool _appliedOnce;
     [PropertyOrder(7)]
@@ -94,22 +115,32 @@ public class StatModifier
     [ShowInInspector]
     public bool appliedOnce
     {
+        [OnInspectorInit("InitCond")]
         get => applyToBaseValue || _appliedOnce;
         set => _appliedOnce = value;
     }
     [PropertyOrder(8)]
-    [BoxGroup("isConditional/Conditional")] public ContextCondition condition;
+    [BoxGroup("isConditional/Conditional")]
+    public ContextCondition condition;
+    void InitCond() => condition ??= new ContextCondition();
+    [GUIColor("@isConditional? Color.green:Color.white")]
+    [Button("Condition", 20)]
+    [PropertyOrder(3)]
+    [ButtonGroup("Context")]
+    void ToggleCondition() => isConditional = !isConditional;
+    public bool IsValid() => !isConditional || condition.IsValid();
+    #endregion
     public string GetLabel(bool withContext = true)
     {
-        if (appliedOnce && !IsValid() && withContext)
+        if (withContext && appliedOnce && !IsValid())
             return "";
-        bool displayConditional = isConditional && !(appliedOnce && condition.IsValid() && withContext);
-        StatDescription description = StatManager.statDescriptions[stat];
+        bool displayConditional = isConditional && !(withContext && appliedOnce && condition.IsValid());
+        StatDescription description = StatManager.instance.statDescriptions[stat];
         string prefix = value > 0 ? "+" : "";
         string valueStr = applyPercentageValue ? $"{value}%" : description.ValueToString(value);
         string baseLabel = $"{prefix}{valueStr} {description.displayedName}";
         prefix = "every ";
-        if (HasPerContextValue())
+        if (HasPerContextValue() && appliedPerContextValue != 1)
             prefix += $"{appliedPerContextValue} ";
         string contextStr = HasPerContextValue() ? $" {prefix}{context.GetLabel(withContext, appliedPerContextValue != 1)}" : "";
         string conStr = displayConditional ? $" {condition.GetLabel(withContext)}" : "";
@@ -171,24 +202,12 @@ public class StatModifier
 
     }
     void TogglePercent() => applyPercentageValue = !applyPercentageValue;
-
-    [GUIColor("@isConditional? Color.green:Color.white")]
-    [Button("Condition", 20)]
-    [PropertyOrder(3)]
-    [ButtonGroup("Context")]
-    void ToggleCondition() => isConditional = !isConditional;
-
-    [GUIColor("@this.hasContextData? Color.green:Color.white")]
-    [Button("Context", 20)]
-    [PropertyOrder(4)]
-    [ButtonGroup("Context")]
-    void ToggleContextData() => hasContextData = !hasContextData;
-    public bool IsValid() => !isConditional || condition.IsValid();
     public bool UseContext() => isConditional || HasPerContextValue();
-    public bool HasPerContextValue() => hasContextData;
-    // [ShowInInspector]
-    // [MultiLineProperty(10)]
-    // public string labelPreview { get => GetLabel(false); }
+    [ShowInInspector]
+    [PropertyOrder(11)]
+    [HideLabel]
+    [DisplayAsString]
+    public string labelPreview { get { if (StatManager.instance) return GetLabel(false); return ""; } }
 }
 
 #region Context stat
@@ -263,10 +282,10 @@ public class ContextStatPercent : ContextStat
         string pluralStr = plural ? "s" : "";
         return stat switch
         {
-            Stat.HEALTH => "% health left",
-            Stat.HEALTH_MISSING => "% missing health",
-            Stat.AMMO => $"% ammunition{pluralStr} left",
-            Stat.AMMO_MISSING => $"% missing ammunition{pluralStr}",
+            Stat.HEALTH => "health left",
+            Stat.HEALTH_MISSING => "missing health",
+            Stat.AMMO => $"ammunition{pluralStr} left",
+            Stat.AMMO_MISSING => $"missing ammunition{pluralStr}",
             _ => "",
         };
     }
@@ -311,7 +330,7 @@ public class ContextStatIncremental : ContextStat
         {
             Stat.WAVE => $"wave{pluralStr}",
             Stat.HEADSHOT => $"headshot kill{pluralStr}",
-            Stat.KILL => $"zombie kill{pluralStr}",
+            Stat.KILL => $"zombie{pluralStr} killed",
             Stat.RELOAD => $"reload{pluralStr}",
             _ => "",
         };
@@ -324,7 +343,9 @@ public class ContextStatIncremental : ContextStat
 [Serializable]
 public class ContextCondition
 {
-    public ContextStat context;
+    [OnInspectorInit("InitContext")]
+    public ContextStat context = new ContextStatFlat();
+    void InitContext() => context ??= new ContextStatFlat();
     public Type type;
     [HideIf("type", Type.THRESHOLD)] public int conditionValue;
     [ShowIf("type", Type.THRESHOLD)] public int thresholdMin;
@@ -347,6 +368,7 @@ public class ContextCondition
     }
     public string GetLabel(bool withContext)
     {
+        if (context == null) return "";
         if (context.GetType() == typeof(ContextStatIncremental))
         {
             string incrementalString = IncrementalString(withContext);

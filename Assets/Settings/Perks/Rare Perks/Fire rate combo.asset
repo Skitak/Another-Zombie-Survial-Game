@@ -45,7 +45,7 @@ MonoBehaviour:
       Data: false
     - Name: value
       Entry: 4
-      Data: 0.1
+      Data: 0.2
     - Name: appliedPerContextValue
       Entry: 3
       Data: 1

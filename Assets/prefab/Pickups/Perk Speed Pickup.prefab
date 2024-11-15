@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1731955900971860917, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
       propertyPath: m_Name
-      value: Base Pickup (3) Variant
+      value: Perk Speed Pickup
       objectReference: {fileID: 0}
     - target: {fileID: 3584028133619595592, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 5091227404099244883, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
       propertyPath: perk
       value: 
-      objectReference: {fileID: 11400000, guid: 31f3e05732285c14db760a9988acb7d5, type: 2}
+      objectReference: {fileID: 11400000, guid: 077166d46164d1841b8b2a38193ebe95, type: 2}
     - target: {fileID: 7380482408268304009, guid: 794d396be03c2f143b04d06a7f2a3aa7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16

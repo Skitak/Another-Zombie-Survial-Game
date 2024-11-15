@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b95881d3c466494aae0174809651c6c, type: 3}
-  m_Name: Money uncommon
+  m_Name: Speed health
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -31,7 +31,7 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
-    - Name: useContext
+    - Name: hasContextData
       Entry: 5
       Data: false
     - Name: _applyToBaseValue
@@ -39,31 +39,28 @@ MonoBehaviour:
       Data: false
     - Name: stat
       Entry: 3
-      Data: 17
+      Data: 2
     - Name: applyPercentageValue
       Entry: 5
-      Data: false
+      Data: true
     - Name: value
       Entry: 4
-      Data: 5
+      Data: 30
     - Name: appliedPerContextValue
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: context
       Entry: 7
       Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: isInitialized
-      Entry: 5
-      Data: false
     - Name: stat
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
     - Name: isConditional
       Entry: 5
-      Data: false
+      Data: true
     - Name: _appliedOnce
       Entry: 5
       Data: false
@@ -71,14 +68,20 @@ MonoBehaviour:
       Entry: 7
       Data: 3|ContextCondition, Assembly-CSharp
     - Name: context
-      Entry: 6
+      Entry: 7
+      Data: 4|ContextStatPercent, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
       Data: 
     - Name: type
       Entry: 3
-      Data: 4
+      Data: 3
     - Name: conditionValue
       Entry: 3
-      Data: 1000
+      Data: 25
     - Name: thresholdMin
       Entry: 3
       Data: 0
@@ -99,10 +102,10 @@ MonoBehaviour:
       Data: 
   hasPrio: 0
   showInShop: 1
-  title: Income
+  title: Survival Instinct
   label: 
   showModifiersLabel: 1
-  maxApplications: 2147483647
+  maxApplications: 1
   price: 2000
-  rarity: 1
+  rarity: 2
   mutations: 

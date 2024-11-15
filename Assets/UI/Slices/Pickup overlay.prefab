@@ -316,9 +316,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b824e76c55085499a5640c13349fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   cameras: []
   canvasGroup: {fileID: 3224445706426503116}
-  hideCamerasOnStart: 0
+  onShowTransitionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onShowTransitionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onEntryEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onExitStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onHideTransitionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onHideTransitionEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7933855618723393367
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +356,7 @@ GameObject:
   - component: {fileID: 2714767350115917954}
   - component: {fileID: 4927165919488935040}
   - component: {fileID: 3402350181601451746}
-  - component: {fileID: 5326645689179172810}
+  - component: {fileID: 2337920575506101570}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -456,7 +482,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5326645689179172810
+--- !u!114 &2337920575506101570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -465,10 +491,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7933855618723393367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d649d94d6353ba74fbf626869510690a, type: 3}
+  m_Script: {fileID: 11500000, guid: bfdc62b1e9a07204b9a1ec4462c968ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iUnderstood: 0
   dontDisplayWithoutData: 1
 --- !u!1 &8041416830891233280
 GameObject:

@@ -1,18 +1,19 @@
-using System;
 using Asmos.Bus;
 using Asmos.Timers;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Timer = Asmos.Timers.Timer;
 
 public class Pickup : MonoBehaviour
 {
     const float PICKUP_DISTANCE = 1f;
     public PickupType type;
     [ShowIf("type", PickupType.PERK)][SerializeField] Perk perk;
-    [ShowIf("type", PickupType.PERK)][SerializeField] Rarity rarity;
-    [ShowIf("type", PickupType.HEALTH)][SerializeField] int health;
-    [ShowIf("type", PickupType.HEALTH)][SerializeField][Range(0, 1)] float healthPercentage;
-    [ShowIf("type", PickupType.GRENADES)][SerializeField] int grenades;
+    [InlineButton("TogglePercent", "@asPercent?\"Percent\":\"Flat\"")]
+    [LabelText("@type == PickupType.HEALTH ? \"Health\" : \"Grenades\"")]
+    [HideIf("type", PickupType.PERK)][SerializeField] int value;
+    [SerializeField][HideInInspector] bool asPercent;
+    void TogglePercent() => asPercent = !asPercent;
     bool pickedUp = false;
     float minTimeFlash = 0.05f;
     float maxTimeFlash = .8f;
@@ -53,23 +54,23 @@ public class Pickup : MonoBehaviour
         switch (type)
         {
             case PickupType.HEALTH:
-                if (health != 0)
+                if (!asPercent)
                 {
-                    Player.player.health += health;
-                    Bus.PushData("bonus label", $"+{health} health");
+                    Player.player.health += value;
+                    Bus.PushData("bonus label", $"+{value} health");
                 }
                 else
                 {
-                    Player.player.health += (int)(Player.player.healthMax * healthPercentage);
-                    Bus.PushData("bonus label", $"+{healthPercentage * 100}% health");
+                    Player.player.health += (int)(Player.player.healthMax * value / 100f);
+                    Bus.PushData("bonus label", $"+{value}% health");
                 }
                 break;
             case PickupType.GRENADES:
-                Player.player.grenades += grenades;
-                Bus.PushData("bonus label", $"+{grenades} grenades");
+                Player.player.grenades += value;
+                Bus.PushData("bonus label", $"+{value} grenades");
                 break;
             case PickupType.PERK:
-                PerksManager.instance.AddPerk(perk);
+                perk.ApplyUpgrades(true);
                 Bus.PushData("bonus label", "+" + perk.GetLabel());
                 break;
             default:
@@ -84,7 +85,7 @@ public class Pickup : MonoBehaviour
         TimerManager.RemoveTimer(dyingTimer);
         TimerManager.RemoveTimer(flashOnTimer);
         TimerManager.RemoveTimer(flashOffTimer);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }
 
@@ -93,7 +94,7 @@ public enum PickupType
     HEALTH, GRENADES, PERK,
 }
 
-[Serializable]
+[System.Serializable]
 public struct PickupChances
 {
     [TableColumnWidth(60)]
