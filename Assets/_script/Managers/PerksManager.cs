@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Asmos.Bus;
+using Asmos.Timers;
 using Asmos.UI;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ public class PerksManager : SerializedMonoBehaviour
     [HideInInspector] public int[] rarityChances;
     Timer timeScaleTimer;
     Stack<Perk> perksApplied = new();
-    [SerializeField]
+    // [SerializeField]
     int perksToPick = 0;
     [HideInInspector] public bool isOpened;
     void Awake()
@@ -42,8 +42,8 @@ public class PerksManager : SerializedMonoBehaviour
         timeScaleTimer.Play();
         Cursor.lockState = CursorLockMode.Confined;
         perksToPick = perksAmout;
-        RefreshPerks();
         await ViewManager.instance.AddView(perkView);
+        RefreshPerks();
         if (perksToPick != 0)
             while (perksToPick > 0)
                 await Task.Delay(100);
@@ -53,10 +53,10 @@ public class PerksManager : SerializedMonoBehaviour
         await ViewManager.instance.RemoveView();
         Cursor.lockState = CursorLockMode.Locked;
         timeScaleTimer.Rewind();
-        // Time.timeScale = 1;
         Player.player.SetInputEnabled(true);
         isOpened = false;
     }
+
     private Rarity PickRarity()
     {
         int randomValue = UnityEngine.Random.Range(0, 100);
@@ -85,6 +85,13 @@ public class PerksManager : SerializedMonoBehaviour
         List<Perk> foundPerks = new();
         foreach (PerkCard card in PerkCard.perkCards)
         {
+            var prioPerks = allPerks.Where(x => x.hasPrio);
+            if (prioPerks.Count() != 0)
+            {
+                Perk prioPerk = prioPerks.ElementAt(UnityEngine.Random.Range(0, prioPerks.Count()));
+                card.InitializePerk(prioPerk, prioPerk.rarity);
+                continue;
+            }
             Rarity rarity = PickRarity();
             IEnumerable<Perk> perks;
             do

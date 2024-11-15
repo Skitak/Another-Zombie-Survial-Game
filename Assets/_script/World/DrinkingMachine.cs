@@ -31,7 +31,7 @@ public class DrinkingMachine : MonoBehaviour
     void Start()
     {
         DisableMachine();
-        Bus.Subscribe("wave start", (o) =>
+        Bus.Subscribe("WAVE", (o) =>
         {
             ++roundsInCooldown;
             if (CanDrink())

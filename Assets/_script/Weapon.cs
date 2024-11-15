@@ -5,6 +5,7 @@ using Shapes;
 using Sirenix.OdinInspector;
 using System;
 using DG.Tweening;
+using Asmos.Timers;
 public class Weapon : MonoBehaviour
 {
     public static int reloads = 0;
@@ -42,11 +43,11 @@ public class Weapon : MonoBehaviour
         set
         {
             _ammo = Math.Clamp(value, 0, ammoMax);
-            Bus.PushData("ammo", _ammo);
+            Bus.PushData("AMMO", _ammo);
         }
     }
     public int ammoMax { get => (int)StatManager.Get(StatType.MAGAZINE_SIZE); }
-    public float precision { get => StatManager.Get(StatType.PRECISION); }
+    public float precision { get => StatManager.Get(StatType.SPREAD); }
     public int precisionAim { get => (int)StatManager.Get(StatType.PRECISION_AIM); }
     public int damages { get => (int)StatManager.Get(StatType.DAMAGES); }
     public int bulletsFired { get => (int)StatManager.Get(StatType.BULLET_AMOUNT); }
@@ -218,6 +219,7 @@ public class Weapon : MonoBehaviour
         Player.player.animator.SetTrigger("Reload");
 
         reloads++;
+        Bus.PushData("RELOAD");
         // TODO : Play sounds and animations
         // TODO : Return a value so that player knows what is hapenning
     }

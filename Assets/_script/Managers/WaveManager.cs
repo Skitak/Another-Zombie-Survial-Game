@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Asmos.Bus;
+using Asmos.Timers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -29,10 +31,11 @@ public class WaveManager : MonoBehaviour
     public async void StartGame()
     {
         waveCount = startingWave - 1;
+        await Task.Delay(4000);
         if (waveCount > 0)
             await PerksManager.instance.OpenPerksMenu();
         waveCooldownTimer.ResetPlay();
-        Bus.PushData("wave", waveCount);
+        Bus.PushData("WAVE", waveCount);
     }
 
     public void EndGame()
@@ -60,7 +63,7 @@ public class WaveManager : MonoBehaviour
         zombieCount = 0;
         spawnTimer.EndTime = currentWave.spawnTime;
         spawnTimer.ResetPlay();
-        Bus.PushData("wave start", waveCount);
+        Bus.PushData("WAVE", waveCount);
     }
 
     async void EndWave()

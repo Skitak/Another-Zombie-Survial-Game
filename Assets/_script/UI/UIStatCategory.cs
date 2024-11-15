@@ -16,14 +16,14 @@ public class UIStatCategory : MonoBehaviour
     {
         for (int i = 0; i < statLinesParent.childCount; i++)
             Destroy(statLinesParent.GetChild(i).gameObject);
-        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.instance.statDescriptions.Where(x => x.Value.category == category))
+        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.statDescriptions.Where(x => x.Value.category == category))
             statLines[kp.Key] = Instantiate(statLinePrefab, statLinesParent);
         Bus.Subscribe("Pause", (o) => { if ((bool)o[0]) RefreshStats(); });
     }
 
     public void RefreshStats()
     {
-        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.instance.statDescriptions.Where(x => x.Value.category == category))
+        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.statDescriptions.Where(x => x.Value.category == category))
         {
             GameObject statLine = statLines[kp.Key];
             Stat stat = StatManager.GetStat(kp.Key);

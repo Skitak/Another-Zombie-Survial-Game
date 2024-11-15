@@ -1,5 +1,6 @@
 using System;
 using Asmos.Bus;
+using Asmos.Timers;
 using Cinemachine;
 using Sirenix.OdinInspector;
 using StarterAssets;
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         set
         {
             _health = Math.Clamp(value, 0, healthMax);
-            Bus.PushData("health", _health);
+            Bus.PushData("HEALTH", _health);
         }
     }
     public int healthMax { get => (int)StatManager.Get(StatType.HEALTH_MAX); }
@@ -165,7 +166,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         // TODO : Camera shake
 
         health -= damages;
-        Bus.PushData("health", health);
 
         if (health <= 0)
         {
@@ -256,7 +256,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         transform.position = spawnPoint;
         health = (int)StatManager.Get(StatType.HEALTH_MAX);
         controller.height = initialHeight;
-        Bus.PushData("health", health);
         animator.SetTrigger("Reset death");
         SetInputEnabled(true);
     }

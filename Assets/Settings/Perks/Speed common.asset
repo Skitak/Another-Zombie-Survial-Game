@@ -31,6 +31,12 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
+    - Name: useContext
+      Entry: 5
+      Data: false
+    - Name: _applyToBaseValue
+      Entry: 5
+      Data: false
     - Name: stat
       Entry: 3
       Data: 0
@@ -39,10 +45,7 @@ MonoBehaviour:
       Data: true
     - Name: value
       Entry: 4
-      Data: 10
-    - Name: appearsAsPermanent
-      Entry: 5
-      Data: true
+      Data: 3
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -61,10 +64,7 @@ MonoBehaviour:
     - Name: isConditional
       Entry: 5
       Data: false
-    - Name: hideConditionIfValid
-      Entry: 5
-      Data: false
-    - Name: hideIfConditionInvalid
+    - Name: _appliedOnce
       Entry: 5
       Data: false
     - Name: condition
@@ -97,6 +97,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  hasPrio: 0
   showInShop: 1
   title: Speed boost
   label: 

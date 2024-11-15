@@ -14,7 +14,7 @@ public class PriceButton : MonoBehaviour
     [SerializeField] BaseButton button;
     [SerializeField] IncomeType incomeType = IncomeType.PERK;
     bool isUsed = false;
-    void Awake() => Bus.Subscribe("money", o => button.SetActive(((int)o[2] >= price) && !(isUsed && usedOnce)));
+    void Awake() => Bus.Subscribe("MONEY", o => button.SetActive(((int)o[2] >= price) && !(isUsed && usedOnce)));
     void Start() => button.SetActive(MoneyManager.instance.GetMoney() >= price);
     public void PayPrice()
     {

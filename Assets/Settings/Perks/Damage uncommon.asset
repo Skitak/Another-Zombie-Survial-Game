@@ -27,10 +27,16 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
+    - Name: useContext
+      Entry: 5
+      Data: false
+    - Name: _applyToBaseValue
+      Entry: 5
+      Data: false
     - Name: stat
       Entry: 3
       Data: 8
@@ -39,10 +45,7 @@ MonoBehaviour:
       Data: false
     - Name: value
       Entry: 4
-      Data: 4
-    - Name: appearsAsPermanent
-      Entry: 5
-      Data: true
+      Data: 3
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -61,10 +64,7 @@ MonoBehaviour:
     - Name: isConditional
       Entry: 5
       Data: false
-    - Name: hideConditionIfValid
-      Entry: 5
-      Data: false
-    - Name: hideIfConditionInvalid
+    - Name: _appliedOnce
       Entry: 5
       Data: false
     - Name: condition
@@ -92,11 +92,48 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 4|StatModifier, Assembly-CSharp
+    - Name: useContext
+      Entry: 5
+      Data: false
+    - Name: _applyToBaseValue
+      Entry: 5
+      Data: false
+    - Name: stat
+      Entry: 3
+      Data: 10
+    - Name: applyPercentageValue
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: -0.5
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 0
+    - Name: context
+      Entry: 6
+      Data: 
+    - Name: isConditional
+      Entry: 5
+      Data: false
+    - Name: _appliedOnce
+      Entry: 5
+      Data: false
+    - Name: condition
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+  hasPrio: 0
   showInShop: 1
   title: Damage Increase
   label: 

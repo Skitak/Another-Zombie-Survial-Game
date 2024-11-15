@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -808,6 +809,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 708645877114274120, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 708645877114274120, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
     - target: {fileID: 3317617073684668435, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -852,6 +857,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7146849317784579013, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7146849317784579013, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

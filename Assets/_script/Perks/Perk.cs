@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Asmos.Bus;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPerk", menuName = "Perks", order = 0)]
 public class Perk : SerializedScriptableObject
 {
+    public bool hasPrio = false;
     public bool showInShop = true;
     public string title;
     [SerializeField] protected string label;
@@ -53,63 +52,89 @@ public class Perk : SerializedScriptableObject
         foreach (MutationType mutation in mutations)
             StatManager.ApplyMutation(mutation);
     }
-    public Sprite GetSprite() => sprite != null ? sprite : StatManager.instance.statDescriptions[statModifiers[0].stat].icon;
+    public Sprite GetSprite() => sprite != null ? sprite : StatManager.statDescriptions[statModifiers[0].stat].icon;
 }
 
 public enum Rarity { COMMON, UNCOMMON, RARE, LEGENDARY }
 [Serializable]
 public class StatModifier
 {
+    float appliedValue = 0;
+    [SerializeField][HideInInspector] bool hasContextData;
+    [SerializeField][HideInInspector] bool _applyToBaseValue = true;
     public StatType stat;
-    public bool applyPercentageValue;
+    [HideInInspector] public bool applyPercentageValue;
+    [InlineButton("TogglePercent", "@this.applyPercentageValue? \"percent\" : \"flat\"")]
     public float value;
-    [Tooltip("This allows the player to see this change even if he removes context dependant data.")]
-    public bool appearsAsPermanent = true;
+    [ShowIf("@UseContext()")]
+    [Tooltip("This will apply the modifier to the base value, not as a context data.")]
+    [ShowInInspector]
+    public bool applyToBaseValue
+    {
+        get => !UseContext() || _applyToBaseValue;
+        set => _applyToBaseValue = value;
+    }
+
+    [ShowIfGroup("hasContextData")]
+    [PropertyOrder(5)]
+    [BoxGroup("hasContextData/Context")]
     [Tooltip("Should NOT be used with percentage stat in my opinion")]
-    [Min(0)] public int appliedPerContextValue = 0;
-    [HideIf("appliedPerContextValue", 0)]
+    [Min(0)]
+    public int appliedPerContextValue = 0;
+    [PropertyOrder(6)]
+    [BoxGroup("hasContextData/Context")]
     public ContextStat context;
-    public bool isConditional = false;
-    [ShowIf("isConditional")] public bool hideConditionIfValid = false;
-    [ShowIf("isConditional")] public bool hideIfConditionInvalid = false;
-    [ShowIf("isConditional")] public ContextCondition condition;
+
+    [SerializeField][HideInInspector] bool isConditional;
+    [SerializeField][HideInInspector] bool _appliedOnce;
+    [PropertyOrder(7)]
+    [ShowIfGroup("isConditional")]
+    [BoxGroup("isConditional/Conditional")]
+    [Tooltip("Applied once when condition is met")]
+    [ShowInInspector]
+    public bool appliedOnce
+    {
+        get => applyToBaseValue || _appliedOnce;
+        set => _appliedOnce = value;
+    }
+    [PropertyOrder(8)]
+    [BoxGroup("isConditional/Conditional")] public ContextCondition condition;
     public string GetLabel(bool withContext = true)
     {
-        if (hideIfConditionInvalid && !IsValid() && withContext)
+        if (appliedOnce && !IsValid() && withContext)
             return "";
-        bool displayConditional = isConditional && !(hideConditionIfValid && condition.IsValid() && withContext);
-        StatDescription description = StatManager.instance.statDescriptions[stat];
-        string prefix = value > 0 ? "+" : "-";
-        string baseLabel = $"{prefix}{description.ValueToString(value)} {description.displayedName}";
+        bool displayConditional = isConditional && !(appliedOnce && condition.IsValid() && withContext);
+        StatDescription description = StatManager.statDescriptions[stat];
+        string prefix = value > 0 ? "+" : "";
+        string valueStr = applyPercentageValue ? $"{value}%" : description.ValueToString(value);
+        string baseLabel = $"{prefix}{valueStr} {description.displayedName}";
         prefix = "every ";
-        if (appliedPerContextValue != 1)
+        if (HasPerContextValue())
             prefix += $"{appliedPerContextValue} ";
-        string contextStr = appliedPerContextValue != 0 ? $" {prefix}{context.GetLabel(withContext, appliedPerContextValue != 1)}" : "";
-        string conStr = displayConditional ? $" {condition}" : "";
+        string contextStr = HasPerContextValue() ? $" {prefix}{context.GetLabel(withContext, appliedPerContextValue != 1)}" : "";
+        string conStr = displayConditional ? $" {condition.GetLabel(withContext)}" : "";
         return $"{baseLabel}{contextStr}{conStr}.";
     }
     public StatModifier Clone() => new()
     {
         stat = this.stat,
+        hasContextData = this.hasContextData,
+        _appliedOnce = this._appliedOnce,
         applyPercentageValue = this.applyPercentageValue,
         value = this.value,
-        appearsAsPermanent = this.appearsAsPermanent,
+        applyToBaseValue = this.applyToBaseValue,
         appliedPerContextValue = this.appliedPerContextValue,
-        context = appliedPerContextValue != 0 ? context.Clone() : null,
+        context = hasContextData ? context.Clone() : null,
         isConditional = this.isConditional,
-        hideConditionIfValid = this.hideConditionIfValid,
-        hideIfConditionInvalid = this.hideIfConditionInvalid,
         condition = isConditional ? this.condition.Clone() : null,
     };
     public void Initialize()
     {
-        if (appliedPerContextValue != 0)
+        if (HasPerContextValue())
             context.Initialize();
         if (isConditional)
             condition.context.Initialize();
     }
-    public bool IsValid() => !isConditional || condition.IsValid();
-    public bool UseContextData() => isConditional || appliedPerContextValue != 0;
     public float GetValue()
     {
         if (!IsValid())
@@ -117,17 +142,60 @@ public class StatModifier
         float endValue = value;
         if (applyPercentageValue)
             endValue /= 100;
-        if (appliedPerContextValue != 0)
+        if (HasPerContextValue())
             endValue *= context.GetValue() / appliedPerContextValue;
         return endValue;
     }
+    public float GetUnappliedValue()
+    {
+        float total = GetValue() - appliedValue;
+        appliedValue += total;
+        return total;
+    }
+    public bool ShouldApplyOnUpdate() => UseContext() && applyToBaseValue;
+    public void ApplyOnUpdate(Action action)
+    {
+        void OnUpdate(object[] args)
+        {
+            Debug.Log("qsldkfj");
+            if (GetValue() == appliedValue)
+                return;
+            action.Invoke();
+            if (appliedOnce)
+                Bus.Unsubscribe(condition.context.Buskey(), OnUpdate);
+        }
+        if (isConditional)
+            Bus.Subscribe(condition.context.Buskey(), OnUpdate);
+        if (HasPerContextValue())
+            Bus.Subscribe(context.Buskey(), OnUpdate);
+
+    }
+    void TogglePercent() => applyPercentageValue = !applyPercentageValue;
+
+    [GUIColor("@isConditional? Color.green:Color.white")]
+    [Button("Condition", 20)]
+    [PropertyOrder(3)]
+    [ButtonGroup("Context")]
+    void ToggleCondition() => isConditional = !isConditional;
+
+    [GUIColor("@this.hasContextData? Color.green:Color.white")]
+    [Button("Context", 20)]
+    [PropertyOrder(4)]
+    [ButtonGroup("Context")]
+    void ToggleContextData() => hasContextData = !hasContextData;
+    public bool IsValid() => !isConditional || condition.IsValid();
+    public bool UseContext() => isConditional || HasPerContextValue();
+    public bool HasPerContextValue() => hasContextData;
+    // [ShowInInspector]
+    // [MultiLineProperty(10)]
+    // public string labelPreview { get => GetLabel(false); }
 }
 
 #region Context stat
 [Serializable]
 public class ContextStat
 {
-    [HideInInspector] public bool isInitialized;
+    protected bool isInitialized = false;
     public virtual void Initialize() => isInitialized = true;
     public virtual ContextStat Clone() => null;
     public virtual int GetValue() => 0;
@@ -137,6 +205,7 @@ public class ContextStat
         string currentValue = withContext ? $"(current: {GetValue()})" : "";
         return $"{GetStatName(plural)}{currentValue}";
     }
+    public virtual string Buskey() => "";
 }
 public class ContextStatFlat : ContextStat
 {
@@ -175,6 +244,7 @@ public class ContextStatFlat : ContextStat
         _ => 0,
     };
     public override ContextStat Clone() => new ContextStatFlat() { stat = stat };
+    public override string Buskey() => stat.ToString();
 }
 public class ContextStatPercent : ContextStat
 {
@@ -201,6 +271,7 @@ public class ContextStatPercent : ContextStat
         };
     }
     public override ContextStat Clone() => new ContextStatPercent() { stat = stat };
+    public override string Buskey() => stat.ToString();
 }
 public class ContextStatIncremental : ContextStat
 {
@@ -211,6 +282,8 @@ public class ContextStatIncremental : ContextStat
     {
         base.Initialize();
         baseValue = GetCurrentValue();
+        if (stat == Stat.WAVE)
+            baseValue++;
     }
     public override int GetValue() => isInitialized ? (GetCurrentValue() - baseValue) : 0;
     int GetCurrentValue() => stat switch
@@ -244,6 +317,7 @@ public class ContextStatIncremental : ContextStat
         };
     }
     public override ContextStat Clone() => new ContextStatIncremental() { stat = stat };
+    public override string Buskey() => stat.ToString();
 }
 
 #endregion
@@ -314,9 +388,9 @@ public class ContextCondition
         {
             // Type.THRESHOLD => $"when {contextStat} is between {thresholdMinStr} and {thresholdMaxStr}",
             Type.OVER => !IsValid() ? $"after the next{valStr(value + 1)}{context.GetStatName(value + 1 != 1)}" : "",
-            Type.OVER_EQUALS => !IsValid() ? $"after the next{valStr(value)}{context.GetStatName(value != 1)}" : "",
-            Type.UNDER => IsValid() ? $"for the next{valStr(value + 1)}{context.GetStatName(value + 1 != 1)}" : "",
-            Type.UNDER_EQUAL => IsValid() ? $"for the next{valStr(value)}{context.GetStatName(value != 1)}" : "",
+            Type.OVER_EQUALS => !IsValid() ? $"after the next{valStr(value)}{context.GetStatName(value != 1)}" : "slkjfq",
+            Type.UNDER => IsValid() ? $"for the next{valStr(value)}{context.GetStatName(value != 1)}" : "",
+            Type.UNDER_EQUAL => IsValid() ? $"for the next{valStr(value + 1)}{context.GetStatName(value + 1 != 1)}" : "",
             _ => "default",
         };
     }

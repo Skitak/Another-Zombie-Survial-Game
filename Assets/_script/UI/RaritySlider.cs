@@ -1,4 +1,5 @@
 using Asmos.Bus;
+using Asmos.Timers;
 using Asmos.UI;
 using DG.Tweening;
 using TMPro;
@@ -27,7 +28,6 @@ public class RaritySlider : MonoBehaviour
         };
         Bus.Subscribe("drop updated", o => UpdateValue(value));
         UpdateValue(0);
-        // Listen to slice event, so that it plays on arriving;
     }
 
     void Start()
@@ -36,7 +36,13 @@ public class RaritySlider : MonoBehaviour
         slider.fillAmount = 0f;
     }
 
-    void UpdateValue(int valueFrom)
+    public void Reset()
+    {
+        slider.fillAmount = 0f;
+        valueLabel.SetText("0%");
+    }
+
+    public void UpdateValue(int valueFrom)
     {
         this.valueFrom = valueFrom;
         valueTo = PerksManager.instance.rarityChances[(int)rarity];

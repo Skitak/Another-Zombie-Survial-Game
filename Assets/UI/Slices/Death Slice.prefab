@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 397115784515525524}
   - component: {fileID: 2867667403050785349}
   - component: {fileID: 3452963633913543027}
-  - component: {fileID: 3636279171267490428}
   m_Layer: 5
   m_Name: Play again button
   m_TagString: Untagged
@@ -122,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3636279171267490428}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BusPlayer, Assembly-CSharp
         m_MethodName: PlayBusKey
         m_Mode: 1
@@ -134,19 +133,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3636279171267490428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584749356563063636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ccfbdabf4f60b4385420c240fa2735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  busKey: replay
 --- !u!1 &1148157562350821246
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +660,6 @@ GameObject:
   - component: {fileID: 2581069853497348566}
   - component: {fileID: 4811822573554661252}
   - component: {fileID: 1403354413947698758}
-  - component: {fileID: 260775794102262111}
   - component: {fileID: 7919560543815365768}
   m_Layer: 5
   m_Name: Background
@@ -740,19 +725,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &260775794102262111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4908211896012449671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6489ccd76de03a0498e5f0049cbdbb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iUnderstood: 1
 --- !u!225 &7919560543815365768
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -777,7 +749,6 @@ GameObject:
   - component: {fileID: 8567269483525539408}
   - component: {fileID: 4398229242505590992}
   - component: {fileID: 2778102231708362949}
-  - component: {fileID: 5690976581699012987}
   m_Layer: 5
   m_Name: Exit game button
   m_TagString: Untagged
@@ -887,7 +858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5690976581699012987}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BusPlayer, Assembly-CSharp
         m_MethodName: PlayBusKey
         m_Mode: 1
@@ -899,19 +870,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5690976581699012987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5852291968303027212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ccfbdabf4f60b4385420c240fa2735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  busKey: exit
 --- !u!1 &7543130120781482306
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,9 +916,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b824e76c55085499a5640c13349fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   cameras: []
   canvasGroup: {fileID: 3224445706426503116}
-  hideCamerasOnStart: 0
+  onShowTransitionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onShowTransitionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onEntryEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onExitStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onHideTransitionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onHideTransitionEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7872960450772864255
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,8 +956,8 @@ GameObject:
   - component: {fileID: 4169623095039624874}
   - component: {fileID: 8960313673401623887}
   - component: {fileID: 2548092374237970801}
-  - component: {fileID: 5218604957135399594}
   - component: {fileID: 324396650713892971}
+  - component: {fileID: 102243503342480009}
   m_Layer: 5
   m_Name: Labels animations
   m_TagString: Untagged
@@ -1023,22 +1007,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5218604957135399594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7872960450772864255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a7c676038ec914089b2ac39ba5c748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showAnimations:
-  - {fileID: 324396650713892971}
-  exitAnimations: []
-  exitAnimAsShowReversed: 0
 --- !u!114 &324396650713892971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,6 +1115,75 @@ MonoBehaviour:
   optionalScrambleMode: 0
   optionalShakeRandomnessMode: 0
   optionalString: 
+--- !u!114 &102243503342480009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872960450772864255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86fb62b68160f64a9c64ff0bb9a0b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 324396650713892971}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: animations
+      Entry: 7
+      Data: 0|Asmos.UI.EEAnimList`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        Asmos.UI
+    - Name: exitAsEntryReversed
+      Entry: 5
+      Data: false
+    - Name: reversedSpeed
+      Entry: 4
+      Data: 1
+    - Name: keepDelayOnExit
+      Entry: 5
+      Data: true
+    - Name: entries
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: exits
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  entryOnShowSlice: 1
+  exitOnHideSlice: 1
 --- !u!1 &7933855618723393367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1196,6 @@ GameObject:
   - component: {fileID: 4927165919488935040}
   - component: {fileID: 3402350181601451746}
   - component: {fileID: 7614017740114511739}
-  - component: {fileID: 7316806879160602486}
   m_Layer: 5
   m_Name: Score label
   m_TagString: Untagged
@@ -1297,20 +1333,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7316806879160602486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7933855618723393367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d649d94d6353ba74fbf626869510690a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iUnderstood: 1
-  dontDisplayWithoutData: 1
 --- !u!1 &8041416830891233280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,7 +1344,6 @@ GameObject:
   - component: {fileID: 7987278721086983393}
   - component: {fileID: 4077861747515021246}
   - component: {fileID: 6260708249934874479}
-  - component: {fileID: 7927270160713347200}
   - component: {fileID: 5544958521725192598}
   m_Layer: 5
   m_Name: Root
@@ -1390,19 +1411,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7927270160713347200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8041416830891233280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6489ccd76de03a0498e5f0049cbdbb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iUnderstood: 1
 --- !u!225 &5544958521725192598
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1427,9 +1435,9 @@ GameObject:
   - component: {fileID: 218922215217847560}
   - component: {fileID: 4082850183315165166}
   - component: {fileID: 7395534528334076093}
-  - component: {fileID: 3088886608767013267}
   - component: {fileID: 4353351898986674620}
   - component: {fileID: 8410230895164980028}
+  - component: {fileID: 5275275041555653490}
   m_Layer: 5
   m_Name: You died label
   m_TagString: Untagged
@@ -1453,7 +1461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: 1213.3, y: 161.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &218922215217847560
@@ -1567,23 +1575,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3088886608767013267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8817426574248537141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a7c676038ec914089b2ac39ba5c748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showAnimations:
-  - {fileID: 8410230895164980028}
-  - {fileID: 4353351898986674620}
-  exitAnimations: []
-  exitAnimAsShowReversed: 0
 --- !u!114 &4353351898986674620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,8 +1758,8 @@ MonoBehaviour:
   loopType: 0
   loops: 1
   id: 
-  isRelative: 0
-  isFrom: 0
+  isRelative: 1
+  isFrom: 1
   isIndependentUpdate: 1
   autoKill: 0
   autoGenerate: 1
@@ -1781,7 +1772,7 @@ MonoBehaviour:
   autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: 150, z: 0}
+  endValueV3: {x: 0, y: -150, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -1800,6 +1791,75 @@ MonoBehaviour:
   optionalScrambleMode: 0
   optionalShakeRandomnessMode: 0
   optionalString: 
+--- !u!114 &5275275041555653490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817426574248537141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86fb62b68160f64a9c64ff0bb9a0b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 8410230895164980028}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: animations
+      Entry: 7
+      Data: 0|Asmos.UI.EEAnimList`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        Asmos.UI
+    - Name: exitAsEntryReversed
+      Entry: 5
+      Data: false
+    - Name: reversedSpeed
+      Entry: 4
+      Data: 1
+    - Name: keepDelayOnExit
+      Entry: 5
+      Data: true
+    - Name: entries
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: exits
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  entryOnShowSlice: 1
+  exitOnHideSlice: 1
 --- !u!1 &9146971072742024750
 GameObject:
   m_ObjectHideFlags: 0

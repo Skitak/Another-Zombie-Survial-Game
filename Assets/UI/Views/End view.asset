@@ -12,14 +12,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94a6ce3cdafe2847b3d1f3540a09619, type: 3}
   m_Name: End view
   m_EditorClassIdentifier: 
-  slices:
-  - {fileID: 11400000, guid: 9a2c21fda0d040b4da16e8eddc65c180, type: 2}
-  showTransitionType: 4
-  showTime: 2
-  showEase: 1
-  showSlideFromDirection: 0
-  hideAsShowRevert: 1
-  hideTransitionType: 4
-  hideTime: 2
-  hideEase: 1
-  hideSlideFromDirection: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 7543130120781482306, guid: 1913be4c115795e44b1161492665edf2, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: slices
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Asmos.UI.SliceConfig, Asmos.UI]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Asmos.UI.SliceConfig, Asmos.UI
+    - Name: slicePrefab
+      Entry: 10
+      Data: 0
+    - Name: transitions
+      Entry: 7
+      Data: 1|Asmos.UI.EEAnimSingle`1[[Asmos.UI.Transition, Asmos.UI]], Asmos.UI
+    - Name: exitAsEntryReversed
+      Entry: 5
+      Data: false
+    - Name: reversedSpeed
+      Entry: 4
+      Data: 1
+    - Name: keepDelayOnExit
+      Entry: 5
+      Data: true
+    - Name: entry
+      Entry: 6
+      Data: 
+    - Name: exit
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: transitions
+      Entry: 7
+      Data: 2|Asmos.UI.EEAnimSingle`1[[Asmos.UI.Transition, Asmos.UI]], Asmos.UI
+    - Name: exitAsEntryReversed
+      Entry: 5
+      Data: true
+    - Name: reversedSpeed
+      Entry: 4
+      Data: 3
+    - Name: keepDelayOnExit
+      Entry: 5
+      Data: true
+    - Name: entry
+      Entry: 7
+      Data: 3|Asmos.UI.Fade, Asmos.UI
+    - Name: delay
+      Entry: 4
+      Data: 0
+    - Name: waitForTransition
+      Entry: 5
+      Data: true
+    - Name: time
+      Entry: 4
+      Data: 2
+    - Name: ease
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: exit
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

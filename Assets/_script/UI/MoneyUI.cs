@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Asmos.Bus;
+using Asmos.Timers;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class MoneyUI : SerializedMonoBehaviour
     Timer moneyUpdateTimer;
     void Awake()
     {
-        Bus.Subscribe("money", (o) => incomesDuringFrame.Add(o));
+        Bus.Subscribe("MONEY", (o) => incomesDuringFrame.Add(o));
 
         pool = new(
             () => Instantiate(indicatorPrefab, indicatorParent.transform).GetComponent<MoneyIndicator>(),

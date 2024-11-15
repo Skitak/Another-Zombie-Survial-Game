@@ -5,21 +5,21 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0780e7272ffc9129919371f7bc2d6a3ed2aae8d3"
+      "hash": "c4cc940ca08f7cd1d1e96d55839a5d61bc53a02a"
     },
     "asmos.ui": {
       "version": "git@github.com:Asmos-Dev/UIFramework.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4eb1229dc3ff2caac5eb036a8e93c73a4ce4512d"
+      "hash": "937da9008ef0fddb12751635b9e1c05f63565ca4"
     },
     "com.asmos.timers": {
       "version": "git@github.com:Asmos-Dev/Timers.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "6dc2128ccb5fdab5e0cf178922e944cff5d482e1"
+      "hash": "92f96a629ca16638a8c891ff737729c217f349fb"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

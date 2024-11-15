@@ -1,4 +1,5 @@
 using Asmos.Bus;
+using Asmos.Timers;
 using UnityEngine;
 
 public class ComboManager : MonoBehaviour
@@ -23,7 +24,7 @@ public class ComboManager : MonoBehaviour
         set
         {
             _combo = value;
-            Bus.PushData("combo", _combo);
+            Bus.PushData("COMBO", _combo);
             if (_combo != 0)
                 comboTimer.ResetPlay();
         }
@@ -33,7 +34,7 @@ public class ComboManager : MonoBehaviour
         instance = this;
         comboTimer = new(baseComboTime, () => combo = 0);
         comboTimer.OnTimerUpdate += () => Bus.PushData("combo timer", comboTimer.GetPercentageLeft());
-        comboTimer.OnTimerStart += () => Bus.PushData("combo timer", 1f);
+        // comboTimer.OnTimerStart += () => Bus.PushData("combo timer", 1f);
         Bus.Subscribe("zombie died", (o) => combo += 1);
     }
 

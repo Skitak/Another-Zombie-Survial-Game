@@ -517,7 +517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733781769963583473, guid: becf619950577c44c844eab44a8fb116, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.66
+      value: 2.44
       objectReference: {fileID: 0}
     - target: {fileID: 5733781769963583473, guid: becf619950577c44c844eab44a8fb116, type: 3}
       propertyPath: m_LocalPosition.y
@@ -525,7 +525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733781769963583473, guid: becf619950577c44c844eab44a8fb116, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.13
+      value: 3.63
       objectReference: {fileID: 0}
     - target: {fileID: 5733781769963583473, guid: becf619950577c44c844eab44a8fb116, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5936,11 +5936,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3390488342889399285, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
       propertyPath: startAmount
-      value: 10000000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5477377377788741849, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
       propertyPath: startingWave
-      value: 4
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5477377377788741849, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
+      propertyPath: waves.Array.data[1].zombiesAmount
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6248412691561384712, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15544,9 +15548,29 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.3299999
       objectReference: {fileID: 0}
+    - target: {fileID: 7356829911561303289, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7356829911561303289, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
     - target: {fileID: 8330841206986080665, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
       propertyPath: m_Name
       value: Power macine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8647946702023313572, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9602608
+      objectReference: {fileID: 0}
+    - target: {fileID: 8647946702023313572, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.10998772
+      objectReference: {fileID: 0}
+    - target: {fileID: 8647946702023313572, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.25485256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8647946702023313572, guid: 2180b296539a5914caf74ac9a1a96163, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.029190665
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

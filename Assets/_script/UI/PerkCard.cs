@@ -23,7 +23,7 @@ public class PerkCard : MonoBehaviour
     [SerializeField] DOTweenAnimation[] purchaseAnimations;
     [SerializeField] DOTweenAnimation[] cantPurchaseAnimations;
     [SerializeField] DOTweenAnimation[] showTooExpensiveAnimations;
-    [SerializeField] SliceAnimationController animController;
+    [SerializeField] SliceEEDotween animController;
     Perk perk;
     Rarity rarity;
     [HideInInspector] public bool locked = false;
@@ -33,7 +33,7 @@ public class PerkCard : MonoBehaviour
     void Awake()
     {
         perkCards.Add(this);
-        Bus.Subscribe("money", o => ToggleTooExpensive());
+        Bus.Subscribe("MONEY", o => ToggleTooExpensive());
     }
     public async void InitializePerk(Perk perk, Rarity rarity)
     {
@@ -48,19 +48,19 @@ public class PerkCard : MonoBehaviour
 
         this.perk = perk;
         this.rarity = rarity;
-        RefreshVisuals();
-        await animController.Show();
+        await RefreshVisuals();
         ToggleTooExpensive();
     }
 
-    void RefreshVisuals()
+    async Task RefreshVisuals()
     {
         image.sprite = perk.GetSprite();
-        description.SetText(perk.GetLabel());
+        description.SetText(perk.GetLabel(false));
         title.SetText(perk.title);
         price.SetText($"{perk.price}$");
         ShowRarity();
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)title.transform.parent.parent);
+        await animController.Show();
     }
 
     void ToggleTooExpensive()
@@ -110,6 +110,9 @@ public class PerkCard : MonoBehaviour
         await Task.WhenAll(tasks);
         animController.Hide();
     }
+
+    public void Show() { if (locked) animController.Show(); }
+
 
     public void HoverLock(bool hover)
     {

@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
     bool isDoorOpen;
     void Start()
     {
-        Bus.Subscribe("wave start", (o) =>
+        Bus.Subscribe("WAVE", (o) =>
         {
             int newWave = (int)o[0];
             if (newWave >= wave && !isDoorOpen)

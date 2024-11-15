@@ -3548,7 +3548,6 @@ GameObject:
   - component: {fileID: 2959900486074784009}
   - component: {fileID: 3864317526517364704}
   - component: {fileID: 5704794736603020907}
-  - component: {fileID: 6677925226306281694}
   m_Layer: 5
   m_Name: Restart run button
   m_TagString: Untagged
@@ -3658,7 +3657,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6677925226306281694}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BusPlayer, Assembly-CSharp
         m_MethodName: PlayBusKey
         m_Mode: 1
@@ -3670,19 +3669,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6677925226306281694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317613723051257619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ccfbdabf4f60b4385420c240fa2735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  busKey: restart
 --- !u!1 &3387147707366301025
 GameObject:
   m_ObjectHideFlags: 0
@@ -4874,7 +4860,6 @@ GameObject:
   - component: {fileID: 2581069853497348566}
   - component: {fileID: 4811822573554661252}
   - component: {fileID: 1403354413947698758}
-  - component: {fileID: 260775794102262111}
   - component: {fileID: 7919560543815365768}
   m_Layer: 5
   m_Name: Background
@@ -4940,19 +4925,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &260775794102262111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4908211896012449671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6489ccd76de03a0498e5f0049cbdbb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iUnderstood: 1
 --- !u!225 &7919560543815365768
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5614,7 +5586,6 @@ GameObject:
   - component: {fileID: 8567269483525539408}
   - component: {fileID: 4398229242505590992}
   - component: {fileID: 2778102231708362949}
-  - component: {fileID: 5690976581699012987}
   m_Layer: 5
   m_Name: Exit game button
   m_TagString: Untagged
@@ -5724,7 +5695,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5690976581699012987}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BusPlayer, Assembly-CSharp
         m_MethodName: PlayBusKey
         m_Mode: 1
@@ -5736,19 +5707,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5690976581699012987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5852291968303027212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ccfbdabf4f60b4385420c240fa2735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  busKey: exit
 --- !u!1 &6340522288308140766
 GameObject:
   m_ObjectHideFlags: 0
@@ -7565,9 +7523,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b824e76c55085499a5640c13349fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   cameras: []
   canvasGroup: {fileID: 3224445706426503116}
-  hideCamerasOnStart: 0
+  onShowTransitionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onShowTransitionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onEntryEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onExitStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onHideTransitionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onHideTransitionEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7625040000811399853
 GameObject:
   m_ObjectHideFlags: 0
@@ -7952,7 +7936,6 @@ GameObject:
   - component: {fileID: 7987278721086983393}
   - component: {fileID: 4077861747515021246}
   - component: {fileID: 6260708249934874479}
-  - component: {fileID: 7927270160713347200}
   - component: {fileID: 5544958521725192598}
   m_Layer: 5
   m_Name: Root
@@ -8026,19 +8009,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7927270160713347200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8041416830891233280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6489ccd76de03a0498e5f0049cbdbb6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iUnderstood: 1
 --- !u!225 &5544958521725192598
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -8489,7 +8459,6 @@ GameObject:
   - component: {fileID: 218922215217847560}
   - component: {fileID: 4082850183315165166}
   - component: {fileID: 7395534528334076093}
-  - component: {fileID: 3088886608767013267}
   m_Layer: 5
   m_Name: Pause Label
   m_TagString: Untagged
@@ -8627,21 +8596,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3088886608767013267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8817426574248537141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a7c676038ec914089b2ac39ba5c748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showAnimations: []
-  exitAnimations: []
-  exitAnimAsShowReversed: 0
 --- !u!1 &8982384783766948158
 GameObject:
   m_ObjectHideFlags: 0

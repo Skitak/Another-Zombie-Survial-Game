@@ -193,9 +193,9 @@ GameObject:
   - component: {fileID: 8411266933133639150}
   - component: {fileID: 9077280933526908444}
   - component: {fileID: 4846286593484584561}
-  - component: {fileID: 3376588684490941250}
   - component: {fileID: 1620667176683792885}
   - component: {fileID: 13643169812715725}
+  - component: {fileID: 7356829911561303289}
   m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
@@ -210,7 +210,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7409325540384177309}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.14338237, y: 0.56562525, z: 0.10064097, w: 0.8058418}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -277,7 +277,9 @@ LookAtConstraint:
   m_UseUpObject: 0
   m_Active: 1
   m_IsLocked: 1
-  m_Sources: []
+  m_Sources:
+  - sourceTransform: {fileID: 287824742241216158}
+    weight: 1
 --- !u!225 &4846286593484584561
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -290,30 +292,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3376588684490941250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7409325540384177309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e48d424bccc15b419286d87197efc66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 8411266933133639150}
-  fillEase: 1
-  sliderLookAtMainCamera: 1
-  timeBeforeFading: 1
-  useAppearAsDissapearRevert: 1
-  revertSpeed: 0.4
-  onSliderAppearAnimations:
-  - {fileID: 13643169812715725}
-  onSliderDisappearAnimations: []
-  onSliderFilledAnimations:
-  - {fileID: 1620667176683792885}
-  onSliderEmptiedAnimations: []
 --- !u!114 &1620667176683792885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +508,75 @@ MonoBehaviour:
   optionalScrambleMode: 0
   optionalShakeRandomnessMode: 0
   optionalString: 
+--- !u!114 &7356829911561303289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409325540384177309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86fb62b68160f64a9c64ff0bb9a0b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 13643169812715725}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: animations
+      Entry: 7
+      Data: 0|Asmos.UI.EEAnimList`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        Asmos.UI
+    - Name: exitAsEntryReversed
+      Entry: 5
+      Data: true
+    - Name: reversedSpeed
+      Entry: 4
+      Data: 1
+    - Name: keepDelayOnExit
+      Entry: 5
+      Data: true
+    - Name: entries
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: exits
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[DG.Tweening.DOTweenAnimation, DOTweenPro.Scripts]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  entryOnShowSlice: 0
+  exitOnHideSlice: 0
 --- !u!1 &7577736637755532095
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +740,7 @@ MonoBehaviour:
   canInteract: 0
   isInteractionTimed: 1
   interactionTime: 4
-  slider: {fileID: 3376588684490941250}
+  slider: {fileID: 0}
   cameraTransition: {fileID: 4174891950922012061}
   animName: pull
   interactionAnimations:

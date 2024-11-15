@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Asmos.Bus;
+using Asmos.Timers;
 using Sirenix.OdinInspector;
 using Unity.AI.Navigation;
 using Unity.Mathematics;
@@ -13,8 +14,8 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
     public static int kills = 0;
     readonly static Dictionary<int, OffMeshAnimData> offMeshAnims = new()
     {
+        {2, new("climb",.5f)},
         {3, new("crawl under",.5f)},
-        {2, new("climb",.5f)}
     };
     readonly static Dictionary<ZombieMovesKind, float> moveKindSpeed = new()
     {
@@ -117,6 +118,8 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
                 animator.SetTrigger("drop");
             else
             {
+                if (linkData.owner is not NavMeshLink)
+                    return;
                 offMeshAnimIndex = ((NavMeshLink)linkData.owner).area;
                 offMeshAnimData = offMeshAnims[offMeshAnimIndex];
                 animator.SetBool(offMeshAnimData.name, true);
@@ -231,7 +234,7 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
         bool headshot = false;
         if (hit.collider == headCollider)
         {
-            damages *= 2;
+            damages = (int)(damages * StatManager.Get(StatType.HEADSHOT_DAMAGES) / 100);
             animator.SetTrigger("hit head");
             headshot = true;
         }
@@ -257,15 +260,19 @@ public class Zombie : MonoBehaviour, ITakeExplosionDamages
     void Die(bool headshot = false)
     {
         if (headshot)
+        {
             headshots++;
+            Bus.PushData("HEADSHOT");
+        }
         kills++;
-        Bus.PushData("zombie died", headshot);
         SetRagdoll(true);
         ZombieSpawnerManager.instance.ZombieDied(this);
         navMeshAgent.speed = 0;
         navMeshAgent.enabled = false;
         if (drop)
             Instantiate(drop, transform.position, Quaternion.identity);
+        Bus.PushData("zombie died", headshot);
+        Bus.PushData("KILL");
     }
 
     public void Spawn(Vector3 spawnPoint, ZombieParameters parameters, GameObject pickup = null, SpawnKind spawnKind = SpawnKind.GROUND)

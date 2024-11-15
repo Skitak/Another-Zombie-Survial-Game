@@ -7,7 +7,7 @@ public class ZombieSpawner : MonoBehaviour
     public int waveActive = 1;
     void Start()
     {
-        Bus.Subscribe("wave start", (o) =>
+        Bus.Subscribe("WAVE", (o) =>
         {
             int wave = (int)o[0];
             if (wave < waveActive && ZombieSpawnerManager.instance.spawners.Contains(this))

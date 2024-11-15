@@ -1,5 +1,7 @@
 using System;
 using Asmos.Bus;
+using Asmos.Timers;
+using Asmos.UI;
 using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -84,7 +86,7 @@ public class Interactable : MonoBehaviour
         if (!cameraTransition)
             return;
         cameraTransition.enabled = true;
-        slider.LookAt(cameraTransition.transform);
+        // slider.LookAt(cameraTransition.transform);
     }
 
     public void CancelInteracting()
@@ -95,7 +97,7 @@ public class Interactable : MonoBehaviour
         if (!cameraTransition)
             return;
         cameraTransition.enabled = false;
-        slider.LookAt(Camera.main.transform);
+        // slider.LookAt(Camera.main.transform);
     }
 
     void FinishInteraction()

@@ -5,9 +5,9 @@ public class MoneyManager : MonoBehaviour
 {
     public static MoneyManager instance;
     public int startAmount = 0;
-    const int ZOMBIE_MONEY = 50;
-    const int COMBO_MONEY = 5;
+    float comboPercent = .1f;
     int money;
+    int income { get => (int)StatManager.Get(StatType.INCOME); }
     void Awake()
     {
         instance = this;
@@ -25,18 +25,22 @@ public class MoneyManager : MonoBehaviour
     void ZombieDied(params object[] args)
     {
         bool headshot = (bool)args[0];
+        int amount = income;
+        IncomeType type = IncomeType.KILL;
         if (headshot)
-            UpdateMoney(ZOMBIE_MONEY * 2, IncomeType.HEADSHOT);
-        else
-            UpdateMoney(ZOMBIE_MONEY, IncomeType.KILL);
+        {
+            amount *= 2;
+            type = IncomeType.HEADSHOT;
+        }
+        UpdateMoney(amount, type);
         if (ComboManager.instance.combo != 0)
-            UpdateMoney(ComboManager.instance.combo * COMBO_MONEY, IncomeType.COMBO);
+            UpdateMoney((int)(ComboManager.instance.combo * amount * comboPercent), IncomeType.COMBO);
     }
 
     public void UpdateMoney(int value, IncomeType type)
     {
         money += value;
-        Bus.PushData("money", value, type, money);
+        Bus.PushData("MONEY", value, type, money);
     }
     public int GetMoney() => money;
 }
