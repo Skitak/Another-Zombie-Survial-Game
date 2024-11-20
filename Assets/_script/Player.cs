@@ -15,12 +15,14 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     [FoldoutGroup("GameObjects and Prefabs")][SerializeField] ParticleSystem bloodParticles;
     [FoldoutGroup("GameObjects and Prefabs")][SerializeField] AnimationClip aimAnimation;
     [FoldoutGroup("GameObjects and Prefabs")] public Weapon weapon;
+    [FoldoutGroup("GameObjects and Prefabs")] public StatKit statKit;
     [FoldoutGroup("Interactions")][SerializeField] LayerMask interactionMask;
     [FoldoutGroup("Interactions")][SerializeField] float interactionDistance = 3f;
     [FoldoutGroup("Interactions")][SerializeField] AnimationClip drinkAnimation;
     [FoldoutGroup("Interactions")][SerializeField] GameObject can;
     [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
     [FoldoutGroup("Health and Speed")][SerializeField] float baseAimCameraZoom;
+    [FoldoutGroup("Health and Speed")] public float sprintSpeed;
     [FoldoutGroup("Grenades")][SerializeField] AnimationClip armAnimation;
     [FoldoutGroup("Grenades")][SerializeField] AnimationClip throwAnimation;
     [FoldoutGroup("Grenades")][SerializeField] GameObject grenadeMesh;
@@ -202,6 +204,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         spawnPoint = transform.parent.transform.position;
         initialHeight = controller.height;
         initialCameraDistance = tpsCameraComponent.CameraDistance;
+        tpsController.player = this;
 
         aimTimer = new(.1f);
         armGrenadeTimer = new(maxThrowingTime);
@@ -244,13 +247,20 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
                 Hit(diff);
             else
             {
-                Bus.PushData("bonus label", $"+{diff}% health");
+                Bus.PushData("bonus label", $"{diff} health");
                 health += diff;
             }
+        });
+        Bus.Subscribe("GRENADE_UPDATE", (o) =>
+        {
+            int diff = (int)(float)o[0];
+            Bus.PushData("bonus label", $"+{diff} grenade");
+            grenades += diff;
         });
     }
     void Start()
     {
+        StatManager.instance.AddStatkit(statKit);
         health = healthMax;
         staminaTimer.Reset();
         perkRefresh = basePerkRefresh;
@@ -258,9 +268,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         animator.SetLayerWeight(weapon.animLayer, 1);
         weapon.modelInHierarchy.SetActive(true);
         staminaTimer.endTime = StatManager.Get(StatType.STAMINA_MAX);
-        // Bus.PushData("stamina", staminaTimer.GetTimeLeft());
-        // Bus.PushData("stamina", baseStamina);
-
     }
     public void RestartGame()
     {

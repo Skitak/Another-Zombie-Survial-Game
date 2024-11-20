@@ -1,0 +1,347 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e4b24e639bf3a4aa4891b980d86834, type: 3}
+  m_Name: Base Weapon Stat kit
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: kit
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[StatType, Assembly-CSharp],[StatKitPair,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[StatType, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 11
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 2|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 4
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 7
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 3|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 5
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 1.5
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: 4|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 6
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 2
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: 5|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 7
+    - Name: isPercent
+      Entry: 5
+      Data: true
+    - Name: flat
+      Entry: 4
+      Data: 1
+    - Name: percent
+      Entry: 3
+      Data: 50
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: 6|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 8
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 3
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 9
+    - Name: $v
+      Entry: 7
+      Data: 7|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 9
+    - Name: isPercent
+      Entry: 5
+      Data: true
+    - Name: flat
+      Entry: 4
+      Data: 1
+    - Name: percent
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 10
+    - Name: $v
+      Entry: 7
+      Data: 8|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 10
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 6
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 11
+    - Name: $v
+      Entry: 7
+      Data: 9|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 11
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 1
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 12
+    - Name: $v
+      Entry: 7
+      Data: 10|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 12
+    - Name: isPercent
+      Entry: 5
+      Data: true
+    - Name: flat
+      Entry: 4
+      Data: 1
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 7
+      Data: 11|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 13
+    - Name: isPercent
+      Entry: 5
+      Data: true
+    - Name: flat
+      Entry: 4
+      Data: 1
+    - Name: percent
+      Entry: 3
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 20
+    - Name: $v
+      Entry: 7
+      Data: 12|StatKitPair, Assembly-CSharp
+    - Name: statType
+      Entry: 3
+      Data: 20
+    - Name: isPercent
+      Entry: 5
+      Data: false
+    - Name: flat
+      Entry: 4
+      Data: 2
+    - Name: percent
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  categories: 2

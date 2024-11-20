@@ -31,54 +31,69 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
-    - Name: useContext
+    - Name: isActive
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
+    - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
       Data: 0
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: true
     - Name: value
       Entry: 4
-      Data: 3
-    - Name: appliedPerContextValue
+      Data: 5
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
+    - Name: contextButtons
       Entry: 3
       Data: 0
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 1
     - Name: context
       Entry: 7
       Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: isInitialized
+    - Name: stat
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: condition
+      Entry: 7
+      Data: 3|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
       Entry: 5
-      Data: false
+      Data: true
+    - Name: conditions
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|Condition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 6|ContextStatIncremental, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
-      Entry: 5
-      Data: false
-    - Name: _appliedOnce
-      Entry: 5
-      Data: false
-    - Name: condition
-      Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 6
-      Data: 
     - Name: type
       Entry: 3
-      Data: 4
+      Data: 1
     - Name: conditionValue
       Entry: 3
-      Data: 1000
+      Data: 0
     - Name: thresholdMin
       Entry: 3
       Data: 0
@@ -89,6 +104,30 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: OnUpdate
+      Entry: 6
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: after the next wave
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: +5% Speed.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
       Entry: 8
       Data: 
     - Name: 
@@ -97,12 +136,73 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  hasPrio: 0
+    - Name: condition
+      Entry: 7
+      Data: 7|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|Condition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 10|ContextStatFlat, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: conditionValue
+      Entry: 3
+      Data: 3
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: OnUpdate
+      Entry: 6
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: when ammunitions left is under 3
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
   showInShop: 1
+  hasPrio: 0
   title: Speed boost
-  label: 
-  showModifiersLabel: 1
   maxApplications: 2147483647
   price: 1000
   rarity: 0
   mutations: 
+  label: +5% Speed.
+  useCustomLabel: 0
+  isConditional: 0

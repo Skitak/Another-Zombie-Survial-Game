@@ -90,6 +90,8 @@ public class WaveManager : MonoBehaviour
     #endregion
 
     # region utils
+    // Will be moved into the zombie
+    // it requires the player that killed the zombie (Drop rate based on player) 
     GameObject FindPickup()
     {
         float dropRate = StatManager.Get(StatType.DROP_RATE) / 100;

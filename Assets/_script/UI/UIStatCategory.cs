@@ -16,36 +16,46 @@ public class UIStatCategory : MonoBehaviour
     {
         for (int i = 0; i < statLinesParent.childCount; i++)
             Destroy(statLinesParent.GetChild(i).gameObject);
-        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.instance.statDescriptions.Where(x => x.Value.category == category))
+        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.Descriptions.Where(x => x.Value.category == category))
             statLines[kp.Key] = Instantiate(statLinePrefab, statLinesParent);
         Bus.Subscribe("Pause", (o) => { if ((bool)o[0]) RefreshStats(); });
     }
 
     public void RefreshStats()
     {
-        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.instance.statDescriptions.Where(x => x.Value.category == category))
+        foreach (KeyValuePair<StatType, StatDescription> kp in StatManager.Descriptions.Where(x => x.Value.category == category))
         {
             GameObject statLine = statLines[kp.Key];
             Stat stat = StatManager.GetStat(kp.Key);
             bool useContextData = true;
 
-            float baseVal = stat.GetBaseValue();
-            float flatVal = stat.GetFlatValue(useContextData);
-            float perVal = stat.GetPercentValue(useContextData);
+            float valueFlat = stat.GetFlatValue();
+            float valuePercent = stat.GetPercentValue(useContextData);
             float total = stat.GetValue(useContextData);
+
+            string valueFlatStr = stat.description.ValueToString(stat.GetFlatValue());
+            string valuePercentStr = $"{valuePercent}%";
+            string totalStr = stat.description.ValueToString(stat.GetValue(useContextData));
             string name = kp.Value.displayedName;
 
-            string valueDisplay(float value, StatDescription description) => description.displayType switch
-            {
-                StatDisplayType.PERCENT => $"{value}%",
-                StatDisplayType.DEGREE => $"{value}°",
-                _ => $"{value}",
-            };
-            string flatStr = flatVal != 0 ? $" + {valueDisplay(flatVal, kp.Value)}" : "";
-            string perStr = perVal != 1 ? $" * {perVal * 100}%" : "";
-            string baseStr = baseVal != total ? $": (base {valueDisplay(baseVal, kp.Value)}{flatStr}){perStr}" : "";
-            string label = $"{name}{baseStr} = {valueDisplay(total, kp.Value)}";
+            // string flatStr = valuePercent != 0 ? $" + {valueDisplay(valuePercent, kp.Value)}" : "";
+            // string perStr = perVal != 1 ? $" * {perVal * 100}%" : "";
+            string calculusStr = "";
+            if (stat.description.isPercent)
+                calculusStr = $"{valuePercentStr}";
+            else if (valuePercent == 0)
+                calculusStr = $"{valueFlat}";
+            else if (valuePercent > 0)
+                calculusStr = $"{valueFlat} + {valuePercentStr}";
+            else
+                calculusStr = $"{valueFlat} / {valuePercentStr}";
 
+
+            if (stat.modifiers.Any(x => x.modificationKind == ModificationKind.TOTAL_PERCENT))
+                calculusStr += $" + <b>specials</b>";
+            string label = $"{name} : {calculusStr} = {totalStr}";
+            if (total == valueFlat || stat.description.isPercent && total == valuePercent)
+                label = $"{name} : {totalStr}";
             statLine.GetComponentInChildren<TMP_Text>().text = label;
             statLine.GetComponentInChildren<Image>().sprite = kp.Value.icon;
         }

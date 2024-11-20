@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
 {
     public static int reloads = 0;
     #region exposedParameters
+    [FoldoutGroup("Boilerplate")] public StatKit statKit;
     [FoldoutGroup("Boilerplate")] public Transform fireStart;
     [FoldoutGroup("Boilerplate")][SerializeField] GameObject decal;
     [FoldoutGroup("Boilerplate")][SerializeField] GameObject linePrefab;
@@ -108,6 +109,7 @@ public class Weapon : MonoBehaviour
     }
     void Start()
     {
+        StatManager.instance.AddStatkit(statKit);
         ammo = ammoMax;
     }
     void Update()

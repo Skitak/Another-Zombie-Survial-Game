@@ -141,7 +141,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 24
+      Data: 25
     - Name: 
       Entry: 7
       Data: 
@@ -154,16 +154,31 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 2.5
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 100000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 10000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 5
     - Name: category
+      Entry: 3
+      Data: 0
+    - Name: calculus
       Entry: 3
       Data: 0
     - Name: displayedName
@@ -193,16 +208,31 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 3
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 5000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
-      Data: 1
+      Data: 4
     - Name: category
+      Entry: 3
+      Data: 0
+    - Name: calculus
       Entry: 3
       Data: 0
     - Name: displayedName
@@ -232,16 +262,31 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 1.75
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 100000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 2000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 1
     - Name: category
+      Entry: 3
+      Data: 0
+    - Name: calculus
       Entry: 3
       Data: 0
     - Name: displayedName
@@ -271,16 +316,31 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 3
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 1000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
+      Entry: 3
+      Data: 0
+    - Name: calculus
       Entry: 3
       Data: 0
     - Name: displayedName
@@ -310,18 +370,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 7
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 2000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Magazine size
@@ -349,18 +424,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 1.5
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0.11
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 5000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 1
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Reload time
@@ -388,18 +478,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 2
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 45
+    - Name: estimatedValue
+      Entry: 4
+      Data: -5000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 3
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Spread
@@ -427,18 +532,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 50
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 100
+    - Name: estimatedValue
+      Entry: 4
+      Data: 10000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 2
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Aim precision
@@ -466,18 +586,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 3
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 1000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Damages
@@ -505,18 +640,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 200
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 100
     - Name: max
       Entry: 4
       Data: 1000000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 5000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 2
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Headshot damages
@@ -544,18 +694,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 6
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 5000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: true
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 1
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Fire rate
@@ -583,18 +748,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 1
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 1000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 5000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Bullets fired
@@ -622,18 +802,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 0
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 100
+    - Name: estimatedValue
+      Entry: 4
+      Data: 50
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 2
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Crit chances
@@ -661,18 +856,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 200
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 100
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 50
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 2
     - Name: category
       Entry: 3
       Data: 1
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Crit damages
@@ -700,18 +910,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 4
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1
     - Name: max
       Entry: 4
       Data: 1000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 1000
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
-      Data: 1
+      Data: 6
     - Name: category
       Entry: 3
       Data: 2
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Explosion radius
@@ -739,18 +964,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 10
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 100
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 2
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Explosion damages
@@ -778,18 +1018,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 4
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0.1
     - Name: max
       Entry: 4
       Data: 100
+    - Name: estimatedValue
+      Entry: 4
+      Data: 0
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 1
     - Name: category
       Entry: 3
       Data: 2
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Grenade timer
@@ -817,18 +1072,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 50
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 5
     - Name: max
       Entry: 4
       Data: 100000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 300
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 3
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Income
@@ -856,18 +1126,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 1.5
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 1.5
     - Name: max
       Entry: 4
       Data: 10000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 2500
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 1
     - Name: category
       Entry: 3
       Data: 3
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Pickup distance
@@ -894,19 +1179,34 @@ MonoBehaviour:
       Data: StatDescription, Assembly-CSharp
     - Name: baseValue
       Entry: 4
-      Data: 200
+      Data: 100
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 1000000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 50
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 2
     - Name: category
       Entry: 3
       Data: 3
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Drinks effectiveness
@@ -934,18 +1234,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 2
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 100
+    - Name: estimatedValue
+      Entry: 4
+      Data: -1500
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 1
     - Name: category
       Entry: 3
       Data: 2
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Recoil
@@ -973,18 +1288,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 0
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 1E+07
+    - Name: estimatedValue
+      Entry: 4
+      Data: 300
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 4
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Health
@@ -1012,18 +1342,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 0
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 1000000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 1
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 0
     - Name: category
       Entry: 3
       Data: 4
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Money
@@ -1051,18 +1396,33 @@ MonoBehaviour:
     - Name: baseValue
       Entry: 4
       Data: 100
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
     - Name: min
       Entry: 4
       Data: 0
     - Name: max
       Entry: 4
       Data: 100000
+    - Name: estimatedValue
+      Entry: 4
+      Data: 50
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
     - Name: displayType
       Entry: 3
       Data: 2
     - Name: category
       Entry: 3
       Data: 3
+    - Name: calculus
+      Entry: 3
+      Data: 0
     - Name: displayedName
       Entry: 1
       Data: Drop rate
@@ -1072,6 +1432,60 @@ MonoBehaviour:
     - Name: icon
       Entry: 10
       Data: 23
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 24
+    - Name: $v
+      Entry: 7
+      Data: StatDescription, Assembly-CSharp
+    - Name: baseValue
+      Entry: 4
+      Data: 0
+    - Name: baseBonus
+      Entry: 3
+      Data: 0
+    - Name: min
+      Entry: 4
+      Data: 0
+    - Name: max
+      Entry: 4
+      Data: 0
+    - Name: estimatedValue
+      Entry: 4
+      Data: 250
+    - Name: estimationAsPercent
+      Entry: 5
+      Data: false
+    - Name: hideBaseValue
+      Entry: 5
+      Data: false
+    - Name: displayType
+      Entry: 3
+      Data: 0
+    - Name: category
+      Entry: 3
+      Data: 4
+    - Name: calculus
+      Entry: 3
+      Data: 0
+    - Name: displayedName
+      Entry: 1
+      Data: Grenade
+    - Name: onlyPushDifference
+      Entry: 5
+      Data: true
+    - Name: icon
+      Entry: 10
+      Data: 16
     - Name: 
       Entry: 8
       Data: 

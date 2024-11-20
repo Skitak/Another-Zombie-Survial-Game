@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-/* Note: animations are called via the controller for both the character and capsule using animator null checks
- */
+/* Note: animations are called via the controller for both the character and capsule using animator null checks */
 
 namespace StarterAssets
 {
@@ -16,8 +15,9 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        [HideInInspector] public Player player;
         float MoveSpeed { get => StatManager.Get(StatType.SPEED); }
-        float SprintSpeed { get => StatManager.Get(StatType.SPRINT_SPEED) * MoveSpeed; }
+        float SprintSpeed { get => player.sprintSpeed * MoveSpeed; }
 
         [Header("Player")]
         [Tooltip("How fast the character turns to face movement direction")]

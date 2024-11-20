@@ -31,21 +31,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
-    - Name: hasContextData
-      Entry: 5
-      Data: false
-    - Name: _applyToBaseValue
+    - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
       Data: 9
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
     - Name: value
       Entry: 4
       Data: 50
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
     - Name: appliedPerContextValue
       Entry: 3
       Data: 1
@@ -58,10 +55,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition
@@ -97,21 +94,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 5|StatModifier, Assembly-CSharp
-    - Name: hasContextData
+    - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
-      Entry: 5
-      Data: true
     - Name: stat
       Entry: 3
       Data: 12
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
     - Name: value
       Entry: 4
       Data: 20
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -124,10 +118,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition
@@ -163,21 +157,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 9|StatModifier, Assembly-CSharp
-    - Name: hasContextData
+    - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
-      Entry: 5
-      Data: true
     - Name: stat
       Entry: 3
       Data: 3
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: true
     - Name: value
       Entry: 4
-      Data: -50
+      Data: -20
+    - Name: modificationKind
+      Entry: 3
+      Data: 2
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -190,10 +181,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition

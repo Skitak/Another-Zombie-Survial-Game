@@ -16,6 +16,8 @@ public class Grenade : MonoBehaviour
         rigidbody = GetComponentInChildren<Rigidbody>();
         timerToExplosion = new Timer(StatManager.Get(StatType.EXPLOSION_SPEED), Explode).Play();
     }
+    // TODO: This should collide with walls
+    // For now, it only checks distance.
     void Explode()
     {
         rigidbody.isKinematic = true;

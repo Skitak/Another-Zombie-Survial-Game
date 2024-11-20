@@ -31,7 +31,7 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
-    - Name: useContext
+    - Name: hasContextData
       Entry: 5
       Data: false
     - Name: _applyToBaseValue
@@ -45,16 +45,13 @@ MonoBehaviour:
       Data: true
     - Name: value
       Entry: 4
-      Data: -10
+      Data: -20
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
       Entry: 7
       Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: isInitialized
-      Entry: 5
-      Data: false
     - Name: stat
       Entry: 3
       Data: 0
@@ -103,6 +100,6 @@ MonoBehaviour:
   label: 
   showModifiersLabel: 1
   maxApplications: 2147483647
-  price: 1000
-  rarity: 0
+  price: 2000
+  rarity: 1
   mutations: 

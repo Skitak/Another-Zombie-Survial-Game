@@ -456,6 +456,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 692908681870661791, guid: becf619950577c44c844eab44a8fb116, type: 3}
+      propertyPath: statKit
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b2605d7cd53e3748a9fca0c319f6c47, type: 2}
+    - target: {fileID: 692908681870661791, guid: becf619950577c44c844eab44a8fb116, type: 3}
+      propertyPath: sprintSpeed
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 692908681870661791, guid: becf619950577c44c844eab44a8fb116, type: 3}
       propertyPath: baseAimCameraZoom
       value: 1.25
       objectReference: {fileID: 0}
@@ -479,6 +487,10 @@ PrefabInstance:
       propertyPath: recoilX
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5013362380681344800, guid: becf619950577c44c844eab44a8fb116, type: 3}
+      propertyPath: statKit
+      value: 
+      objectReference: {fileID: 11400000, guid: c8916df11bca5394cad60eb12ebd32bf, type: 2}
     - target: {fileID: 5013362380681344800, guid: becf619950577c44c844eab44a8fb116, type: 3}
       propertyPath: baseAmmoMax
       value: 7
@@ -5991,7 +6003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5477377377788741849, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
       propertyPath: startingWave
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5477377377788741849, guid: 8fcc52f74dd074e4b80d8a63a025dc2b, type: 3}
       propertyPath: pickups.Array.data[2].dropRate

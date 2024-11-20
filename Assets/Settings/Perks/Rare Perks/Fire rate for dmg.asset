@@ -31,21 +31,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|StatModifier, Assembly-CSharp
-    - Name: hasContextData
-      Entry: 5
-      Data: false
-    - Name: _applyToBaseValue
+    - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
       Data: 10
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
     - Name: value
       Entry: 4
-      Data: 6
+      Data: 100
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
     - Name: appliedPerContextValue
       Entry: 3
       Data: 1
@@ -58,10 +55,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition
@@ -97,20 +94,17 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 5|StatModifier, Assembly-CSharp
-    - Name: hasContextData
+    - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
-      Entry: 5
-      Data: true
     - Name: stat
       Entry: 3
       Data: 6
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
     - Name: value
       Entry: 4
+      Data: 50
+    - Name: modificationKind
+      Entry: 3
       Data: 1
     - Name: appliedPerContextValue
       Entry: 3
@@ -124,10 +118,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition
@@ -163,21 +157,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 9|StatModifier, Assembly-CSharp
-    - Name: hasContextData
+    - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
-      Entry: 5
-      Data: true
     - Name: stat
       Entry: 3
-      Data: 7
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
+      Data: 20
     - Name: value
       Entry: 4
-      Data: -5
+      Data: 50
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -190,10 +181,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition
@@ -229,21 +220,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 13|StatModifier, Assembly-CSharp
-    - Name: hasContextData
+    - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
-      Entry: 5
-      Data: true
     - Name: stat
       Entry: 3
-      Data: 20
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
+      Data: 8
     - Name: value
       Entry: 4
-      Data: 0.5
+      Data: -1
+    - Name: modificationKind
+      Entry: 3
+      Data: 0
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -256,10 +244,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isConditional
+    - Name: isValueMultipliedByContext
       Entry: 5
       Data: false
-    - Name: _appliedOnce
+    - Name: isConditional
       Entry: 5
       Data: false
     - Name: condition
@@ -295,21 +283,18 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 17|StatModifier, Assembly-CSharp
-    - Name: hasContextData
+    - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: _applyToBaseValue
-      Entry: 5
-      Data: true
     - Name: stat
       Entry: 3
-      Data: 8
-    - Name: applyPercentageValue
-      Entry: 5
-      Data: false
+      Data: 5
     - Name: value
       Entry: 4
-      Data: -1
+      Data: -50
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
@@ -322,38 +307,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: isValueMultipliedByContext
+      Entry: 5
+      Data: false
     - Name: isConditional
       Entry: 5
       Data: false
-    - Name: _appliedOnce
-      Entry: 5
-      Data: false
     - Name: condition
-      Entry: 7
-      Data: 19|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 7
-      Data: 20|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 0
-    - Name: conditionValue
-      Entry: 3
-      Data: 0
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
