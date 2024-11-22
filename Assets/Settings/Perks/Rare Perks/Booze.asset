@@ -21,10 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: statModifiers
+    - Name: modifiers
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[StatModifier, Assembly-CSharp]],
-        mscorlib
+      Data: 0|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
@@ -34,15 +33,15 @@ MonoBehaviour:
     - Name: isPermanent
       Entry: 5
       Data: false
-    - Name: stat
-      Entry: 3
-      Data: 1
+    - Name: isActive
+      Entry: 5
+      Data: false
     - Name: value
       Entry: 4
       Data: 50
-    - Name: modificationKind
+    - Name: contextButtons
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: appliedPerContextValue
       Entry: 3
       Data: 1
@@ -55,228 +54,228 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: false
     - Name: condition
       Entry: 7
       Data: 3|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 6
+      Data: 
+    - Name: label
+      Entry: 6
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: +50% Stamina.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: stat
+      Entry: 3
+      Data: 1
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|StatModifier, Assembly-CSharp
+    - Name: isPermanent
+      Entry: 5
+      Data: false
+    - Name: isActive
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: 100
+    - Name: contextButtons
+      Entry: 3
+      Data: 0
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 0
     - Name: context
       Entry: 7
-      Data: 4|ContextStatPercent, Assembly-CSharp
+      Data: 5|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: conditionValue
-      Entry: 3
-      Data: 25
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
+    - Name: condition
       Entry: 7
-      Data: 5|StatModifier, Assembly-CSharp
-    - Name: isPermanent
+      Data: 6|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 6
+      Data: 
+    - Name: label
+      Entry: 6
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: +100% Bullets fired.
+    - Name: useCustomLabel
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
       Data: 11
-    - Name: value
-      Entry: 4
-      Data: 100
     - Name: modificationKind
       Entry: 3
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|StatModifier, Assembly-CSharp
+    - Name: isPermanent
+      Entry: 5
+      Data: false
+    - Name: isActive
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: 200
+    - Name: contextButtons
+      Entry: 3
+      Data: 0
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
       Entry: 7
-      Data: 6|ContextStatFlat, Assembly-CSharp
+      Data: 8|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: true
     - Name: condition
       Entry: 7
-      Data: 7|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 7
-      Data: 8|ContextStatIncremental, Assembly-CSharp
-    - Name: stat
+      Data: 9|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
       Entry: 3
       Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 6
+      Data: 
+    - Name: label
+      Entry: 6
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: conditionValue
-      Entry: 3
-      Data: 3
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|StatModifier, Assembly-CSharp
-    - Name: isPermanent
+    - Name: label
+      Entry: 1
+      Data: +200% Spread.
+    - Name: useCustomLabel
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
       Data: 6
-    - Name: value
-      Entry: 4
-      Data: 200
     - Name: modificationKind
       Entry: 3
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|StatModifier, Assembly-CSharp
+    - Name: isPermanent
+      Entry: 5
+      Data: false
+    - Name: isActive
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: -100
+    - Name: contextButtons
+      Entry: 3
+      Data: 0
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
       Entry: 7
-      Data: 10|ContextStatFlat, Assembly-CSharp
+      Data: 11|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: true
     - Name: condition
       Entry: 7
-      Data: 11|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 7
-      Data: 12|ContextStatIncremental, Assembly-CSharp
-    - Name: stat
+      Data: 12|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
       Entry: 3
       Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 6
+      Data: 
+    - Name: label
+      Entry: 6
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: conditionValue
-      Entry: 3
-      Data: 3
-    - Name: thresholdMin
-      Entry: 3
-      Data: 1
-    - Name: thresholdMax
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|StatModifier, Assembly-CSharp
-    - Name: isPermanent
+    - Name: label
+      Entry: 1
+      Data: -100% Aim precision.
+    - Name: useCustomLabel
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
       Data: 7
-    - Name: value
-      Entry: 4
-      Data: -100
     - Name: modificationKind
       Entry: 3
       Data: 1
-    - Name: appliedPerContextValue
-      Entry: 3
-      Data: 0
-    - Name: context
-      Entry: 7
-      Data: 14|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: true
-    - Name: condition
-      Entry: 7
-      Data: 15|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 7
-      Data: 16|ContextStatIncremental, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: conditionValue
-      Entry: 3
-      Data: 3
-    - Name: thresholdMin
-      Entry: 3
-      Data: 1
-    - Name: thresholdMax
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -286,12 +285,49 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  hasPrio: 0
+    - Name: condition
+      Entry: 7
+      Data: 13|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
   showInShop: 1
+  hasPrio: 0
   title: A round of shots
-  label: '"I drink to forget I drink."'
-  showModifiersLabel: 1
   maxApplications: 1
   price: 2000
   rarity: 2
-  mutations: 
+  label: '+50% Stamina.
+
+    +100% Bullets fired.
+
+    +200% Spread.
+
+    -100% Aim
+    precision.'
+  useCustomLabel: 0
+  isConditional: 0

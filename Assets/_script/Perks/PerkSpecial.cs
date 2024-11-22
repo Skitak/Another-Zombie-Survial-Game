@@ -3,7 +3,7 @@ using UnityEngine;
 public class PerkTraits : Perk
 {
     public Traits trait;
-    public override void ApplyUpgrades(bool isDrink = false)
+    public override void ApplyModifiers(bool isDrink = false)
     {
         switch (trait)
         {

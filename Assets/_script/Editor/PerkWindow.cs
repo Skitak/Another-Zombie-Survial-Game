@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
@@ -12,7 +13,7 @@ public class PerkWindow : OdinEditorWindow
 {
     [ShowInInspector]
     [EnumToggleButtons, HideLabel]
-    Rarities rarities;
+    Rarities rarities = Rarities.COMMON;
 
     #region max usage
     [InlineButton("ToggleMaxUsage", "@hasMaxUsage?\"Filter\":\"Ignore\"")]
@@ -31,11 +32,12 @@ public class PerkWindow : OdinEditorWindow
     string[] estimationTitle = new[] { "In", "Out", "Ignore" };
     #endregion
 
-    [SerializeField] bool showNegativeValues;
-    [ShowInInspector]
-    [Searchable]
+    [SerializeField, ShowIf("displayStatDictionnary")] bool showNegativeValues;
+    [SerializeField] bool displayStatDictionnary;
+    [ShowInInspector, Searchable, ShowIf("displayStatDictionnary")]
     [DictionaryDrawerSettings(KeyLabel = "Stat", ValueLabel = "Perks", DisplayMode = DictionaryDisplayOptions.OneLine, IsReadOnly = true)]
     readonly Dictionary<StatType, List<Perk>> perks = new();
+    [ShowInInspector, HideIf("displayStatDictionnary"), LabelText("Perks")] readonly List<Perk> perksList = new();
     [MenuItem("Tools/Perks")]
     private static void OpenWindow()
     {
@@ -47,13 +49,14 @@ public class PerkWindow : OdinEditorWindow
     void UpdateList()
     {
         var allPerks = Asmos.UI.Utils.GetAllInstances<Perk>(new[] { "Assets/Settings/Perks" });
-        // allPerks = Asmos.UI.Utils.GetAllInstances<Perk>();
         perks.Clear();
+        perksList.Clear();
         foreach (Perk perk in allPerks)
         {
             if (!ShouldDisplay(perk))
                 continue;
-            foreach (StatModifier modifier in perk.statModifiers)
+            perksList.Add(perk);
+            foreach (StatModifier modifier in perk.modifiers.Where(x => x is StatModifier))
             {
                 if (!IsPerkModifierValid(perk, modifier))
                     continue;
@@ -68,6 +71,8 @@ public class PerkWindow : OdinEditorWindow
     bool ShouldDisplay(Perk perk)
     {
         int enumBit = 1 << (int)perk.rarity;
+        if (perk.modifiers == null)
+            return false;
         if (((int)rarities & enumBit) != enumBit)
             return false;
         if (!perk.showInShop)
@@ -100,6 +105,19 @@ public class PerkWindow : OdinEditorWindow
     {
         COMMON = 1 << 0, UNCOMMON = 1 << 1, RARE = 1 << 2, LEGENDARY = 1 << 3, All = COMMON | UNCOMMON | RARE | LEGENDARY
     }
+
+    // [Button]
+    // void Convert()
+    // {
+    //     foreach (var perk in perksList)
+    //     {
+    //         perk.modifiers.Clear();
+    //         foreach (var modifier in perk.statModifiers)
+    //         {
+    //             perk.modifiers.Add(modifier.Clone());
+    //         }
+    //     }
+    // }
 
 }
 

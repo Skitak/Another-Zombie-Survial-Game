@@ -111,7 +111,7 @@ public class PerksManager : SerializedMonoBehaviour
     }
     public void AddPerk(Perk perk)
     {
-        perk.ApplyUpgrades();
+        perk.ApplyModifiers();
         perksApplied.Push(perk);
         if (perksToPick > 0)
             --perksToPick;

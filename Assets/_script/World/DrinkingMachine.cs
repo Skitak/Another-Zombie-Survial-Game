@@ -46,7 +46,7 @@ public class DrinkingMachine : MonoBehaviour
             return;
         roundsInCooldown = 0;
         DisableMachine();
-        perk.ApplyUpgrades(true);
+        perk.ApplyModifiers(true);
         Bus.PushData("bonus label", perk.GetLabel());
         Player.player.Drink();
     }

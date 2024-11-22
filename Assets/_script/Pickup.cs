@@ -70,7 +70,7 @@ public class Pickup : MonoBehaviour
                 Bus.PushData("bonus label", $"+{value} grenades");
                 break;
             case PickupType.PERK:
-                perk.ApplyUpgrades(true);
+                perk.ApplyModifiers(true);
                 Bus.PushData("bonus label", "+" + perk.GetLabel());
                 break;
             default:

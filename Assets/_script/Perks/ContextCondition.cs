@@ -15,17 +15,14 @@ public class ContextCondition
     bool remainsValid;
     [SerializeField] List<Condition> conditions = new();
     bool hasBeenValidated;
-    [HideInInspector] public Action<bool> OnUpdate;
     void CheckValidity(params object[] args)
     {
-        bool valid = IsValid();
-        if (valid && remainsValid)
+        if (IsValid() && remainsValid && !hasBeenValidated)
         {
             hasBeenValidated = true;
             foreach (var condition in conditions)
-                condition.StopListening(CheckValidity);
+                condition.context.StopListening(CheckValidity);
         }
-        OnUpdate?.Invoke(valid);
     }
     public bool IsValid()
     {
@@ -57,15 +54,25 @@ public class ContextCondition
     string label = "";
     void UpdateLabelPreview() => label = useCustomLabel ? label : GetLabel(false);
     [SerializeField, HideInInspector] bool useCustomLabel;
+    public void Listen(Bus.GenericDelegate onUpdate)
+    {
+        foreach (var condition in conditions)
+            condition.context.Listen(onUpdate);
+    }
+    public void StopListening(Bus.GenericDelegate onUpdate)
+    {
+        foreach (var condition in conditions)
+            condition.context.StopListening(onUpdate);
+    }
     #endregion
     #region initialization
-    public void Initialize(bool notifyOnUpdate = false)
+    public void Initialize()
     {
         foreach (var condition in conditions)
         {
             condition.context.Initialize();
-            if (remainsValid || notifyOnUpdate)
-                condition.Listen(CheckValidity);
+            if (remainsValid)
+                condition.context.Listen(CheckValidity);
         }
     }
     [OnInspectorInit("InitList")]
@@ -78,6 +85,7 @@ public class ContextCondition
     public ContextCondition Clone()
     {
         ContextCondition clone = (ContextCondition)MemberwiseClone();
+        if (conditions == null) return clone;
         List<Condition> clonedConditions = new();
         foreach (var condition in conditions)
             clonedConditions.Add(condition.Clone());
@@ -167,9 +175,5 @@ public class Condition
         clone.context = context.Clone();
         return clone;
     }
-    public void Listen(Bus.GenericDelegate checkValidity) =>
-        Bus.Subscribe(context.Buskey(), checkValidity);
-    public void StopListening(Bus.GenericDelegate checkValidity) =>
-        Bus.Unsubscribe(context.Buskey(), checkValidity);
 
 }

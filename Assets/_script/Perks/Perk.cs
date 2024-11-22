@@ -19,9 +19,7 @@ public class Perk : SerializedScriptableObject
     public int maxApplications = int.MaxValue;
     public int price = 1000;
     public Rarity rarity;
-    [ListDrawerSettings(), OdinSerialize, NonSerialized,]
-    public List<StatModifier> statModifiers;
-    public List<MutationType> mutations;
+    [ListDrawerSettings, OdinSerialize, NonSerialized] public List<Modifier> modifiers;
     public virtual bool CanBeApplied() => true;
     public virtual string GetLabel(bool showContextData = true)
     {
@@ -34,7 +32,7 @@ public class Perk : SerializedScriptableObject
             endLabel += condition.GetLabel(showContextData) + " :";
             endLabel = Utils.FirstLetterToUpper(endLabel);
         }
-        foreach (StatModifier modifier in statModifiers)
+        foreach (Modifier modifier in modifiers)
         {
             if (!first || isConditional)
                 endLabel += "\n";
@@ -44,34 +42,32 @@ public class Perk : SerializedScriptableObject
         return endLabel;
 
     }
-    public virtual void ApplyUpgrades(bool isDrink = false)
+    public virtual void ApplyModifiers(bool isDrink = false)
     {
-        List<StatModifier> clonedModifiers = new();
-        foreach (StatModifier modifier in statModifiers)
+        List<Modifier> clonedModifiers = new();
+        foreach (Modifier modifier in modifiers)
         {
-            StatModifier clonedModifier = modifier.Clone();
-            clonedModifier.Initialize();
+            Modifier clonedModifier = modifier.Clone();
+            clonedModifier.isActive = !isConditional;
             clonedModifiers.Add(clonedModifier);
             if (isDrink)
                 clonedModifier.value *= StatManager.Get(StatType.DRINKS) / 100;
-            StatManager.ApplyStatModifier(clonedModifier);
+            clonedModifier.ApplyModifier();
         }
         if (isConditional)
         {
             ContextCondition clonedCondition = condition.Clone();
-            clonedCondition.Initialize(true);
-            clonedCondition.OnUpdate += (bool isActive) =>
+            clonedCondition.Initialize();
+            clonedCondition.Listen((o) =>
             {
+                bool isValid = clonedCondition.IsValid();
                 foreach (var modifier in clonedModifiers)
-                    modifier.isActive = isActive;
-            };
-            clonedCondition.OnUpdate.Invoke(clonedCondition.IsValid());
+                    modifier.isActive = isValid;
+            });
         }
-        foreach (MutationType mutation in mutations)
-            StatManager.ApplyMutation(mutation);
     }
 
-    public Sprite GetSprite() => sprite != null ? sprite : StatManager.Descriptions[statModifiers[0].stat].icon;
+    public Sprite GetSprite() => sprite != null ? sprite : modifiers[0].GetValueSprite();
     [OnInspectorGUI] private void Space2() { GUILayout.Space(20); }
 
     #region perview
@@ -87,7 +83,7 @@ public class Perk : SerializedScriptableObject
     public int GetEstimatedValue()
     {
         estimatedValue = 0;
-        foreach (var modifier in statModifiers)
+        foreach (var modifier in modifiers)
             estimatedValue += modifier.GetEstimatedValue();
         return estimatedValue;
     }

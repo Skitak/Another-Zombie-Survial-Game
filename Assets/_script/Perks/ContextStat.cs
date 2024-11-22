@@ -1,4 +1,5 @@
 using System;
+using Asmos.Bus;
 
 [Serializable]
 public class ContextStat
@@ -13,6 +14,8 @@ public class ContextStat
         string currentValue = withContext ? $"(current: {GetValue()})" : "";
         return $"{GetStatName(plural)}{currentValue}";
     }
+    public virtual void Listen(Bus.GenericDelegate action) => Bus.Subscribe(Buskey(), action);
+    public void StopListening(Bus.GenericDelegate action) => Bus.Unsubscribe(Buskey(), action);
     public virtual string Buskey() => "";
 }
 public class ContextStatFlat : ContextStat
