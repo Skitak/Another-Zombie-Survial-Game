@@ -21,49 +21,60 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: statModifiers
+    - Name: condition
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[StatModifier, Assembly-CSharp]],
-        mscorlib
+      Data: 0|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: modifiers
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 1|StatModifier, Assembly-CSharp
-    - Name: isPermanent
+      Data: 3|StatModifier, Assembly-CSharp
+    - Name: isActive
       Entry: 5
       Data: false
-    - Name: stat
-      Entry: 3
-      Data: 17
     - Name: value
       Entry: 4
-      Data: 100
-    - Name: modificationKind
+      Data: 50
+    - Name: contextButtons
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
-    - Name: context
-      Entry: 7
-      Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: false
-    - Name: condition
-      Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
     - Name: context
       Entry: 7
       Data: 4|ContextStatFlat, Assembly-CSharp
@@ -73,60 +84,75 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
-      Entry: 3
-      Data: 0
-    - Name: conditionValue
-      Entry: 3
-      Data: 0
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: false
+    - Name: condition
       Entry: 7
-      Data: 5|StatModifier, Assembly-CSharp
+      Data: 5|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: +50% Income.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
     - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
       Entry: 3
-      Data: 3
-    - Name: value
-      Entry: 4
-      Data: -50
+      Data: 17
     - Name: modificationKind
       Entry: 3
-      Data: 2
-    - Name: appliedPerContextValue
-      Entry: 3
-      Data: 0
-    - Name: context
-      Entry: 7
-      Data: 6|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: false
-    - Name: condition
+    - Name: 
       Entry: 7
-      Data: 7|ContextCondition, Assembly-CSharp
+      Data: 7|StatModifier, Assembly-CSharp
+    - Name: isActive
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: -2
+    - Name: contextButtons
+      Entry: 3
+      Data: 0
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 0
     - Name: context
       Entry: 7
       Data: 8|ContextStatFlat, Assembly-CSharp
@@ -136,21 +162,57 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: false
+    - Name: condition
+      Entry: 7
+      Data: 9|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
       Entry: 3
       Data: 0
-    - Name: conditionValue
-      Entry: 3
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
       Data: 0
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: -2 Max Health.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: isPermanent
+      Entry: 5
+      Data: false
+    - Name: stat
+      Entry: 3
+      Data: 3
+    - Name: modificationKind
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -160,12 +222,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  hasPrio: 0
-  showInShop: 1
   title: Heartache
-  label: 
-  showModifiersLabel: 1
-  maxApplications: 1
+  sprite: {fileID: 21300000, guid: 79a9052fc07edde448154f33f048ecd8, type: 3}
+  showInShop: 1
+  hasPrio: 0
   price: 2000
-  rarity: 2
-  mutations: 
+  rarity: 4
+  maxApplications: 1
+  isConditional: 0
+  label: '+50% Income.
+
+    -2 Max Health.'
+  useCustomLabel: 0

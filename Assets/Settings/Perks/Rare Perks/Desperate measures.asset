@@ -21,73 +21,117 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: statModifiers
+    - Name: condition
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[StatModifier, Assembly-CSharp]],
-        mscorlib
+      Data: 0|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: modifiers
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|StatModifier, Assembly-CSharp
-    - Name: isPermanent
+      Data: 3|ConsumableModifier, Assembly-CSharp
+    - Name: isActive
       Entry: 5
       Data: false
-    - Name: stat
-      Entry: 3
-      Data: 3
     - Name: value
       Entry: 4
       Data: 1
-    - Name: modificationKind
+    - Name: contextButtons
       Entry: 3
-      Data: 0
+      Data: 4
     - Name: appliedPerContextValue
       Entry: 3
-      Data: 80
+      Data: 50
     - Name: context
       Entry: 7
-      Data: 2|ContextStatIncremental, Assembly-CSharp
+      Data: 4|ContextStatIncremental, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 2
     - Name: 
       Entry: 8
       Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: true
-    - Name: isConditional
+    - Name: hideWhenConditionInvalid
       Entry: 5
       Data: false
     - Name: condition
       Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
-    - Name: context
+      Data: 5|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
       Entry: 7
-      Data: 4|ContextStatPercent, Assembly-CSharp
-    - Name: stat
-      Entry: 3
+      Data: 6|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
       Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: conditionValue
-      Entry: 3
-      Data: 25
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
+    - Name: label
+      Entry: 1
+      Data: +1 Heal every 50 zombies killed after purchase.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: consumable
+      Entry: 3
+      Data: 0
+    - Name: usePercentValue
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -97,12 +141,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  hasPrio: 0
-  showInShop: 1
   title: Desperate measures
-  label: 
-  showModifiersLabel: 1
-  maxApplications: 654645
+  sprite: {fileID: 21300000, guid: 6c1a1b33726c33f4490d2ace4fedb532, type: 3}
+  showInShop: 1
+  hasPrio: 0
   price: 2000
-  rarity: 2
-  mutations: 
+  rarity: 4
+  maxApplications: 654645
+  isConditional: 0
+  label: +1 Heal every 50 zombies killed after purchase..
+  useCustomLabel: 0

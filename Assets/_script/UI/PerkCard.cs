@@ -79,12 +79,13 @@ public class PerkCard : MonoBehaviour
 
     void ShowRarity()
     {
-        crown.SetActive(rarity == Rarity.LEGENDARY);
-        hat.SetActive(rarity == Rarity.RARE);
-        beret.SetActive(rarity == Rarity.UNCOMMON);
+        crown.SetActive(rarity.HasFlag(Rarity.LEGENDARY));
+        hat.SetActive(rarity.HasFlag(Rarity.RARE));
+        beret.SetActive(rarity.HasFlag(Rarity.UNCOMMON));
         int rarity_value = (int)rarity;
-        for (int i = 0; i < stars.transform.childCount; i++)
-            stars.transform.GetChild(i).gameObject.SetActive(rarity_value > i);
+        stars.transform.GetChild(0).gameObject.SetActive(rarity_value > 1);
+        stars.transform.GetChild(1).gameObject.SetActive(rarity_value > 2);
+        stars.transform.GetChild(2).gameObject.SetActive(rarity_value > 4);
     }
 
     public async void BuyPerk()

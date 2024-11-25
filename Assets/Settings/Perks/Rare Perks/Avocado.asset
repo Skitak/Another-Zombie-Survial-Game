@@ -21,52 +21,30 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: statModifiers
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[StatModifier, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 1|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
-    - Name: stat
-      Entry: 3
-      Data: 1
-    - Name: value
-      Entry: 4
-      Data: 30
-    - Name: modificationKind
-      Entry: 3
-      Data: 1
-    - Name: appliedPerContextValue
-      Entry: 3
-      Data: 1
-    - Name: context
-      Entry: 7
-      Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: false
     - Name: condition
       Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
+      Data: 0|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|Condition, Assembly-CSharp
     - Name: context
       Entry: 7
-      Data: 4|ContextStatPercent, Assembly-CSharp
+      Data: 3|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
@@ -75,10 +53,10 @@ MonoBehaviour:
       Data: 
     - Name: type
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: conditionValue
       Entry: 3
-      Data: 25
+      Data: 0
     - Name: thresholdMin
       Entry: 3
       Data: 0
@@ -89,21 +67,36 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
       Entry: 8
       Data: 
+    - Name: label
+      Entry: 1
+      Data: when health left is between 0 and 0
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: modifiers
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
     - Name: 
       Entry: 7
       Data: 5|StatModifier, Assembly-CSharp
-    - Name: isPermanent
+    - Name: isActive
       Entry: 5
       Data: false
-    - Name: stat
-      Entry: 3
-      Data: 3
     - Name: value
       Entry: 4
-      Data: 1
-    - Name: modificationKind
+      Data: 10
+    - Name: contextButtons
       Entry: 3
       Data: 0
     - Name: appliedPerContextValue
@@ -118,39 +111,132 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
+    - Name: hideWhenConditionInvalid
       Entry: 5
       Data: false
     - Name: condition
       Entry: 7
       Data: 7|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: +10% Speed.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: isPermanent
+      Entry: 5
+      Data: false
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: modificationKind
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|ConsumableModifier, Assembly-CSharp
+    - Name: isActive
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 4
+      Data: 10
+    - Name: contextButtons
+      Entry: 3
+      Data: 4
+    - Name: appliedPerContextValue
+      Entry: 3
+      Data: 1
     - Name: context
       Entry: 7
-      Data: 8|ContextStatFlat, Assembly-CSharp
+      Data: 10|ContextStatIncremental, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
-    - Name: type
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: false
+    - Name: condition
+      Entry: 7
+      Data: 11|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
       Entry: 3
       Data: 0
-    - Name: conditionValue
-      Entry: 3
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
       Data: 0
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: +10% Heal every wave after purchase.
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: consumable
+      Entry: 3
+      Data: 0
+    - Name: usePercentValue
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -160,12 +246,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  hasPrio: 0
-  showInShop: 1
   title: Avocado
-  label: A fruit won't do no harm.
-  showModifiersLabel: 1
-  maxApplications: 1
+  sprite: {fileID: 21300000, guid: ab33b45d81375564ebb13ce565bba22a, type: 3}
+  showInShop: 1
+  hasPrio: 0
   price: 2000
-  rarity: 2
-  mutations: 
+  rarity: 4
+  maxApplications: 1
+  isConditional: 0
+  label: '+10% Speed.
+
+    +10% Heal every wave after purchase.'
+  useCustomLabel: 0

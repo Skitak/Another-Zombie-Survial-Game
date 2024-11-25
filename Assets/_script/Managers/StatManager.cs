@@ -45,12 +45,15 @@ public class StatManager : SerializedMonoBehaviour
     public static Stat GetStat(StatType type) => instance.stats[type];
     public static void Subscribe(StatType type, System.Action<float> action) =>
         Bus.Subscribe(type.ToString(), (o) => action((float)o[0]));
-    public static void ApplyStatModifier(StatModifier modifier) =>
-        instance.stats[modifier.stat].AddModifier(modifier);
-    public static void ApplyMutation(MutationType mutation)
+    public static void ApplyStatModifier(StatModifier modifier)
     {
-
+        instance.stats[modifier.stat].AddModifier(modifier);
+        foreach (var statKeyVal in instance.stats)
+        {
+            Bus.PushData(statKeyVal.Key.ToString(), statKeyVal.Value.GetValue());
+        }
     }
+
     public void AddStatkit(StatKit statKit)
     {
         if (statKits.Contains(statKit))

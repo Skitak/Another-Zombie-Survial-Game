@@ -141,7 +141,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         if (drinkTimer.IsStarted() || isThrowingGrenade)
             return;
 
-        if (grenadeAction.WasPressedThisFrame())
+        if (grenadeAction.WasPressedThisFrame() && grenades > 0)
             ArmGrenade();
 
         if (reloadAction.WasPressedThisFrame() && weapon && weapon.CanReload())
@@ -240,23 +240,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
             staminaTimer.endTime = value;
             staminaTimer.Rewind();
         });
-        Bus.Subscribe("HEALTH_UPDATE", (o) =>
-        {
-            int diff = (int)(float)o[0];
-            if (diff < 0)
-                Hit(diff);
-            else
-            {
-                Bus.PushData("bonus label", $"{diff} health");
-                health += diff;
-            }
-        });
-        Bus.Subscribe("GRENADE_UPDATE", (o) =>
-        {
-            int diff = (int)(float)o[0];
-            Bus.PushData("bonus label", $"+{diff} grenade");
-            grenades += diff;
-        });
     }
     void Start()
     {
@@ -324,6 +307,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     }
     public void ArmGrenade()
     {
+        grenades--;
         isThrowingGrenade = true;
         grenadeMesh.SetActive(true);
         animator.SetTrigger("arm");
@@ -339,6 +323,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     }
     public void ThrowGrenade()
     {
+
         animator.SetTrigger("throw");
         throwingGrenadeTimer.ResetPlay();
         grenadeMesh.SetActive(false);

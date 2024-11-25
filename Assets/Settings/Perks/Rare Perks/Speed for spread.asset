@@ -21,151 +21,55 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: statModifiers
+    - Name: modifiers
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[StatModifier, Assembly-CSharp]],
-        mscorlib
+      Data: 0|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 1|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
-    - Name: stat
-      Entry: 3
       Data: 0
-    - Name: value
-      Entry: 4
-      Data: 30
-    - Name: modificationKind
-      Entry: 3
-      Data: 1
-    - Name: appliedPerContextValue
-      Entry: 3
-      Data: 1
-    - Name: context
-      Entry: 7
-      Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: false
-    - Name: condition
-      Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 7
-      Data: 4|ContextStatPercent, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 3
-    - Name: conditionValue
-      Entry: 3
-      Data: 25
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 5|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
-    - Name: stat
-      Entry: 3
-      Data: 6
-    - Name: value
-      Entry: 4
-      Data: 40
-    - Name: modificationKind
-      Entry: 3
-      Data: 1
-    - Name: appliedPerContextValue
-      Entry: 3
-      Data: 0
-    - Name: context
-      Entry: 7
-      Data: 6|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: isValueMultipliedByContext
-      Entry: 5
-      Data: false
-    - Name: isConditional
-      Entry: 5
-      Data: false
-    - Name: condition
-      Entry: 7
-      Data: 7|ContextCondition, Assembly-CSharp
-    - Name: context
-      Entry: 7
-      Data: 8|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 0
-    - Name: conditionValue
-      Entry: 3
-      Data: 0
-    - Name: thresholdMin
-      Entry: 3
-      Data: 0
-    - Name: thresholdMax
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  hasPrio: 0
+    - Name: condition
+      Entry: 7
+      Data: 1|ContextCondition, Assembly-CSharp
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
   showInShop: 1
+  hasPrio: 0
   title: Cafeine
-  label: 
-  showModifiersLabel: 1
+  sprite: {fileID: 0}
   maxApplications: 1
   price: 2000
-  rarity: 2
-  mutations: 
+  rarity: 4
+  label: 
+  useCustomLabel: 0
+  isConditional: 0

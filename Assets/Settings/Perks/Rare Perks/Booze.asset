@@ -21,18 +21,48 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: condition
+      Entry: 7
+      Data: 0|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: modifiers
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
+      Data: 2|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 1|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
+      Data: 3|StatModifier, Assembly-CSharp
     - Name: isActive
       Entry: 5
       Data: false
@@ -44,19 +74,25 @@ MonoBehaviour:
       Data: 0
     - Name: appliedPerContextValue
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: context
       Entry: 7
-      Data: 2|ContextStatFlat, Assembly-CSharp
+      Data: 4|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
-      Data: 5
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: false
     - Name: condition
       Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
+      Data: 5|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
     - Name: whenConditionValid
       Entry: 3
       Data: 0
@@ -64,10 +100,19 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: conditions
-      Entry: 6
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: label
-      Entry: 6
+      Entry: 1
       Data: 
     - Name: useCustomLabel
       Entry: 5
@@ -81,6 +126,9 @@ MonoBehaviour:
     - Name: useCustomLabel
       Entry: 5
       Data: false
+    - Name: isPermanent
+      Entry: 5
+      Data: false
     - Name: stat
       Entry: 3
       Data: 1
@@ -92,10 +140,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
+      Data: 7|StatModifier, Assembly-CSharp
     - Name: isActive
       Entry: 5
       Data: false
@@ -104,22 +149,28 @@ MonoBehaviour:
       Data: 100
     - Name: contextButtons
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
       Entry: 7
-      Data: 5|ContextStatFlat, Assembly-CSharp
+      Data: 8|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: true
     - Name: condition
       Entry: 7
-      Data: 6|ContextCondition, Assembly-CSharp
+      Data: 9|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
     - Name: whenConditionValid
       Entry: 3
       Data: 0
@@ -127,11 +178,47 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: conditions
-      Entry: 6
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 11|Condition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 12|ContextStatIncremental, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: conditionValue
+      Entry: 3
+      Data: 3
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: label
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: for the next 3 waves
     - Name: useCustomLabel
       Entry: 5
       Data: false
@@ -140,8 +227,11 @@ MonoBehaviour:
       Data: 
     - Name: label
       Entry: 1
-      Data: +100% Bullets fired.
+      Data: +100% Bullets fired for the next 3 waves.
     - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
@@ -155,34 +245,37 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
+      Data: 13|StatModifier, Assembly-CSharp
     - Name: isActive
       Entry: 5
       Data: false
     - Name: value
       Entry: 4
-      Data: 200
+      Data: 100
     - Name: contextButtons
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
       Entry: 7
-      Data: 8|ContextStatFlat, Assembly-CSharp
+      Data: 14|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: true
     - Name: condition
       Entry: 7
-      Data: 9|ContextCondition, Assembly-CSharp
+      Data: 15|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
     - Name: whenConditionValid
       Entry: 3
       Data: 0
@@ -190,11 +283,47 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: conditions
-      Entry: 6
+      Entry: 7
+      Data: 16|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 17|Condition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 18|ContextStatIncremental, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: conditionValue
+      Entry: 3
+      Data: 3
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: label
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: for the next 3 waves
     - Name: useCustomLabel
       Entry: 5
       Data: false
@@ -203,8 +332,11 @@ MonoBehaviour:
       Data: 
     - Name: label
       Entry: 1
-      Data: +200% Spread.
+      Data: +100% Spread for the next 3 waves.
     - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
@@ -218,10 +350,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 10|StatModifier, Assembly-CSharp
-    - Name: isPermanent
-      Entry: 5
-      Data: false
+      Data: 19|StatModifier, Assembly-CSharp
     - Name: isActive
       Entry: 5
       Data: false
@@ -230,22 +359,28 @@ MonoBehaviour:
       Data: -100
     - Name: contextButtons
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: appliedPerContextValue
       Entry: 3
       Data: 0
     - Name: context
       Entry: 7
-      Data: 11|ContextStatFlat, Assembly-CSharp
+      Data: 20|ContextStatFlat, Assembly-CSharp
     - Name: stat
       Entry: 3
       Data: 0
     - Name: 
       Entry: 8
       Data: 
+    - Name: hideWhenConditionInvalid
+      Entry: 5
+      Data: true
     - Name: condition
       Entry: 7
-      Data: 12|ContextCondition, Assembly-CSharp
+      Data: 21|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
     - Name: whenConditionValid
       Entry: 3
       Data: 0
@@ -253,11 +388,47 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: conditions
-      Entry: 6
+      Entry: 7
+      Data: 22|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 23|Condition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 24|ContextStatIncremental, Assembly-CSharp
+    - Name: stat
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 3
+    - Name: conditionValue
+      Entry: 3
+      Data: 3
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: label
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: for the next 3 waves
     - Name: useCustomLabel
       Entry: 5
       Data: false
@@ -266,8 +437,11 @@ MonoBehaviour:
       Data: 
     - Name: label
       Entry: 1
-      Data: -100% Aim precision.
+      Data: -100% Aim precision for the next 3 waves.
     - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: isPermanent
       Entry: 5
       Data: false
     - Name: stat
@@ -275,7 +449,7 @@ MonoBehaviour:
       Data: 7
     - Name: modificationKind
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -285,49 +459,20 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: condition
-      Entry: 7
-      Data: 13|ContextCondition, Assembly-CSharp
-    - Name: whenConditionValid
-      Entry: 3
-      Data: 0
-    - Name: remainsValid
-      Entry: 5
-      Data: false
-    - Name: conditions
-      Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: label
-      Entry: 1
-      Data: 
-    - Name: useCustomLabel
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
+  title: A round of shots
+  sprite: {fileID: 21300000, guid: c8366eb2a41ed4b4ab76e8dacb3f4151, type: 3}
   showInShop: 1
   hasPrio: 0
-  title: A round of shots
-  maxApplications: 1
   price: 2000
-  rarity: 2
+  rarity: 4
+  maxApplications: 1
+  isConditional: 0
   label: '+50% Stamina.
 
-    +100% Bullets fired.
+    +100% Bullets fired for the next 3 waves.
 
-    +200% Spread.
+    +100%
+    Spread for the next 3 waves.
 
-    -100% Aim
-    precision.'
+    -100% Aim precision for the next 3 waves.'
   useCustomLabel: 0
-  isConditional: 0

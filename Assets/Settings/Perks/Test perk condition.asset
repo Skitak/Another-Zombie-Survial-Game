@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b95881d3c466494aae0174809651c6c, type: 3}
+  m_Name: Test perk condition
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 39db8e1009d1fbe42840dbae216fdc5d, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: shopCondition
+      Entry: 7
+      Data: 0|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|Condition, Assembly-CSharp
+    - Name: context
+      Entry: 7
+      Data: 3|ContextPerk, Assembly-CSharp
+    - Name: perk
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 1
+    - Name: conditionValue
+      Entry: 3
+      Data: 0
+    - Name: thresholdMin
+      Entry: 3
+      Data: 0
+    - Name: thresholdMax
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: when Test perk is over 0
+    - Name: useCustomLabel
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: condition
+      Entry: 7
+      Data: 4|ContextCondition, Assembly-CSharp
+    - Name: hideWhenValid
+      Entry: 5
+      Data: false
+    - Name: whenConditionValid
+      Entry: 3
+      Data: 0
+    - Name: remainsValid
+      Entry: 5
+      Data: false
+    - Name: conditions
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: label
+      Entry: 1
+      Data: 
+    - Name: useCustomLabel
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: modifiers
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  title: If condition vald
+  sprite: {fileID: 21300000, guid: a36e3736178a32c4985e3ae78f817332, type: 3}
+  showInShop: 0
+  hasPrio: 0
+  hasShopCondition: 0
+  ignoreConditionWithPrio: 1
+  price: 1000
+  rarity: 1
+  isConditional: 0
+  label: Working!
+  useCustomLabel: 1

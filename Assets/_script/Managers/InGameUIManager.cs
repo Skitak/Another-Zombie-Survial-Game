@@ -40,7 +40,7 @@ public class InGameUIManager : MonoBehaviour
 
     void RemovePause()
     {
-        ViewManager.instance.RemoveView();
+        ViewManager.instance.RemoveView(pauseView);
         if (!PerksManager.instance.isOpened)
         {
             Cursor.lockState = CursorLockMode.Locked;

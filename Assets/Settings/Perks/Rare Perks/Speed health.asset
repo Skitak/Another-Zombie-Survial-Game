@@ -21,107 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: statModifiers
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[StatModifier, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|StatModifier, Assembly-CSharp
-    - Name: isActive
-      Entry: 5
-      Data: false
-    - Name: isPermanent
-      Entry: 5
-      Data: false
-    - Name: stat
-      Entry: 3
-      Data: 0
-    - Name: value
-      Entry: 4
-      Data: 50
-    - Name: modificationKind
-      Entry: 3
-      Data: 2
-    - Name: contextButtons
-      Entry: 3
-      Data: 0
-    - Name: appliedPerContextValue
-      Entry: 3
-      Data: 1
-    - Name: context
-      Entry: 7
-      Data: 2|ContextStatFlat, Assembly-CSharp
-    - Name: stat
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: condition
-      Entry: 7
-      Data: 3|ContextCondition, Assembly-CSharp
-    - Name: whenConditionValid
-      Entry: 3
-      Data: 0
-    - Name: remainsValid
-      Entry: 5
-      Data: false
-    - Name: conditions
-      Entry: 6
-      Data: 
-    - Name: OnUpdate
-      Entry: 6
-      Data: 
-    - Name: label
-      Entry: 6
-      Data: 
-    - Name: useCustomLabel
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: label
-      Entry: 1
-      Data: +50% Speed.
-    - Name: useCustomLabel
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: modifiers
-      Entry: 6
-      Data: 
-    - Name: consumables
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[ConsumableModifier, Assembly-CSharp]],
-        mscorlib
+      Data: 0|System.Collections.Generic.List`1[[Modifier, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 5|ConsumableModifier, Assembly-CSharp
-    - Name: value
-      Entry: 4
-      Data: 5
-    - Name: test
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -130,7 +35,7 @@ MonoBehaviour:
       Data: 
     - Name: condition
       Entry: 7
-      Data: 6|ContextCondition, Assembly-CSharp
+      Data: 1|ContextCondition, Assembly-CSharp
     - Name: whenConditionValid
       Entry: 3
       Data: 0
@@ -139,7 +44,7 @@ MonoBehaviour:
       Data: false
     - Name: conditions
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
+      Data: 2|System.Collections.Generic.List`1[[Condition, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -148,9 +53,6 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 8
-      Data: 
-    - Name: OnUpdate
-      Entry: 6
       Data: 
     - Name: label
       Entry: 1
@@ -164,10 +66,10 @@ MonoBehaviour:
   showInShop: 1
   hasPrio: 0
   title: Survival Instinct
+  sprite: {fileID: 0}
   maxApplications: 1
   price: 2000
-  rarity: 2
-  mutations: 
+  rarity: 4
   label: +50% Speed.
   useCustomLabel: 0
   isConditional: 0

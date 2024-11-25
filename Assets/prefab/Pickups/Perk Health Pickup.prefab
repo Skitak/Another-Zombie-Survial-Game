@@ -45,11 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3f00ea9901c8d42b05afb1d938b46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
-  perk: {fileID: 11400000, guid: 90dceb2d1e1ee4e4495aff9d3f5082c0, type: 2}
-  health: 0
-  healthPercentage: 0.5
-  grenades: 0
+  perk: {fileID: 11400000, guid: 7a8a4481cf207ec44a965bdbf2fb2e1f, type: 2}
 --- !u!1 &6776061055633419359
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,19 +8,20 @@ using Asmos.UI;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PerksManager : SerializedMonoBehaviour
 {
     public static PerksManager instance;
+    InputAction openPerkAction;
     [SerializeField] ViewConfig perkView;
-    [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.ExpandedFoldout)]
+    [DictionaryDrawerSettings(KeyLabel = "Rarity", ValueLabel = "Chances")]
     [SerializeField] Dictionary<Rarity, List<int>> baseRarityChances;
     [ReadOnly] Perk[] allPerks;
     int rarityChancesIndex = 0;
     [HideInInspector] public int[] rarityChances;
     Timer timeScaleTimer;
-    Stack<Perk> perksApplied = new();
-    // [SerializeField]
+    [HideInInspector, Unity.VisualScripting.DoNotSerialize] public List<Perk> appliedPerks = new();
     int perksToPick = 0;
     [HideInInspector] public bool isOpened;
     void Awake()
@@ -34,6 +35,16 @@ public class PerksManager : SerializedMonoBehaviour
         Bus.Subscribe("close perks", (o) => isOpened = false);
         Bus.Subscribe("refresh perks", (o) => RefreshPerks());
         Bus.Subscribe("improve drop", (o) => ImproveDropChances());
+        openPerkAction = InputSystem.actions.FindAction("Perk");
+        foreach (var perk in allPerks)
+            perk.InitializeCondition();
+
+    }
+
+    void Update()
+    {
+        if (openPerkAction.WasPressedThisFrame())
+            OpenPerksMenu();
     }
     public async Task OpenPerksMenu(int perksAmout = 0)
     {
@@ -73,10 +84,14 @@ public class PerksManager : SerializedMonoBehaviour
     int[] GetRarityChances(int chancesIndex)
     {
         int[] rarityChances = new int[4];
-        for (int i = 0; i < 4; i++)
+        int i = 0;
+        foreach (Rarity irarity in Enum.GetValues(typeof(Rarity)))
         {
-            var list = baseRarityChances[(Rarity)i];
+            if (irarity == Rarity.ALL)
+                continue;
+            var list = baseRarityChances[irarity];
             rarityChances[i] = list[math.min(chancesIndex, list.Count - 1)];
+            i++;
         }
         return rarityChances;
     }
@@ -85,42 +100,57 @@ public class PerksManager : SerializedMonoBehaviour
         List<Perk> foundPerks = new();
         foreach (PerkCard card in PerkCard.perkCards)
         {
-            var prioPerks = allPerks.Where(x => x.hasPrio);
+            // Picking perks with prio
+            var prioPerks = allPerks.Where(x => x.hasPrio && (x.ignoreConditionWithPrio || x.IsValid()));
             if (prioPerks.Count() != 0)
             {
                 Perk prioPerk = prioPerks.ElementAt(UnityEngine.Random.Range(0, prioPerks.Count()));
                 card.InitializePerk(prioPerk, prioPerk.rarity);
                 continue;
             }
+
+            // Picking perk normally
+            Debug.Log("Picking perk");
             Rarity rarity = PickRarity();
             IEnumerable<Perk> perks;
             do
             {
                 perks = allPerks.Where((Perk perk) =>
                     perk.CanBeApplied() &&
-                    perk.rarity == rarity &&
-                    !foundPerks.Contains(perk) &&
-                    perk.showInShop
+                    rarity.HasFlag(perk.rarity) &&
+                    !foundPerks.Contains(perk)
                 );
-                rarity = (Rarity)Math.Max(0, ((int)rarity) - 1);
+                rarity = (Rarity)Math.Max(1, ((int)rarity) >> 1);
             } while (perks.Count() == 0);
             Perk randomPerk = perks.ElementAt(UnityEngine.Random.Range(0, perks.Count()));
             foundPerks.Add(randomPerk);
             card.InitializePerk(randomPerk, rarity);
+            Debug.Log("Done");
         }
     }
     public void AddPerk(Perk perk)
     {
         perk.ApplyModifiers();
-        perksApplied.Push(perk);
+        appliedPerks.Add(perk);
         if (perksToPick > 0)
             --perksToPick;
+        Bus.PushData("Perk");
     }
     void ImproveDropChances()
     {
         rarityChances = GetRarityChances(++rarityChancesIndex);
         Bus.PushData("drop updated");
     }
+
+    public int GetRarityChance(Rarity rarity) => rarityChances[rarity switch
+    {
+        Rarity.COMMON => 0,
+        Rarity.UNCOMMON => 1,
+        Rarity.RARE => 2,
+        Rarity.LEGENDARY => 3,
+        Rarity.ALL => 3,
+        _ => 0,
+    }];
 #if UNITY_EDITOR
     void OnValidate()
     {

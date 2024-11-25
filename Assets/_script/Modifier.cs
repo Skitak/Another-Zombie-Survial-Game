@@ -6,40 +6,38 @@ using UnityEngine;
 [Serializable, HideReferenceObjectPicker]
 public abstract class Modifier
 {
-    [SerializeField, ShowIf("@IsConditional || HasContext"), Tooltip("Will always show the value in the pause menu, even if context is removed from preview.")]
-    protected bool isPermanent;
-    public bool IsPermanent { get => !(IsConditional || HasContext) || isPermanent; }
     [HideInInspector, DoNotSerialize] public bool isActive;
-    [SuffixLabel("@GetValueSuffix()", overlay: true)] public float value;
-    [EnumToggleButtons, HideLabel, PropertyOrder(3)] public ContextButtons contextButtons;
+    [TitleGroup("@GetTitle()"), SuffixLabel("@GetValueSuffix()", overlay: true)] public float value;
+    [TitleGroup("@GetTitle()"), EnumToggleButtons, HideLabel, PropertyOrder(3)] public ContextButtons contextButtons;
     public virtual bool IsValid() => (!IsConditional || condition.IsValid()) && isActive;
     public virtual float GetValue() => IsValid() ? value * (HasContext ? context.GetValue() / appliedPerContextValue : 1) : 0;
     public abstract Sprite GetValueSprite();
     #region context
-    [ShowIfGroup("HasContext"), PropertyOrder(5), BoxGroup("HasContext/Context"), Min(0)]
+    [ShowIf("HasContext"), TitleGroup("Context"), Min(0)]
     [Tooltip("Should NOT be used with percentage stat in my opinion")]
     public int appliedPerContextValue = 0;
-    [PropertyOrder(6), BoxGroup("HasContext/Context")]
+    [TitleGroup("Context"), ShowIf("HasContext")]
     public ContextStat context;
     protected bool HasContext { get => contextButtons.HasFlag(ContextButtons.CONTEXT); }
     protected bool IsConditional { get => contextButtons.HasFlag(ContextButtons.CONDITION); }
-    [PropertyOrder(8), ShowIf("IsConditional")]
-    public ContextCondition condition;
+    [ShowIf("IsConditional"), TitleGroup("Condition"), PropertyOrder(6)] public bool hideWhenConditionInvalid = false;
+    [ShowIf("IsConditional"), TitleGroup("Condition"), PropertyOrder(7)] public ContextCondition condition;
     #endregion
 
     #region label
-    [SerializeField, HideInInspector, PropertyOrder(11), OnInspectorGUI("UpdateLabelPreview")]
+    [SerializeField, HideLabel, HideInInspector, PropertyOrder(11), OnInspectorGUI("UpdateLabelPreview"), TitleGroup("Label")]
     [InlineButton("@useCustomLabel = !useCustomLabel", "@useCustomLabel?\"Custom\":\"Generated\"")]
     string label = "";
     protected virtual string GetValueSuffix() => "";
     protected abstract string GetValueName();
+    protected abstract string GetTitle();
     public virtual string GetLabel(bool withContext = true)
     {
         if (useCustomLabel)
             return label;
-        if (withContext && isPermanent && !IsValid())
+        if (withContext && hideWhenConditionInvalid && !IsValid())
             return "";
-        bool displayConditional = IsConditional && !(withContext && isPermanent && condition.IsValid());
+        bool displayConditional = IsConditional && !(withContext && condition.IsValid());
         string prefix = value > 0 ? "+" : "";
         string valueStr = $"{value}{GetValueSuffix()}";
         string baseLabel = $"{prefix}{valueStr} {GetValueName()}";
@@ -55,7 +53,7 @@ public abstract class Modifier
     #endregion
 
     #region estimation
-    [ShowInInspector, PropertyOrder(12), DisplayAsString(false), OnInspectorGUI("GetEstimatedValue")]
+    [ShowInInspector, PropertyOrder(12), DisplayAsString(false), OnInspectorGUI("GetEstimatedValue"), PropertySpace(SpaceAfter = 20)]
     protected int estimatedValue;
     public virtual int GetEstimatedValue() => 0;
     #endregion

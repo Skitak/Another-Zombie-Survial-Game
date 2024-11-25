@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // [CreateAssetMenu(fileName = "Stat Descriptor", menuName = "Stat Descriptor", order = 0)]
 public class StatDescriptionsHolder : SerializedScriptableObject
@@ -12,18 +13,21 @@ public class StatDescriptionsHolder : SerializedScriptableObject
 }
 public struct StatDescription
 {
+    [Title("Value description")]
     public bool isPercent;
     [Tooltip("Set to true if improving this stat would have a negative effect on the player")]
     public bool isNegative;
     [SuffixLabel("@GetSuffix()", overlay: true), HorizontalGroup("Range", MarginRight = .05f), LabelText("Range")] public float min;
     [SuffixLabel("@GetSuffix()", overlay: true), HorizontalGroup("Range"), HideLabel] public float max;
-    [HideIf("isPercent")] public float estimatedValue;
+    [HideIf("isPercent"), Title("Estimation")] public float estimatedValue;
     public float estimationPercent;
-    [HideIf("isPercent")] public StatDisplayType displayType;
+    [HideIf("isPercent"), Title("Display")] public StatDisplayType displayType;
     public StatCategory category;
     public string displayedName;
-    public bool onlyPushDifference;
     public Sprite icon;
+    [Title("Automatic perk generation")]
+    [EnumToggleButtons, FormerlySerializedAs("rarities"), HideLabel] public Rarity generatedRarities;
+    [HideIf("isPercent")] public bool modificationAsPercent;
     public string ValueToString(float value)
     {
         return displayType switch
@@ -33,7 +37,6 @@ public struct StatDescription
             _ => $"{value}{GetSuffix()}",
         };
     }
-
     public string GetSuffix() => displayType switch
     {
         StatDisplayType.DEGREE => "°",
@@ -55,36 +58,33 @@ public enum StatCategory
     EXPLOSION = 1 << 2,
     MISC = 1 << 3,
 }
+
 public enum StatType
 {
     // Player
-    SPEED,
-    STAMINA_MAX,
-    SPRINT_SPEED,
-    HEALTH_MAX,
+    SPEED = 0,
+    STAMINA_MAX = 1,
+    HEALTH_MAX = 3,
     // Weapon
-    MAGAZINE_SIZE,
-    RELOAD_TIME,
-    SPREAD,
-    PRECISION_AIM,
-    DAMAGES,
-    HEADSHOT_DAMAGES,
-    FIRE_RATE,
-    BULLET_AMOUNT,
-    CRIT_CHANCE,
-    CRIT_DAMAGES,
+    MAGAZINE_SIZE = 4,
+    RELOAD_TIME = 5,
+    SPREAD = 6,
+    PRECISION_AIM = 7,
+    DAMAGES = 8,
+    HEADSHOT_DAMAGES = 9,
+    FIRE_RATE = 10,
+    BULLET_AMOUNT = 11,
+    CRIT_CHANCE = 12,
+    CRIT_DAMAGES = 13,
     // Explosions
-    EXPLOSION_RADIUS,
-    EXPLOSION_DAMAGES,
-    EXPLOSION_SPEED,
+    EXPLOSION_RADIUS = 14,
+    EXPLOSION_DAMAGES = 15,
+    EXPLOSION_SPEED = 16,
     // MONEY
-    INCOME,
+    INCOME = 17,
     // MISC
-    PICK_DISTANCE,
-    DRINKS,
-    RECOIL,
-    HEALTH_UPDATE,
-    MONEY_UPDATE,
-    DROP_RATE,
-    GRENADE_UPDATE,
+    PICK_DISTANCE = 18,
+    DRINKS = 19,
+    RECOIL = 20,
+    DROP_RATE = 21,
 }

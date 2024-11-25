@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Asmos.Bus;
 
 [Serializable]
@@ -17,6 +18,23 @@ public class ContextStat
     public virtual void Listen(Bus.GenericDelegate action) => Bus.Subscribe(Buskey(), action);
     public void StopListening(Bus.GenericDelegate action) => Bus.Unsubscribe(Buskey(), action);
     public virtual string Buskey() => "";
+}
+
+public class BaseStat : ContextStat
+{
+    public StatType stat;
+    public bool bonusPercentOnly = true;
+    public override string GetStatName(bool plural = true) => StatManager.Descriptions[stat].displayedName;
+    public override int GetValue() => bonusPercentOnly ? StatManager.GetStat(stat).GetPercentValue() : (int)StatManager.Get(stat);
+    public override string Buskey() => stat.ToString();
+}
+
+public class ContextPerk : ContextStat
+{
+    public Perk perk;
+    public override string GetStatName(bool plural = true) => perk.name;
+    public override int GetValue() => perk != null ? PerksManager.instance.appliedPerks.Count(x => x == perk) : 0;
+    public override string Buskey() => "Perk";
 }
 public class ContextStatFlat : ContextStat
 {
@@ -54,7 +72,6 @@ public class ContextStatFlat : ContextStat
         Stat.RELOAD => Weapon.reloads,
         _ => 0,
     };
-    // public override ContextStat Clone() => (ContextStat)MemberwiseClone();
     public override string Buskey() => stat.ToString();
 }
 public class ContextStatPercent : ContextStat
@@ -109,9 +126,9 @@ public class ContextStatIncremental : ContextStat
     {
         string suffix = "";
         if (isInitialized && withContext)
-            suffix += $" since purchase (current:{GetValue()}).";
+            suffix += $" since purchase (current:{GetValue()})";
         else
-            suffix += " after purchase.";
+            suffix += " after purchase";
 
         return $"{GetStatName(plural)}{suffix}";
     }

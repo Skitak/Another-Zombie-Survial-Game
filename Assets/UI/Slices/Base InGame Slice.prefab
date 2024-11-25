@@ -3230,7 +3230,7 @@ MonoBehaviour:
   isValid: 1
   target: {fileID: 4247486401285127621}
   animationType: 7
-  targetType: 2
+  targetType: 3
   forcedTargetType: 2
   autoPlay: 0
   useTargetAsV3: 0

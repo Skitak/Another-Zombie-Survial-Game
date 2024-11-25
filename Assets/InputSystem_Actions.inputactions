@@ -139,6 +139,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Perk",
+                    "type": "Button",
+                    "id": "e78193b1-af1b-4af6-b5e2-b1a06272e599",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -584,12 +593,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ea0066c6-bce3-4505-ad4f-455aef6ca788",
+                    "id": "7dbad204-91af-4878-b307-64273cac5314",
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Pause",
+                    "action": "Perk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Stat Kit", menuName = "Stat Kit", order = 1)]

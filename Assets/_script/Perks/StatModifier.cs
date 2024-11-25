@@ -6,8 +6,11 @@ public enum ModificationKind { FLAT, PERCENT, TOTAL_PERCENT }
 [Serializable, HideReferenceObjectPicker]
 public class StatModifier : Modifier
 {
-    public StatType stat;
-    [EnumToggleButtons, HideLabel, PropertyOrder(3)]
+    [TitleGroup("Condition"), PropertyOrder(5), SerializeField, ShowIf("@IsConditional || HasContext"), Tooltip("Will always show the value in the pause menu, even if context is removed from preview.")]
+    protected bool isPermanent;
+    public bool IsPermanent { get => !(IsConditional || HasContext) || isPermanent; }
+    [TitleGroup("@GetTitle()"), PropertyOrder(1)] public StatType stat;
+    [EnumToggleButtons, HideLabel, PropertyOrder(2), TitleGroup("@GetTitle()")]
     public ModificationKind modificationKind;
 
     public override void ApplyModifier()
@@ -32,6 +35,7 @@ public class StatModifier : Modifier
     }
     protected override string GetValueName() => StatManager.Descriptions[stat].displayedName;
     public override Sprite GetValueSprite() => StatManager.Descriptions[stat].icon;
+    protected override string GetTitle() => $"Stat : {stat}";
 }
 
 [Flags]

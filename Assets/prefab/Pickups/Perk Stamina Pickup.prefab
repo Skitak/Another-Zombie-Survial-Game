@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 755259900202416057, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
       propertyPath: perk
       value: 
-      objectReference: {fileID: 11400000, guid: 840c12b61485bc04d9683b74f68aeac7, type: 2}
+      objectReference: {fileID: 11400000, guid: 3a2b2107ce34b544aaad04e42305b42e, type: 2}
     - target: {fileID: 3076003747263064675, guid: 3ed9f922f9bef83459b43c49f9721d07, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18

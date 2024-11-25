@@ -359,7 +359,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3f00ea9901c8d42b05afb1d938b46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  perk: {fileID: 0}
-  value: 1
-  asPercent: 0
+  perk: {fileID: 11400000, guid: 7193fde34ab476d43999ba4a19c4dbb6, type: 2}

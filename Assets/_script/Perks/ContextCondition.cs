@@ -8,6 +8,8 @@ using UnityEngine;
 [Serializable, HideReferenceObjectPicker]
 public class ContextCondition
 {
+    bool isInitialized;
+    public bool hideWhenValid = false;
     public enum WhenConditionValid { ALL, ANY }
     [EnumToggleButtons]
     [HideIf("@conditions.Count < 2")] public WhenConditionValid whenConditionValid;
@@ -26,6 +28,8 @@ public class ContextCondition
     }
     public bool IsValid()
     {
+        if (!isInitialized)
+            return false;
         if (remainsValid && hasBeenValidated)
             return true;
         else if (whenConditionValid == WhenConditionValid.ANY)
@@ -38,6 +42,8 @@ public class ContextCondition
     {
         if (useCustomLabel)
             return label;
+        if (hideWhenValid && IsValid())
+            return "";
         bool first = true;
         string generatedLabel = "";
         foreach (var condition in conditions)
@@ -65,9 +71,10 @@ public class ContextCondition
             condition.context.StopListening(onUpdate);
     }
     #endregion
-    #region initialization
+    #region Lifecycle
     public void Initialize()
     {
+        isInitialized = true;
         foreach (var condition in conditions)
         {
             condition.context.Initialize();
@@ -91,6 +98,10 @@ public class ContextCondition
             clonedConditions.Add(condition.Clone());
         clone.conditions = clonedConditions;
         return clone;
+    }
+    public void Destroy()
+    {
+
     }
     #endregion
 }

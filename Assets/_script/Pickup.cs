@@ -7,13 +7,7 @@ using Timer = Asmos.Timers.Timer;
 public class Pickup : MonoBehaviour
 {
     const float PICKUP_DISTANCE = 1f;
-    public PickupType type;
-    [ShowIf("type", PickupType.PERK)][SerializeField] Perk perk;
-    [InlineButton("TogglePercent", "@asPercent?\"Percent\":\"Flat\"")]
-    [LabelText("@type == PickupType.HEALTH ? \"Health\" : \"Grenades\"")]
-    [HideIf("type", PickupType.PERK)][SerializeField] int value;
-    [SerializeField][HideInInspector] bool asPercent;
-    void TogglePercent() => asPercent = !asPercent;
+    [SerializeField] Perk perk;
     bool pickedUp = false;
     float minTimeFlash = 0.05f;
     float maxTimeFlash = .8f;
@@ -51,31 +45,8 @@ public class Pickup : MonoBehaviour
     void ApplyPickup()
     {
         pickedUp = true;
-        switch (type)
-        {
-            case PickupType.HEALTH:
-                if (!asPercent)
-                {
-                    Player.player.health += value;
-                    Bus.PushData("bonus label", $"+{value} health");
-                }
-                else
-                {
-                    Player.player.health += (int)(Player.player.healthMax * value / 100f);
-                    Bus.PushData("bonus label", $"+{value}% health");
-                }
-                break;
-            case PickupType.GRENADES:
-                Player.player.grenades += value;
-                Bus.PushData("bonus label", $"+{value} grenades");
-                break;
-            case PickupType.PERK:
-                perk.ApplyModifiers(true);
-                Bus.PushData("bonus label", "+" + perk.GetLabel());
-                break;
-            default:
-                break;
-        }
+        perk.ApplyModifiers(true);
+        Bus.PushData("bonus label", "+" + perk.GetLabel());
         DeletePickup();
     }
 

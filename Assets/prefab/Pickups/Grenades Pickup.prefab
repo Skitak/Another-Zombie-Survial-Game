@@ -479,6 +479,10 @@ PrefabInstance:
       value: Grenades Pickup
       objectReference: {fileID: 0}
     - target: {fileID: 6225323460979695167, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
+      propertyPath: perk
+      value: 
+      objectReference: {fileID: 11400000, guid: 796e81996d4447b4bacde4a0f372c1f5, type: 2}
+    - target: {fileID: 6225323460979695167, guid: f749b31e4b981c844b0df0d178e51ad4, type: 3}
       propertyPath: type
       value: 1
       objectReference: {fileID: 0}

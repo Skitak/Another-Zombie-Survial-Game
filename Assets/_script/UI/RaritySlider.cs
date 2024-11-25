@@ -45,7 +45,7 @@ public class RaritySlider : MonoBehaviour
     public void UpdateValue(int valueFrom)
     {
         this.valueFrom = valueFrom;
-        valueTo = PerksManager.instance.rarityChances[(int)rarity];
+        valueTo = PerksManager.instance.GetRarityChance(rarity);
         valueUpdateTimer.ResetPlay();
     }
 }

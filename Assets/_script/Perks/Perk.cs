@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Asmos.Bus;
 using NUnit.Framework;
 using Sirenix.OdinInspector;
@@ -11,16 +12,27 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "NewPerk", menuName = "Perks", order = 0)]
 public class Perk : SerializedScriptableObject
 {
-
-    public bool showInShop = true;
-    public bool hasPrio = false;
-    public string title;
-    [ShowInInspector] Sprite sprite;
-    public int maxApplications = int.MaxValue;
-    public int price = 1000;
+    [Title("Card")] public string title;
+    public Sprite sprite;
+    [Title("Shop")] public bool showInShop = true;
+    [Tooltip("Will appear in priority, used for testing purpose")] public bool hasPrio = false;
+    [LabelText("Is conditional")] public bool hasShopCondition = false;
+    [ShowIf("@hasShopCondition && hasPrio")] public bool ignoreConditionWithPrio = false;
+    [SerializeField, ShowIf("hasShopCondition"), OdinSerialize, NonSerialized] ContextCondition shopCondition;
+    ContextCondition clonedShopCondition;
+    [Title("Parameters")] public int price = 1000;
     public Rarity rarity;
-    [ListDrawerSettings, OdinSerialize, NonSerialized] public List<Modifier> modifiers;
-    public virtual bool CanBeApplied() => true;
+    [SerializeField] bool isConditional = false;
+    [ShowIf("isConditional"), OdinSerialize, NonSerialized, Title("Condition")] public ContextCondition condition = new();
+    [ListDrawerSettings, OdinSerialize, NonSerialized, Title("Modifiers")] public List<Modifier> modifiers;
+    public virtual bool CanBeApplied()
+    {
+        if (!showInShop)
+            return false;
+        if (hasShopCondition && !shopCondition.IsValid())
+            return false;
+        return true;
+    }
     public virtual string GetLabel(bool showContextData = true)
     {
         if (useCustomLabel)
@@ -40,7 +52,6 @@ public class Perk : SerializedScriptableObject
             first = false;
         }
         return endLabel;
-
     }
     public virtual void ApplyModifiers(bool isDrink = false)
     {
@@ -60,19 +71,17 @@ public class Perk : SerializedScriptableObject
             clonedCondition.Initialize();
             clonedCondition.Listen((o) =>
             {
-                bool isValid = clonedCondition.IsValid();
+                bool isValid = IsValid();
                 foreach (var modifier in clonedModifiers)
                     modifier.isActive = isValid;
             });
         }
     }
-
     public Sprite GetSprite() => sprite != null ? sprite : modifiers[0].GetValueSprite();
-    [OnInspectorGUI] private void Space2() { GUILayout.Space(20); }
 
-    #region perview
+    #region preview
 
-    [SerializeField, HideInInspector, MultiLineProperty(5), PropertyOrder(11), OnInspectorGUI("UpdateLabelPreview")]
+    [SerializeField, HideInInspector, MultiLineProperty(5), PropertyOrder(11), OnInspectorGUI("UpdateLabelPreview"), Title("Label"), HideLabel]
     [InlineButton("@useCustomLabel = !useCustomLabel", "@useCustomLabel?\"Custom\":\"Generated\"")]
     string label = "";
     void UpdateLabelPreview() => label = useCustomLabel ? label : GetLabel(false);
@@ -84,12 +93,54 @@ public class Perk : SerializedScriptableObject
     {
         estimatedValue = 0;
         foreach (var modifier in modifiers)
-            estimatedValue += modifier.GetEstimatedValue();
+        {
+            if (modifier != null)
+                estimatedValue += modifier.GetEstimatedValue();
+        }
         return estimatedValue;
     }
     #endregion
-    [SerializeField] bool isConditional = false;
-    [ShowIf("isConditional"), OdinSerialize, NonSerialized] public ContextCondition condition = new();
+    public static int GetRarityPrice(Rarity rarity) => rarity switch
+    {
+        Rarity.COMMON => 1000,
+        Rarity.UNCOMMON => 1500,
+        Rarity.RARE => 2000,
+        Rarity.LEGENDARY => 3000,
+        _ => 0,
+    };
+    public static int GetRarityEstimatedValue(Rarity rarity) => rarity switch
+    {
+        Rarity.COMMON => 1000,
+        Rarity.UNCOMMON => 2000,
+        Rarity.RARE => 3000,
+        Rarity.LEGENDARY => 5000,
+        _ => 0,
+    };
+    [OnInspectorInit]
+    void OnInit()
+    {
+        modifiers ??= new();
+        condition ??= new();
+        shopCondition ??= new();
+    }
+    public void InitializeCondition()
+    {
+        if (!hasShopCondition)
+            return;
+        clonedShopCondition?.Destroy();
+        clonedShopCondition = shopCondition.Clone();
+        clonedShopCondition.Initialize();
+    }
+    // public bool IsValid() => !hasShopCondition || clonedShopCondition.IsValid();
+    public bool IsValid()
+    {
+        Debug.Log("Heya");
+        return !hasShopCondition || clonedShopCondition.IsValid();
+    }
 }
 
-public enum Rarity { COMMON, UNCOMMON, RARE, LEGENDARY }
+[Flags]
+public enum Rarity
+{
+    COMMON = 1 << 0, UNCOMMON = 1 << 1, RARE = 1 << 2, LEGENDARY = 1 << 3, ALL = COMMON | UNCOMMON | RARE | LEGENDARY
+}
