@@ -29,7 +29,7 @@ public class InGameUIManager : MonoBehaviour
     }
     void SetPause()
     {
-        Player.player.SetMovementEnabled(false);
+        Player.player.EnableMovement(false);
         Cursor.lockState = CursorLockMode.Confined;
         isInPause = true;
         ViewManager.instance.AddView(pauseView);
@@ -48,7 +48,7 @@ public class InGameUIManager : MonoBehaviour
         }
 
         isInPause = false;
-        Player.player.SetMovementEnabled(true);
+        Player.player.EnableMovement(true);
         Bus.PushData("Pause", false);
     }
 }

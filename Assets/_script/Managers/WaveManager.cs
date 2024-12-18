@@ -54,7 +54,7 @@ public class WaveManager : MonoBehaviour
     public void StartNewWave()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Player.player.SetInputEnabled(true);
+        Player.player.EnableInput(true);
         if (waves.Length <= waveCount)
             currentWave = waves[^1];
         else
@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
     async void EndWave()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        Player.player.SetInputEnabled(false);
+        Player.player.EnableInput(false);
         await PerksManager.instance.OpenPerksMenu();
         waveCooldownTimer.ResetPlay();
     }

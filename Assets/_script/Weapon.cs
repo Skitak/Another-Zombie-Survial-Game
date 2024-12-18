@@ -216,7 +216,6 @@ public class Weapon : MonoBehaviour
         if (reloadTimer.IsStarted())
             return;
 
-        Player.player.CancelSprinting();
         reloadTimer.endTime = reloadTime;
         reloadTimer.ResetPlay();
 
@@ -238,10 +237,15 @@ public class Weapon : MonoBehaviour
     }
     public void CancelReload()
     {
-        if (!reloadTimer.IsPlayingForward())
+        if (!IsReloading())
             return;
         reloadTimer.Reset();
         Player.player.animator.SetTrigger("cancelReload");
+    }
+    public bool IsReloading() => reloadTimer.IsPlayingForward();
+    public void Grab()
+    {
+        // TODO 
     }
     float RealPrecision()
         => Mathf.Lerp(precision, precision * Mathf.InverseLerp(100, 0, precisionAim), DOVirtual.EasedValue(0, 1, Player.player.aimValue, aimEase));

@@ -49,7 +49,7 @@ public class PerksManager : SerializedMonoBehaviour
     public async Task OpenPerksMenu(int perksAmout = 0)
     {
         isOpened = true;
-        Player.player.SetInputEnabled(false);
+        Player.player.EnableInput(false);
         timeScaleTimer.Play();
         Cursor.lockState = CursorLockMode.Confined;
         perksToPick = perksAmout;
@@ -64,7 +64,7 @@ public class PerksManager : SerializedMonoBehaviour
         await ViewManager.instance.RemoveView();
         Cursor.lockState = CursorLockMode.Locked;
         timeScaleTimer.Rewind();
-        Player.player.SetInputEnabled(true);
+        Player.player.EnableInput(true);
         isOpened = false;
     }
 

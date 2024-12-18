@@ -17,8 +17,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     [FoldoutGroup("GameObjects and Prefabs")] public Weapon weapon;
     [FoldoutGroup("GameObjects and Prefabs")] public StatKit statKit;
     [FoldoutGroup("GameObjects and Prefabs")] public GameObject flashLight;
-    [FoldoutGroup("Interactions")][SerializeField] LayerMask interactionMask;
-    [FoldoutGroup("Interactions")][SerializeField] float interactionDistance = 3f;
     [FoldoutGroup("Interactions")][SerializeField] AnimationClip drinkAnimation;
     [FoldoutGroup("Interactions")][SerializeField] GameObject can;
     [FoldoutGroup("Health and Speed", Expanded = true)][SerializeField] float recoveryTime = 1f;
@@ -36,10 +34,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     [FoldoutGroup("Others")] public bool fireWhileRunning;
     #endregion
     #region hiddenParameters
-    Interactable interactableInRange;
     [HideInInspector] public ThirdPersonController tpsController;
-    PlayerInput playerInput;
-    InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, grenadeAction, flashAction;
     [HideInInspector] public Animator animator;
     Vector3 spawnPoint;
     CharacterController controller;
@@ -47,7 +42,8 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     Cinemachine3rdPersonFollow tpsCameraComponent;
     float initialHeight, initialCameraDistance;
     int _health, _perkRefresh, _grenades;
-    bool isThrowingGrenade, isInteracting;
+    [HideInInspector] public bool isThrowingGrenade;
+    Interactable interactable;
 
     Timer recoveryTimer, staminaTimer, flashlightTimer, aimTimer, swapSideTimer, drinkTimer, armGrenadeTimer, throwingGrenadeTimer, throwGrenadeDelayTimer;
     #endregion
@@ -87,94 +83,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
 
     #endregion
     # region update
-    void Update()
-    {
-        if (isInteracting && interactAction.WasReleasedThisFrame())
-            CancelInteracting();
-
-        if (isInteracting)
-            return;
-
-        if (flashAction.WasPressedThisFrame())
-        {
-            if (flashlightTimer.IsStarted())
-            {
-                flashlightTimer.Pause();
-                flashLight.SetActive(false);
-            }
-            else if (!flashlightTimer.IsFinished())
-            {
-                flashlightTimer.Play();
-                flashLight.SetActive(true);
-            }
-
-        }
-
-        if (sprintAction.WasReleasedThisFrame())
-            CancelSprinting();
-        if (aimAction.WasReleasedThisFrame())
-            CancelAiming();
-
-        FindInteractions();
-
-        if (!playerInput.inputIsActive)
-            return;
-
-        if (aimAction.WasPressedThisFrame())
-        {
-            aimTimer.Play();
-            CancelSprinting();
-        }
-
-        if (swapSide.WasPressedThisFrame())
-            if (swapSideTimer.IsFinished() || swapSideTimer.IsPlayingForward())
-                swapSideTimer.Rewind();
-            else
-                swapSideTimer.Play();
-
-        Vector2 move = moveAction.ReadValue<Vector2>();
-        if (sprintAction.WasPressedThisFrame() && !aimAction.WasPressedThisFrame() && move.y > 0)
-        {
-            staminaTimer.Play();
-            CancelAiming();
-            weapon.CancelReload();
-        }
-
-        if (move.y <= 0.1f)
-            CancelSprinting();
-
-        if ((!staminaTimer.IsPlayingForward() || fireWhileRunning) && fireAction.IsPressed() && weapon.CanFire())
-            Fire();
-
-        if (grenadeAction.WasReleasedThisFrame() && (armGrenadeTimer.IsStarted() || armGrenadeTimer.IsFinished())
-        )
-        {
-            if (armGrenadeTimer.Time < armAnimation.length)
-                DelayGrenadeThrow();
-            else
-                ThrowGrenade();
-        }
-
-        if (drinkTimer.IsStarted() || isThrowingGrenade)
-            return;
-
-        if (grenadeAction.WasPressedThisFrame() && grenades > 0)
-            ArmGrenade();
-
-        if (reloadAction.WasPressedThisFrame() && weapon && weapon.CanReload())
-            weapon.Reload();
-        if (interactAction.WasPressedThisFrame())
-            TryInteract();
-    }
-    void Fire()
-    {
-        if (fireAction.WasReleasedThisFrame())
-            weapon.TriggerRelease();
-        else if (fireAction.WasPerformedThisFrame())
-            weapon.TriggerEnter();
-        else
-            weapon.TriggerPress();
-    }
     public void Hit(int damages)
     {
         if (recoveryTimer.IsStarted() || health <= 0)
@@ -197,7 +105,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     }
     void Die()
     {
-        SetInputEnabled(false);
+        EnableInput(false);
         animator.SetTrigger("Death");
         GameManager.instance.EndGame();
         controller.height = 0;
@@ -213,7 +121,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         player = this;
         tpsCamera = transform.parent.GetComponentInChildren<CinemachineVirtualCamera>();
         tpsController = GetComponent<ThirdPersonController>();
-        playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         tpsCameraComponent = tpsCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
@@ -244,16 +151,6 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         swapSideTimer.useUpdateAsRewindAction = true;
         flashlightTimer = new(100f, () => flashLight.SetActive(false));
 
-        fireAction = InputSystem.actions.FindAction("Fire");
-        interactAction = InputSystem.actions.FindAction("Interact");
-        reloadAction = InputSystem.actions.FindAction("Reload");
-        sprintAction = InputSystem.actions.FindAction("Sprint");
-        moveAction = InputSystem.actions.FindAction("Move");
-        aimAction = InputSystem.actions.FindAction("Aim");
-        swapSide = InputSystem.actions.FindAction("SwapSide");
-        grenadeAction = InputSystem.actions.FindAction("Grenade");
-        flashAction = InputSystem.actions.FindAction("Flash");
-
         StatManager.Subscribe(StatType.STAMINA_MAX, (value) =>
         {
             staminaTimer.endTime = value;
@@ -277,55 +174,15 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         health = (int)StatManager.Get(StatType.HEALTH_MAX);
         controller.height = initialHeight;
         animator.SetTrigger("Reset death");
-        SetInputEnabled(true);
+        EnableInput(true);
     }
     #endregion
-    #region interactions
-    void TryInteract()
-    {
-        if (!interactableInRange || !interactableInRange.canInteract) return;
-        if (!interactableInRange.isInteractionTimed)
-        {
-            interactableInRange.Interact();
-            return;
-        }
-        CancelEverything();
-        SetMovementEnabled(false);
-        interactableInRange.StartInteracting();
-        isInteracting = true;
-    }
-    public void CancelInteracting()
-    {
-        if (!isInteracting)
-            return;
-        interactableInRange.CancelInteracting();
-        isInteracting = false;
-        SetMovementEnabled(true);
-    }
-    void FindInteractions()
-    {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, interactionDistance, interactionMask))
-        {
-            if (hit.collider.tag == Interactable.tag)
-            {
-                interactableInRange = hit.collider.gameObject.GetComponentInParent<Interactable>();
-                interactableInRange.Highlight = true;
-                return;
-            }
-        }
-        if (interactableInRange)
-            interactableInRange.Highlight = false;
-        interactableInRange = null;
-    }
-    public void Drink()
-    {
-        animator.SetTrigger("drink");
-        weapon.CancelReload();
-        drinkTimer.ResetPlay();
-        can.SetActive(true);
-    }
+
+    #region grenade
     public void ArmGrenade()
     {
+        if (grenades <= 0 || IsInteracting() || isThrowingGrenade)
+            return;
         grenades--;
         isThrowingGrenade = true;
         grenadeMesh.SetActive(true);
@@ -336,13 +193,19 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     }
     void DelayGrenadeThrow()
     {
-        throwGrenadeDelayTimer.endTime = armAnimation.length - armGrenadeTimer.Time;
+        throwGrenadeDelayTimer.endTime = armAnimation.length - armGrenadeTimer.Time + 0.01f;
         throwGrenadeDelayTimer.ResetPlay();
         armGrenadeTimer.Pause();
     }
     public void ThrowGrenade()
     {
-
+        if (!IsArmingGrenade())
+            return;
+        if (armGrenadeTimer.Time < armAnimation.length)
+        {
+            DelayGrenadeThrow();
+            return;
+        }
         animator.SetTrigger("throw");
         throwingGrenadeTimer.ResetPlay();
         grenadeMesh.SetActive(false);
@@ -354,26 +217,118 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         armGrenadeTimer.Reset();
         throwGrenadeDelayTimer.Reset();
     }
+
+    public bool IsArmingGrenade() => armGrenadeTimer.IsStarted() || armGrenadeTimer.IsFinished();
+
+    #endregion
+
+    #region actions
+    public void Fire(bool firePressed, bool fireReleased)
+    {
+        if (IsInteracting() || isThrowingGrenade)
+            return;
+
+        if (firePressed)
+            weapon.TriggerEnter();
+        else if (fireReleased)
+            weapon.TriggerRelease();
+        else
+            weapon.TriggerPress();
+    }
+    public void Drink()
+    {
+        animator.SetTrigger("drink");
+        weapon.CancelReload();
+        drinkTimer.ResetPlay();
+        can.SetActive(true);
+    }
+    public void ToggleFlashLight()
+    {
+        if (flashlightTimer.IsStarted())
+        {
+            flashlightTimer.Pause();
+            flashLight.SetActive(false);
+        }
+        else if (!flashlightTimer.IsFinished())
+        {
+            flashlightTimer.Play();
+            flashLight.SetActive(true);
+        }
+    }
+    public void Aim()
+    {
+        aimTimer.Play();
+        CancelSprinting();
+    }
+    public void SwapSide()
+    {
+        if (swapSideTimer.IsFinished() || swapSideTimer.IsPlayingForward())
+            swapSideTimer.Rewind();
+        else
+            swapSideTimer.Play();
+    }
+    public void Sprint()
+    {
+        if (IsInteracting() || isThrowingGrenade)
+            return;
+        CancelAiming();
+        CancelReload();
+        staminaTimer.Play();
+    }
+    public void Reload()
+    {
+        if (!weapon || !weapon.CanReload() || IsInteracting() || isThrowingGrenade)
+            return;
+
+        CancelSprinting();
+        weapon.Reload();
+        // TODO : Handle animations better
+    }
+    public void Interact(Interactable interactableInRange)
+    {
+        CancelEverything();
+        EnableMovement(false);
+        interactableInRange.StartInteracting();
+        interactable = interactableInRange;
+    }
     #endregion
     #region utils
     public bool IsDead() => health <= 0;
-    public void SetMovementEnabled(bool enabled)
+    public bool IsInteracting() => interactable != null;
+    public bool IsDrinking() => drinkTimer.IsStarted();
+    public void EnableMovement(bool enabled)
     {
         tpsController.enabled = enabled;
     }
-    public void SetInputEnabled(bool enabled)
+    public void EnableInput(bool enabled)
     {
-        if (enabled)
-        {
-            playerInput.ActivateInput();
-            return;
-        }
-        playerInput.DeactivateInput();
-        CancelEverything();
+        // TODO : Move that into playerController
+        // if (enabled)
+        //     playerInput.ActivateInput();
+        // else
+        // {
+        // playerInput.DeactivateInput();
+        // CancelEverything();
+        // }
     }
-    void CancelAiming()
+    public void CancelAiming()
     {
         aimTimer.Rewind();
+    }
+    public void CancelReload()
+    {
+        if (!weapon.IsReloading())
+            return;
+        weapon.CancelReload();
+        animator.SetTrigger("cancelReload");
+    }
+    public void CancelInteracting()
+    {
+        if (!IsInteracting())
+            return;
+        interactable = null;
+        interactable.CancelInteracting();
+        EnableMovement(true);
     }
     public void CancelSprinting()
     {
