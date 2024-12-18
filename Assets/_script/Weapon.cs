@@ -21,6 +21,7 @@ public class Weapon : MonoBehaviour
     [FoldoutGroup("Boilerplate")][SerializeField] LayerMask fireLayerMask;
     [FoldoutGroup("Boilerplate")] public int animLayer;
     [FoldoutGroup("Boilerplate")] public GameObject modelInHierarchy;
+    [FoldoutGroup("Boilerplate")] public GameObject muzzleFlashLight;
     [FoldoutGroup("Precision")] public Ease aimEase;
     [FoldoutGroup("Recoil")][SerializeField] float recoilX = .2f;
     [FoldoutGroup("Recoil")][SerializeField][Range(0, 1)] float recoilRandomness = .2f;
@@ -32,7 +33,7 @@ public class Weapon : MonoBehaviour
     #region private
     ObjectPool<GameObject> decalPool;
     ObjectPool<Line> linePool;
-    Timer recoilTimer, recoilRecoveryTimer;
+    Timer recoilTimer, recoilRecoveryTimer, flashTimer;
     Vector2 totalRecoilAmount, currentRecoilAmount, recoilRecoveryAmount;
     #endregion
     #region setters
@@ -97,6 +98,9 @@ public class Weapon : MonoBehaviour
             Player.player.tpsController.yawAdjustment = recoilXApplied;
         };
 
+        flashTimer = new(.1f, () => muzzleFlashLight.SetActive(false));
+        flashTimer.OnTimerStart += () => muzzleFlashLight.SetActive(true);
+
         recoilRecoveryTimer = new(baseRecoilRecoveryTime);
         recoilRecoveryTimer.OnTimerUpdate += () =>
         {
@@ -145,7 +149,7 @@ public class Weapon : MonoBehaviour
         fireRateTimer.ResetPlay();
         Player.player.animator.SetTrigger("Fire");
         muzzleFlash.Play();
-
+        flashTimer.ResetPlay();
         for (int i = 0; i < bulletsFired; i++)
             Fire(GetFireDestination());
 

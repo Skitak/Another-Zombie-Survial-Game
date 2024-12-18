@@ -16,6 +16,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     [FoldoutGroup("GameObjects and Prefabs")][SerializeField] AnimationClip aimAnimation;
     [FoldoutGroup("GameObjects and Prefabs")] public Weapon weapon;
     [FoldoutGroup("GameObjects and Prefabs")] public StatKit statKit;
+    [FoldoutGroup("GameObjects and Prefabs")] public GameObject flashLight;
     [FoldoutGroup("Interactions")][SerializeField] LayerMask interactionMask;
     [FoldoutGroup("Interactions")][SerializeField] float interactionDistance = 3f;
     [FoldoutGroup("Interactions")][SerializeField] AnimationClip drinkAnimation;
@@ -38,16 +39,17 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     Interactable interactableInRange;
     [HideInInspector] public ThirdPersonController tpsController;
     PlayerInput playerInput;
-    InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, tab, grenadeAction, pauseAction;
+    InputAction fireAction, reloadAction, interactAction, sprintAction, aimAction, moveAction, swapSide, grenadeAction, flashAction;
     [HideInInspector] public Animator animator;
     Vector3 spawnPoint;
     CharacterController controller;
     CinemachineVirtualCamera tpsCamera;
     Cinemachine3rdPersonFollow tpsCameraComponent;
-    float initialHeight, initialCameraDistance, _explosionTime, _explosionRadius;
-    int _health, _healthMax, _perkRefresh, _grenades, _grenadeDamages;
+    float initialHeight, initialCameraDistance;
+    int _health, _perkRefresh, _grenades;
     bool isThrowingGrenade, isInteracting;
-    Timer recoveryTimer, staminaTimer, aimTimer, swapSideTimer, drinkTimer, armGrenadeTimer, throwingGrenadeTimer, throwGrenadeDelayTimer;
+
+    Timer recoveryTimer, staminaTimer, flashlightTimer, aimTimer, swapSideTimer, drinkTimer, armGrenadeTimer, throwingGrenadeTimer, throwGrenadeDelayTimer;
     #endregion
     #region setters
     public int health
@@ -92,6 +94,21 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
 
         if (isInteracting)
             return;
+
+        if (flashAction.WasPressedThisFrame())
+        {
+            if (flashlightTimer.IsStarted())
+            {
+                flashlightTimer.Pause();
+                flashLight.SetActive(false);
+            }
+            else if (!flashlightTimer.IsFinished())
+            {
+                flashlightTimer.Play();
+                flashLight.SetActive(true);
+            }
+
+        }
 
         if (sprintAction.WasReleasedThisFrame())
             CancelSprinting();
@@ -225,6 +242,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
             animator.SetFloat("swap side", swapSideTimer.GetPercentage());
         };
         swapSideTimer.useUpdateAsRewindAction = true;
+        flashlightTimer = new(100f, () => flashLight.SetActive(false));
 
         fireAction = InputSystem.actions.FindAction("Fire");
         interactAction = InputSystem.actions.FindAction("Interact");
@@ -234,6 +252,7 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         aimAction = InputSystem.actions.FindAction("Aim");
         swapSide = InputSystem.actions.FindAction("SwapSide");
         grenadeAction = InputSystem.actions.FindAction("Grenade");
+        flashAction = InputSystem.actions.FindAction("Flash");
 
         StatManager.Subscribe(StatType.STAMINA_MAX, (value) =>
         {

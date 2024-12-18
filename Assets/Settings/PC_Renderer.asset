@@ -16,6 +16,26 @@ MonoBehaviour:
   lastSelectedCamera: {fileID: 0}
   outliners:
   - {fileID: 0}
+--- !u!114 &-7864915971718562630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00045f12942b46c698459096c89274e, type: 3}
+  m_Name: Posterization feature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  injectionPoint: 600
+  fetchColorBuffer: 1
+  requirements: 0
+  passMaterial: {fileID: -876546973899608171, guid: b8804ddcea7a221429fd9293dbb57f88, type: 3}
+  passIndex: 0
+  bindDepthStencilAttachment: 0
+  m_Version: 1
 --- !u!114 &-4033353333789949281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,6 +57,25 @@ MonoBehaviour:
       surfaceData: 2
     screenSpaceSettings:
       normalBlend: 0
+--- !u!114 &-1019948958711233018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd81e29205627149898039fb1b58fab, type: 3}
+  m_Name: UnsharpRenderPassFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  strength: 1.8
+  pixelRadius: 10
+  threshold: 0.019
+  factor: 2.05
+  blurKind: 1
+  injectionPoint: 550
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +104,10 @@ MonoBehaviour:
   - {fileID: 7833122117494664109}
   - {fileID: 5086811047520165276}
   - {fileID: -4033353333789949281}
-  m_RendererFeatureMap: ad6b866f10d7b46c9cddf856b2fb97469f02d03583a606c8
+  - {fileID: -7864915971718562630}
+  - {fileID: -1019948958711233018}
+  - {fileID: 8143760975179986454}
+  m_RendererFeatureMap: ad6b866f10d7b46c9cddf856b2fb97469f02d03583a606c8ba3c6b059834da9206c6fc72d369d8f116b64a9d75730471
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -85,7 +127,7 @@ MonoBehaviour:
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 2
-  m_DepthPrimingMode: 0
+  m_DepthPrimingMode: 1
   m_CopyDepthMode: 0
   m_DepthAttachmentFormat: 0
   m_DepthTextureFormat: 0
@@ -116,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62c9c65cf3354c93be831c8bc075510, type: 3}
   m_Name: ScreenSpaceAmbientOcclusion
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_Settings:
     AOMethod: 0
     Downsample: 0
@@ -139,3 +181,20 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3302065f671a8450b82c9ddf07426f3a, type: 3}
   - {fileID: 2800000, guid: 56a77a3e8d64f47b6afe9e3c95cb57d5, type: 3}
   m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
+--- !u!114 &8143760975179986454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3014b1f8088ff439b61a001aa7f4cf, type: 3}
+  m_Name: BlurRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  strength: 5.7
+  gridSize: 6
+  blurKind: 1
+  injectionPoint: 550
