@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd81e29205627149898039fb1b58fab, type: 3}
   m_Name: UnsharpRenderPassFeature
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   strength: 1.8
   pixelRadius: 10
   threshold: 0.019

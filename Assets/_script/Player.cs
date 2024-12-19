@@ -191,21 +191,17 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
         armGrenadeTimer.ResetPlay();
         grenadeMesh.SetActive(true);
     }
-    void DelayGrenadeThrow()
-    {
-        throwGrenadeDelayTimer.endTime = armAnimation.length - armGrenadeTimer.Time + 0.01f;
-        throwGrenadeDelayTimer.ResetPlay();
-        armGrenadeTimer.Pause();
-    }
     public void ThrowGrenade()
     {
         if (!IsArmingGrenade())
             return;
         if (armGrenadeTimer.Time < armAnimation.length)
         {
-            DelayGrenadeThrow();
+            throwGrenadeDelayTimer.endTime = armAnimation.length - armGrenadeTimer.Time + 0.01f;
+            throwGrenadeDelayTimer.ResetPlay();
             return;
         }
+        Debug.Log("Delay worked");
         animator.SetTrigger("throw");
         throwingGrenadeTimer.ResetPlay();
         grenadeMesh.SetActive(false);
@@ -326,8 +322,8 @@ public class Player : MonoBehaviour, ITakeExplosionDamages
     {
         if (!IsInteracting())
             return;
-        interactable = null;
         interactable.CancelInteracting();
+        interactable = null;
         EnableMovement(true);
     }
     public void CancelSprinting()
